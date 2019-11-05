@@ -677,7 +677,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 101.5
+  field of view: 112
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1060920438}
-  camHeight: 16
+  camHeight: 20
 --- !u!4 &1060920438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6552139943622246325, guid: 4c228247d923d664fa3f568d3ba45837,
@@ -890,36 +890,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!1 &1395398793
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1395398794}
-  m_Layer: 0
-  m_Name: Enemy Aim
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1395398794
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395398793}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1060920438}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1487779924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,7 +1292,7 @@ PrefabInstance:
     - target: {fileID: 1468054769684797856, guid: f8abc0dca173ee14198563af985daa96,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1468054769684797856, guid: f8abc0dca173ee14198563af985daa96,
         type: 3}
@@ -1369,6 +1339,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1468054769684797856, guid: f8abc0dca173ee14198563af985daa96,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468054769684797856, guid: f8abc0dca173ee14198563af985daa96,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468054769684797856, guid: f8abc0dca173ee14198563af985daa96,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1468054769684797859, guid: f8abc0dca173ee14198563af985daa96,
         type: 3}
       propertyPath: m_Enabled
@@ -1395,10 +1380,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5288220c0752e5c4f9c3219709ea82e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  e_BulletSpeed: 30
-  e_BulletDist: 18
+  e_BulletSpeed: 25
+  e_BulletDist: 50
   e_BulletDamage: 5
-  e_ShotCooldown: 0.25
+  e_ShotCooldown: 0.425
   bullet: {fileID: 4038859663916889700, guid: fa193d92eb6c38c4e8853d4f44639d0d, type: 3}
   e_GunHolder: {fileID: 1192008169}
   patrolPoints:
@@ -1408,11 +1393,13 @@ MonoBehaviour:
   - {fileID: 1093595215}
   - {fileID: 608925411}
   e_MoveSpeed: 8
-  e_ChaseSpeed: 15
+  e_ChaseSpeed: 12
+  e_EvadeSpeed: 9.5
   e_MaxHealth: 100
   e_CurHealth: 0
   e_HealthDeath: 0
-  e_ViewDis: 22
+  e_ViewDis: 25
+  evadetimerMax: 0.5
 --- !u!136 &6552139943265748157
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1473,7 +1460,7 @@ PrefabInstance:
     - target: {fileID: 6552139943622246325, guid: 4c228247d923d664fa3f568d3ba45837,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6552139943622246325, guid: 4c228247d923d664fa3f568d3ba45837,
         type: 3}
@@ -1520,6 +1507,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6552139943622246325, guid: 4c228247d923d664fa3f568d3ba45837,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6552139943622246325, guid: 4c228247d923d664fa3f568d3ba45837,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6552139943622246325, guid: 4c228247d923d664fa3f568d3ba45837,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6552139943622246324, guid: 4c228247d923d664fa3f568d3ba45837,
         type: 3}
       propertyPath: cam
@@ -1533,22 +1535,22 @@ PrefabInstance:
     - target: {fileID: 6552139943622246324, guid: 4c228247d923d664fa3f568d3ba45837,
         type: 3}
       propertyPath: bulletSpeed
-      value: 20
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 6552139943622246324, guid: 4c228247d923d664fa3f568d3ba45837,
         type: 3}
       propertyPath: shotCooldown
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6552139943622246324, guid: 4c228247d923d664fa3f568d3ba45837,
         type: 3}
       propertyPath: playerSpeed
-      value: 13
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6552139943622246324, guid: 4c228247d923d664fa3f568d3ba45837,
         type: 3}
       propertyPath: bulletDist
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6552139943622246326, guid: 4c228247d923d664fa3f568d3ba45837,
         type: 3}

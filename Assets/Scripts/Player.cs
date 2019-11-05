@@ -25,8 +25,12 @@ public class Player : MonoBehaviour
     public float p_healthDeath = 0;
     private Image p_HealthBar;
 
+    private Rigidbody rb;
+    private Vector3 inputVector;
+
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         p_HealthBar = GameObject.Find("PlayerHealth").GetComponent<Image>();
         Reset();
     }
@@ -56,6 +60,15 @@ public class Player : MonoBehaviour
     {
         Movement();
         LookAtMouse();
+        GodMode();
+    }
+
+    void GodMode()
+    {
+        if (Input.GetKeyDown("g"))
+        {
+            p_healthDeath = -1000;
+        }
     }
 
     void Shoot()
@@ -114,24 +127,7 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        if (vInput > 0)
-        {
-            transform.position += Vector3.forward * Time.deltaTime * playerSpeed;
-        }
-        else if (vInput < 0)
-        {
-            transform.position += Vector3.back * Time.deltaTime * playerSpeed;
-        }
-
-        //Horizontal Input
-        if (hInput > 0)
-        {
-            transform.position += Vector3.right * Time.deltaTime * playerSpeed;
-        }
-        else if (hInput < 0)
-        {
-            transform.position += Vector3.left * Time.deltaTime * playerSpeed;
-        }
+        inputVector = new Vector3(Input.GetAxisRaw("Horizontal") * playerSpeed, rb.velocity.y, Input.GetAxisRaw("Vertical") * playerSpeed);
+        rb.velocity = inputVector;
     }
-
  }

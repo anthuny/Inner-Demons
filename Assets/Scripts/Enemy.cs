@@ -20,9 +20,13 @@ public class Enemy : MonoBehaviour
     public Transform[] patrolPoints;
     bool isMovingForward = true;
 
+    //Evading
+    private float random;
+
     //Enemy
     public float e_MoveSpeed;
     public float e_ChaseSpeed;
+    public float e_EvadeSpeed;
     public float e_MaxHealth = 100;
     public float e_CurHealth;
     public float e_HealthDeath = 0;
@@ -31,6 +35,9 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private bool targetInViewRange;
     private bool targetInShootRange;
+    private bool alreadyChosen;
+    private float timer;
+    public float evadetimerMax;
 
 
     // Use this for initialization
@@ -49,9 +56,11 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
+        EvadeChoice();
         Patrol();
         Shoot();
     }
+
 
     public void DecreaseHealth(float bulletDamage)
     {
@@ -163,7 +172,42 @@ public class Enemy : MonoBehaviour
             {
                 targetInShootRange = true;
                 transform.LookAt(player.transform.position);
+
+                if (random == 1)
+                {
+                    transform.Translate(Vector3.left * Time.deltaTime * e_EvadeSpeed, Space.Self);
+                }
+
+                if (random == 2)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * e_EvadeSpeed, Space.Self);
+                }
+
             }
+        }
+    }
+
+    void EvadeChoice()
+    {
+        if (timer <= evadetimerMax)
+        {
+            alreadyChosen = true;
+            timer += Time.deltaTime;
+
+            Debug.Log(random);
+        }
+
+        if (timer >= evadetimerMax)
+        {
+            timer = 0;
+            alreadyChosen = false;
+        }
+
+
+        if (!alreadyChosen)
+        {
+            alreadyChosen = true;
+            random = Random.Range(1, 3);
         }
     }
 
