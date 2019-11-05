@@ -2,37 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class E_Bullet : MonoBehaviour
 {
-    private Player playerScript;
+    private Enemy enemyScript;
     private GameObject player;
+    private Player playerScript;
     public GameObject enemy;
     private Vector3 forward;
     public bool playerBullet;
-    private Vector3 playerPos;
+    private Vector3 enemyPos;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<Player>();
+
         enemy = GameObject.Find("Enemy 1");
+        enemyScript = GameObject.Find("Enemy 1").GetComponent<Enemy>();
 
-        forward = player.transform.forward;
+        player = GameObject.Find("Player");
+        forward = enemy.transform.forward;
 
-        //Invoke("Death", playerScript.bulletLife);
-        playerPos = player.transform.position;
+        enemyPos = enemy.transform.position;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += forward * Time.deltaTime * playerScript.bulletSpeed;
+        transform.position += forward * Time.deltaTime * enemyScript.e_BulletSpeed;
 
         //If bullet distance goes too far
-        float distance = Vector3.Distance(playerPos, transform.position);
-        if (playerScript.bulletDist <= distance)
+        float distance = Vector3.Distance(enemyPos, transform.position);
+        if (enemyScript.e_BulletDist <= distance)
         {
             Death();
         }
@@ -40,9 +43,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Player")
         {
-            enemy.GetComponent<Enemy>().DecreaseHealth(playerScript.bulletDamage);
+            player.GetComponent<Player>().DecreaseHealth(enemyScript.e_BulletDamage);
             Death();
         }
     }

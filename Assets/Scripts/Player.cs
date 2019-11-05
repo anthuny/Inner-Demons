@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     //Bullet
     public float bulletSpeed;
-    public float bulletLife;
+    public float bulletDist;
     private bool hasShot;
+    public float bulletDamage;
     private float shotTimer = 0f;
     public float shotCooldown = 0.25f;
     public GameObject bullet;
@@ -18,7 +20,22 @@ public class Player : MonoBehaviour
     private float hInput;
     private float vInput;
     public Camera cam;
+    public float p_maxHealth = 100;
+    public float p_curHealth;
+    public float p_healthDeath = 0;
+    private Image p_HealthBar;
 
+    private void Start()
+    {
+        p_HealthBar = GameObject.Find("PlayerHealth").GetComponent<Image>();
+        Reset();
+    }
+
+    void Reset()
+    {
+        p_curHealth = p_maxHealth;
+        p_HealthBar.fillAmount = 1f;
+    }
     void Update()
     {
         hInput = Input.GetAxisRaw("Horizontal");
@@ -47,6 +64,21 @@ public class Player : MonoBehaviour
         {
             hasShot = true;
             Instantiate(bullet, gunHolder.position, Quaternion.identity);
+            bullet.GetComponent<Bullet>().playerBullet = true;
+        }
+    }
+
+    public void DecreaseHealth(float bulletDamage)
+    {
+        if (p_curHealth > p_healthDeath)
+        {
+            p_curHealth -= bulletDamage;
+            p_HealthBar.fillAmount -= bulletDamage / 100;
+        }
+
+        if (p_curHealth <= p_healthDeath)
+        {
+            Destroy(gameObject);
         }
     }
 
