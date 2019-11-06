@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6552139943622246325}
-  - component: {fileID: 6552139943622246326}
   - component: {fileID: 6552139943622246324}
+  - component: {fileID: 1286894259}
+  - component: {fileID: 1286894258}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,31 +28,13 @@ Transform:
   m_GameObject: {fileID: 6552139943622246327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 6552139944037368612}
   - {fileID: 6552139943961093987}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &6552139943622246326
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6552139943622246327}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6552139943622246324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,13 +47,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930a4deffca20f54db8d4113e016cfa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 12
-  bulletLife: 1
-  shotCooldown: 0.4
+  bulletSpeed: 30
+  bulletDist: 25
+  bulletDamage: 2
+  shotCooldown: 0.2
   bullet: {fileID: 4038859663916889700, guid: c445db4b14bb4b84489845b392531811, type: 3}
   gunHolder: {fileID: 6552139943961093987}
-  playerSpeed: 8
+  playerSpeed: 5
   cam: {fileID: 0}
+  p_maxHealth: 100
+  p_curHealth: 0
+  p_healthDeath: 0
+--- !u!54 &1286894259
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6552139943622246327}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
+--- !u!136 &1286894258
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6552139943622246327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6552139943705896492
 GameObject:
   m_ObjectHideFlags: 0

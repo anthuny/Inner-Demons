@@ -133,10 +133,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1468054769684797856}
-  - component: {fileID: 1468054769684797859}
+  - component: {fileID: 6552139943265748158}
+  - component: {fileID: 6552139943265748157}
+  - component: {fileID: 6552139943265748156}
   m_Layer: 0
   m_Name: Enemy 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,31 +152,75 @@ Transform:
   m_GameObject: {fileID: 1468054769684797858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.36, y: 1, z: 7.14}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1468054769542096177}
   - {fileID: 1468054769482580342}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &1468054769684797859
-CharacterController:
+--- !u!54 &6552139943265748158
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468054769684797858}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
+--- !u!136 &6552139943265748157
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468054769684797858}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6552139943265748156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468054769684797858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5288220c0752e5c4f9c3219709ea82e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  e_BulletSpeed: 10
+  e_BulletDist: 15
+  e_BulletDamage: 5
+  e_ShotCooldown: 0.425
+  bullet: {fileID: 4038859663916889700, guid: fa193d92eb6c38c4e8853d4f44639d0d, type: 3}
+  e_GunHolder: {fileID: 1468054769482580342}
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  e_MoveSpeed: 3
+  e_ChaseSpeed: 4
+  e_EvadeSpeed: 3
+  e_MaxHealth: 100
+  e_CurHealth: 0
+  e_HealthDeath: 0
+  e_ViewDis: 15
+  evadetimerMax: 0.5
 --- !u!1 &1468054769730699321
 GameObject:
   m_ObjectHideFlags: 0

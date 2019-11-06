@@ -38,7 +38,7 @@ public class E_Bullet : MonoBehaviour
     void Update()
     {
         //Aim bot
-        aimPos = playerPos + playerVel / 2;
+        aimPos = playerPos + playerVel / 3;
         dir = aimPos - startingPos;
         dir.Normalize();
         transform.position += dir * enemyScript.e_BulletSpeed * Time.deltaTime;

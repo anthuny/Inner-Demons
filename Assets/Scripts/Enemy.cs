@@ -59,6 +59,10 @@ public class Enemy : MonoBehaviour
         EvadeChoice();
         Patrol();
         Shoot();
+
+        Vector3 y;
+        y = transform.position;
+        y.y = .5f;
     }
 
 
