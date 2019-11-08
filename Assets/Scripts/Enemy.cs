@@ -82,7 +82,11 @@ public class Enemy : MonoBehaviour
 
     void LookAt()
     {
-        transform.right = player.transform.position - transform.position;
+        if (player != null)
+        {
+            transform.right = player.transform.position - transform.position;
+        }
+
     }
 
     void Shoot()

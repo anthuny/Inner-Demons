@@ -22,12 +22,12 @@ public class Player : MonoBehaviour
     public float p_curHealth;
     public float p_healthDeath = 0;
     private Image p_HealthBar;
-
     private Rigidbody2D rb;
     private Vector3 inputVector;
 
     private void Start()
     {
+        name = "Player";
         rb = GetComponent<Rigidbody2D>();
         p_HealthBar = GameObject.Find("PlayerHealth").GetComponent<Image>();
         Reset();
@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-
         if (Input.GetMouseButton(0))
         {
             Shoot();

@@ -35,6 +35,7 @@ public class Bullet : MonoBehaviour
         {
             Death();
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)

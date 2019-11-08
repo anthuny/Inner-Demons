@@ -50,9 +50,6 @@ public class E_Bullet : MonoBehaviour
 
         transform.position = pos;
 
-        //transform.position.x = position.x;
-        //transform.position.y = position.y;
-
         //If bullet distance goes too far
         float distance = Vector3.Distance(enemyPos, transform.position);
         if (enemyScript.e_BulletDist <= distance)
@@ -61,7 +58,7 @@ public class E_Bullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {

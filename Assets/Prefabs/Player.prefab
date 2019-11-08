@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4263720834769801560}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,10 +158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930a4deffca20f54db8d4113e016cfa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 65
+  bulletSpeed: 52.09
   bulletDist: 50
   bulletDamage: 1
-  shotCooldown: 0.1
+  shotCooldown: -1.28
   bullet: {fileID: 4038859663916889700, guid: c445db4b14bb4b84489845b392531811, type: 3}
   gunHolder: {fileID: 2365348021251494293}
   playerSpeed: 30
@@ -241,7 +241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6552139943705896492}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071071, w: 0.70710653}
-  m_LocalPosition: {x: 2.51, y: 0.17, z: 0.022}
+  m_LocalPosition: {x: 2.51, y: 0.17, z: 0}
   m_LocalScale: {x: 0.76486415, y: 0.22945924, z: 0.40792754}
   m_Children: []
   m_Father: {fileID: 6552139943622246325}

@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708481030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.68, y: 0.02, z: -0.06}
+  m_LocalPosition: {x: 2.68, y: 0.02, z: 0}
   m_LocalScale: {x: 0.14827341, y: 0.6627989, z: 0.29077777}
   m_Children: []
   m_Father: {fileID: 1468054769684797856}
@@ -135,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468054769542096176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.43}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1468054769684797856}
@@ -242,7 +242,7 @@ MonoBehaviour:
   e_BulletDist: 40
   e_BulletDamage: 1
   e_ShotCooldown: 0.27
-  bullet: {fileID: 4038859663916889700, guid: fa193d92eb6c38c4e8853d4f44639d0d, type: 3}
+  bullet: {fileID: 4038859663916889700, guid: 78cb3e5b8fd42ec4789b86ec4f8e6ede, type: 3}
   e_GunHolder: {fileID: 1468054769482580342}
   patrolPoints:
   - {fileID: 0}
