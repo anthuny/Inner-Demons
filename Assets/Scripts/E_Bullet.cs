@@ -25,12 +25,12 @@ public class E_Bullet : MonoBehaviour
         startingPos = transform.position;
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<Player>();
-        //enemy = GameObject.Find("Enemy 1");
-        //enemyScript = GameObject.Find("Enemy 1").GetComponent<Enemy>();
         playerRb = player.GetComponent<Rigidbody2D>();
         playerPos = player.transform.position;      
         playerVel = playerRb.velocity;
 
+        // Exists so each spawned bullet has a reference to the enemy that spawned it.
+        // Allows multiple ranged enemies to be attacking at a time
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;
@@ -46,6 +46,7 @@ public class E_Bullet : MonoBehaviour
                 distance = curDistance;
             }
         }
+
         enemy = closest;
         enemyScript = closest.GetComponent<Enemy>();
 
