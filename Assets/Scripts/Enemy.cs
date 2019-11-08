@@ -38,11 +38,19 @@ public class Enemy : MonoBehaviour
     private bool alreadyChosen;
     private float timer;
     public float evadetimerMax;
+    private SpriteRenderer sr;
+
+    //Elements
+    public bool isFire;
+    public bool isWater;
+    public bool isEarth;
 
 
     // Use this for initialization
     void Start()
     {
+        name = "Enemy 1";
+        sr = GetComponentInChildren<SpriteRenderer>();
         e_HealthBar = GameObject.Find("EnemyHealth").GetComponent<Image>();
         player = GameObject.Find("Player");
         Reset();
@@ -56,13 +64,32 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
-        //EvadeChoice();
+        Evade();
         LookAt();
         Shoot();
+        ElementManager();
 
         Vector3 z;
         z = transform.position;
         z.z = 0f;
+    }
+
+    void ElementManager()
+    {
+        if (isFire)
+        {
+            sr.color = Color.red;
+        }
+
+        if (isWater)
+        {
+            sr.color = Color.blue;
+        }
+
+        if (isEarth)
+        {
+            sr.color = Color.green;
+        }
     }
 
 
@@ -86,7 +113,6 @@ public class Enemy : MonoBehaviour
         {
             transform.right = player.transform.position - transform.position;
         }
-
     }
 
     void Shoot()
@@ -131,34 +157,15 @@ public class Enemy : MonoBehaviour
             //If not in shooting range, chase
             if (distance > e_BulletDist)
             {
-
                 targetInShootRange = false;
 
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, e_ChaseSpeed * Time.deltaTime);
                 transform.right = player.transform.position - transform.position;
             }
-
-            //If in shooting range, stop chasing
-            if (distance <= e_BulletDist)
-            {
-                targetInShootRange = true;
-                transform.right = player.transform.position - transform.position;
-
-                if (random == 1)
-                {
-                    transform.Translate(Vector2.left * Time.deltaTime * e_EvadeSpeed, Space.Self);
-                }
-
-                if (random == 2)
-                {
-                    transform.Translate(Vector2.right * Time.deltaTime * e_EvadeSpeed, Space.Self);
-                }
-
-            }
         }
     }
 
-    void EvadeChoice()
+    void Evade()
     {
         if (timer <= evadetimerMax)
         {
@@ -172,11 +179,32 @@ public class Enemy : MonoBehaviour
             alreadyChosen = false;
         }
 
-
         if (!alreadyChosen)
         {
             alreadyChosen = true;
             random = Random.Range(1, 3);
+        }
+
+        if (player != null)
+        {
+            float distance = Vector2.Distance(transform.position, player.transform.position);
+
+            //If in shooting range, stop chasing and begin evading
+            if (distance <= e_BulletDist)
+            {
+                targetInShootRange = true;
+                transform.right = player.transform.position - transform.position;
+
+                if (random == 1)
+                {
+                    transform.Translate(Vector2.up * Time.deltaTime * e_EvadeSpeed, Space.Self);
+                }
+
+                if (random == 2)
+                {
+                    transform.Translate(Vector2.down * Time.deltaTime * e_EvadeSpeed, Space.Self);
+                }
+            }
         }
     }
 

@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown("g"))
         {
-            p_healthDeath = -100000;
+            p_healthDeath = -10000;
         }
     }
 

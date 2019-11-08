@@ -11,7 +11,7 @@ public class Gamemode : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnPos = GameObject.Find("EGO Spawn").transform;
+        spawnPos = GameObject.Find("EGOSpawnPoint").transform;
     }
 
     // Update is called once per frame
@@ -24,6 +24,7 @@ public class Gamemode : MonoBehaviour
             if (Input.GetKeyDown("r"))
             {
                 Instantiate(playerPrefab, spawnPos.position, Quaternion.identity);
+                player = GameObject.Find("Player");
             }
         }
     }

@@ -25,13 +25,32 @@ public class E_Bullet : MonoBehaviour
         startingPos = transform.position;
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<Player>();
-        enemy = GameObject.Find("Enemy 1");
-        enemyScript = GameObject.Find("Enemy 1").GetComponent<Enemy>();
+        //enemy = GameObject.Find("Enemy 1");
+        //enemyScript = GameObject.Find("Enemy 1").GetComponent<Enemy>();
         playerRb = player.GetComponent<Rigidbody2D>();
-        forward = enemy.transform.forward;
-        enemyPos = enemy.transform.position;
         playerPos = player.transform.position;      
         playerVel = playerRb.velocity;
+
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector2 position = transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.x) - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        enemy = closest;
+        enemyScript = closest.GetComponent<Enemy>();
+
+        forward = enemy.transform.forward;
+        enemyPos = enemy.transform.position;
     }
 
     // Update is called once per frame
@@ -64,6 +83,13 @@ public class E_Bullet : MonoBehaviour
         {
             player.GetComponent<Player>().DecreaseHealth(enemyScript.e_BulletDamage);
             Death();
+        }
+
+        if (other.tag == "Enemy")
+        {
+            Debug.Log(enemy);
+            enemy = other.gameObject;
+            enemyScript = enemy.GetComponent<Enemy>();
         }
     }
     void Death()
