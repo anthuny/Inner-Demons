@@ -18,9 +18,8 @@ public class Bullet : MonoBehaviour
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         enemy = GameObject.Find("Enemy 1");
 
-        forward = player.transform.forward;
+        forward = player.transform.right;
 
-        //Invoke("Death", playerScript.bulletLife);
         playerPos = player.transform.position;
 
     }
@@ -31,7 +30,7 @@ public class Bullet : MonoBehaviour
         transform.position += forward * Time.deltaTime * playerScript.bulletSpeed;
 
         //If bullet distance goes too far
-        float distance = Vector3.Distance(playerPos, transform.position);
+        float distance = Vector2.Distance(playerPos, transform.position);
         if (playerScript.bulletDist <= distance)
         {
             Death();

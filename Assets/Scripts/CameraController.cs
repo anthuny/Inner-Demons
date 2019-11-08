@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     {
         if (player != null)
         {
-            transform.position = new Vector3(player.position.x, camHeight, player.position.z);
+            transform.position = new Vector3(player.position.x, player.position.y, camHeight);
         }
 
     }

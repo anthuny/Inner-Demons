@@ -17,20 +17,18 @@ public class Player : MonoBehaviour
 
     //Player
     public float playerSpeed;
-    private float hInput;
-    private float vInput;
     public Camera cam;
     public float p_maxHealth = 100;
     public float p_curHealth;
     public float p_healthDeath = 0;
     private Image p_HealthBar;
 
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     private Vector3 inputVector;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         p_HealthBar = GameObject.Find("PlayerHealth").GetComponent<Image>();
         Reset();
     }
@@ -42,8 +40,6 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        hInput = Input.GetAxisRaw("Horizontal");
-        vInput = Input.GetAxisRaw("Vertical");
 
         if (Input.GetMouseButton(0))
         {
@@ -67,7 +63,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown("g"))
         {
-            p_healthDeath = -1000;
+            p_healthDeath = -100000;
         }
     }
 
@@ -111,23 +107,14 @@ public class Player : MonoBehaviour
 
     void LookAtMouse()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition); ;
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-
-            Vector3 target = hit.point;
-            target.y = transform.position.y;
-            //target.y = transform.localScale.y / 2f;
-
-            transform.LookAt(target);
-        }
+        Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     void Movement()
     {
-        inputVector = new Vector3(Input.GetAxisRaw("Horizontal") * playerSpeed, rb.velocity.y, Input.GetAxisRaw("Vertical") * playerSpeed);
+        inputVector = new Vector2(Input.GetAxisRaw("Horizontal") * playerSpeed, Input.GetAxisRaw("Vertical") * playerSpeed);
         rb.velocity = inputVector;
     }
- }
+ }  

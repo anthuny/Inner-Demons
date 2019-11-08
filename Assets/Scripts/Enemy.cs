@@ -197,8 +197,6 @@ public class Enemy : MonoBehaviour
         {
             alreadyChosen = true;
             timer += Time.deltaTime;
-
-            Debug.Log(random);
         }
 
         if (timer >= evadetimerMax)
