@@ -56,13 +56,13 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
-        EvadeChoice();
-        Patrol();
+        //EvadeChoice();
+        LookAt();
         Shoot();
 
-        Vector3 y;
-        y = transform.position;
-        y.y = .5f;
+        Vector3 z;
+        z = transform.position;
+        z.z = 0f;
     }
 
 
@@ -80,57 +80,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Patrol()
+    void LookAt()
     {
-        if (player != null)
-        {
-            float distance = Vector3.Distance(transform.position, player.transform.position);
-
-            //Is the player further away then e_ViewDis?
-            if (distance >= e_ViewDis)
-            {
-                targetInViewRange = false;
-            }
-            else
-            {
-                targetInViewRange = true;
-            }
-
-            if (!targetInViewRange)
-            {
-                transform.LookAt(patrolPoints[currentPoint].position);
-                Vector3 destination = patrolPoints[currentPoint].position;
-
-                transform.position = Vector3.MoveTowards(transform.position, destination, e_MoveSpeed * Time.deltaTime);
-
-                // Compare how far we are to the destination.
-                float distanceToDestination = Vector3.Distance(transform.position, destination);
-                if (distanceToDestination < 0.2f) // 0.2 is tolerance value.
-                {
-                    // So, we have reached the destination.
-
-                    // Set the next waypoint.
-
-                    if (isMovingForward)
-                        currentPoint++;
-                    else // we are moving backward
-                        currentPoint--;
-
-                    if (currentPoint >= patrolPoints.Length)
-                    {// We have reached the last waypoint, now go backward.
-                        isMovingForward = false;
-                        currentPoint = patrolPoints.Length - 2;
-                    }
-
-                    if (currentPoint < 0)
-                    {// We have reached the first waypoint, now go forward.
-                        isMovingForward = true;
-                        currentPoint = 1;
-                    }
-                }
-            }
-        }
-        
+        transform.right = player.transform.position - transform.position;
     }
 
     void Shoot()
@@ -140,7 +92,17 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        float distance = Vector3.Distance(transform.position, player.transform.position);
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+
+        //Is the player further away then e_ViewDis?
+        if (distance >= e_ViewDis)
+        {
+            targetInViewRange = false;
+        }
+        else
+        {
+            targetInViewRange = true;
+        }
 
         // If CAN'T shoot (waiting for shot cooldown)
         if (e_HasShot)
@@ -165,26 +127,27 @@ public class Enemy : MonoBehaviour
             //If not in shooting range, chase
             if (distance > e_BulletDist)
             {
+
                 targetInShootRange = false;
 
-                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, e_ChaseSpeed * Time.deltaTime);
-                transform.LookAt(player.transform.position);
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, e_ChaseSpeed * Time.deltaTime);
+                transform.right = player.transform.position - transform.position;
             }
 
             //If in shooting range, stop chasing
             if (distance <= e_BulletDist)
             {
                 targetInShootRange = true;
-                transform.LookAt(player.transform.position);
+                transform.right = player.transform.position - transform.position;
 
                 if (random == 1)
                 {
-                    transform.Translate(Vector3.left * Time.deltaTime * e_EvadeSpeed, Space.Self);
+                    transform.Translate(Vector2.left * Time.deltaTime * e_EvadeSpeed, Space.Self);
                 }
 
                 if (random == 2)
                 {
-                    transform.Translate(Vector3.right * Time.deltaTime * e_EvadeSpeed, Space.Self);
+                    transform.Translate(Vector2.right * Time.deltaTime * e_EvadeSpeed, Space.Self);
                 }
 
             }
@@ -226,4 +189,54 @@ public class Enemy : MonoBehaviour
             e_ShotTimer = 0;
         }
     }
+
 }
+
+////        if (player != null)
+//        {
+//            float distance = Vector2.Distance(transform.position, player.transform.position);
+
+//            //Is the player further away then e_ViewDis?
+//            if (distance >= e_ViewDis)
+//            {
+//                targetInViewRange = false;
+//            }
+//            else
+//            {
+//                targetInViewRange = true;
+//            }
+
+//            if (!targetInViewRange)
+//            {
+//                Vector2 destination = patrolPoints[currentPoint].position;
+//transform.right = player.transform.position - (patrolPoints[currentPoint].position);
+
+//                transform.position = Vector2.MoveTowards(transform.position, destination, e_MoveSpeed* Time.deltaTime);
+
+//                // Compare how far we are to the destination.
+//                float distanceToDestination = Vector3.Distance(transform.position, destination);
+//                if (distanceToDestination< 0.2f) // 0.2 is tolerance value.
+//                {
+//                    // So, we have reached the destination.
+
+//                    // Set the next waypoint.
+
+//                    if (isMovingForward)
+//                        currentPoint++;
+//                    else // we are moving backward
+//                        currentPoint--;
+
+//                    if (currentPoint >= patrolPoints.Length)
+//                    {// We have reached the last waypoint, now go backward.
+//                        isMovingForward = false;
+//                        currentPoint = patrolPoints.Length - 2;
+//                    }
+
+//                    if (currentPoint< 0)
+//                    {// We have reached the first waypoint, now go forward.
+//                        isMovingForward = true;
+//                        currentPoint = 1;
+//                    }
+//                }
+//            }
+//        }

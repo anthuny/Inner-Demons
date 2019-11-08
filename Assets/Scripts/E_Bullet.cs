@@ -8,15 +8,15 @@ public class E_Bullet : MonoBehaviour
     private GameObject player;
     private Player playerScript;
     public GameObject enemy;
-    private Vector3 forward;
+    private Vector2 forward;
     public bool playerBullet;
-    private Vector3 enemyPos;
-    private Vector3 playerPos;
-    private Rigidbody playerRb;
-    private Vector3 startingPos;
-    private Vector3 aimPos;
-    private Vector3 dir;
-    private Vector3 playerVel;
+    private Vector2 enemyPos;
+    private Vector2 playerPos;
+    private Rigidbody2D playerRb;
+    private Vector2 startingPos;
+    private Vector2 aimPos;
+    private Vector2 dir;
+    private Vector2 playerVel;
 
 
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class E_Bullet : MonoBehaviour
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         enemy = GameObject.Find("Enemy 1");
         enemyScript = GameObject.Find("Enemy 1").GetComponent<Enemy>();
-        playerRb = player.GetComponent<Rigidbody>();
+        playerRb = player.GetComponent<Rigidbody2D>();
         forward = enemy.transform.forward;
         enemyPos = enemy.transform.position;
         playerPos = player.transform.position;      
@@ -38,10 +38,20 @@ public class E_Bullet : MonoBehaviour
     void Update()
     {
         //Aim bot
-        aimPos = playerPos + playerVel / 3;
+        aimPos = playerPos + playerVel / 2;
         dir = aimPos - startingPos;
         dir.Normalize();
-        transform.position += dir * enemyScript.e_BulletSpeed * Time.deltaTime;
+        Vector2 pos;
+        pos.x = transform.position.x;
+        pos.y = transform.position.y;
+
+        pos.x += dir.x * enemyScript.e_BulletSpeed * Time.deltaTime;
+        pos.y += dir.y * enemyScript.e_BulletSpeed * Time.deltaTime;
+
+        transform.position = pos;
+
+        //transform.position.x = position.x;
+        //transform.position.y = position.y;
 
         //If bullet distance goes too far
         float distance = Vector3.Distance(enemyPos, transform.position);
