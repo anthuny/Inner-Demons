@@ -17,20 +17,30 @@ public class Player : MonoBehaviour
 
     //Player
     public float playerSpeed;
-    public Camera cam;
     public float p_maxHealth = 100;
     public float p_curHealth;
     public float p_healthDeath = 0;
-    //private GameObject p_HealthBarGO;
     private Image p_HealthBar;
     private Rigidbody2D rb;
     private Vector3 inputVector;
+    public bool isFire;
+    public bool isWater;
+    public bool isEarth;
+    private SpriteRenderer sr;
+    public float fireDamage;
+    public float waterDamage;
+    public float earthDamage;
+
+    //Room
+    public GameObject doors;
+    private GameObject room;
 
     private void Start()
     {
         name = "Player";
         rb = GetComponent<Rigidbody2D>();
         p_HealthBar = GameObject.Find("/Player/Canvas/Health").GetComponent<Image>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         Reset();
     }
 
@@ -38,6 +48,7 @@ public class Player : MonoBehaviour
     {
         p_curHealth = p_maxHealth;
         p_HealthBar.fillAmount = 1f;
+        isFire = true;
     }
     void Update()
     {
@@ -57,8 +68,53 @@ public class Player : MonoBehaviour
         Movement();
         LookAtMouse();
         GodMode();
+        ElementManager();
     }
 
+    void ElementManager()
+    {
+        // If player presses 1, switch to fire element
+        if (Input.GetKeyDown("1"))
+        {
+            isEarth = false;
+            isWater = false;
+            isFire = true;
+        }
+
+        // If player pressed 2, switch to water element
+        if (Input.GetKeyDown("2"))
+        {
+            isFire = false;
+            isEarth = false;
+            isWater = true;
+        }
+
+        // If player presses 3, switch to earth element
+        if (Input.GetKeyDown("3"))
+        {
+            isFire = false;
+            isWater = false;
+            isEarth = true;
+        }
+
+        // If player is Fire element, change visually
+        if (isFire)
+        {
+            sr.color = Color.red;
+        }
+
+        // If player is Fire element, change visually
+        if (isWater)
+        {
+            sr.color = Color.blue;
+        }
+
+        // If player is Fire element, change visually
+        if (isEarth)
+        {
+            sr.color = Color.green;
+        }
+    }
     void GodMode()
     {
         if (Input.GetKeyDown("g"))
@@ -105,6 +161,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        //If player enters a room, close all doors
+        if (other.gameObject.tag == ("RoomCollider"))
+        {
+            doors.SetActive(true);
+
+            // Get reference to root of this object
+            // Spawn enemies in that room
+            Transform roomTrans;
+            roomTrans = other.transform.root;
+            room = roomTrans.gameObject;
+            room.GetComponent<Room>().beenEntered = true;
+            room.GetComponent<Room>().StartCoroutine("SpawnEnemies");
+        }
+
+    }
     void LookAtMouse()
     {
         Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);

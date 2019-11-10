@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Health
   - Health Holder
+  - RoomCollider
+  - SpawnPoint
+  - Room
   layers:
   - Default
   - TransparentFX

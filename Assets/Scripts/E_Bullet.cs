@@ -8,7 +8,6 @@ public class E_Bullet : MonoBehaviour
     private GameObject player;
     private Player playerScript;
     public GameObject enemy;
-    private Vector2 forward;
     public bool playerBullet;
     private Vector2 enemyPos;
     private Vector2 playerPos;
@@ -17,6 +16,7 @@ public class E_Bullet : MonoBehaviour
     private Vector2 aimPos;
     private Vector2 dir;
     private Vector2 playerVel;
+    private SpriteRenderer sr;
 
 
     // Start is called before the first frame update
@@ -38,7 +38,7 @@ public class E_Bullet : MonoBehaviour
         Vector2 position = transform.position;
         foreach (GameObject go in enemies)
         {
-            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.x) - position;
+            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.y) - position;
             float curDistance = diff.sqrMagnitude;
             if (curDistance < distance)
             {
@@ -50,8 +50,26 @@ public class E_Bullet : MonoBehaviour
         enemy = closest;
         enemyScript = closest.GetComponent<Enemy>();
 
-        forward = enemy.transform.forward;
         enemyPos = enemy.transform.position;
+
+        sr = GetComponentInChildren<SpriteRenderer>();
+
+        // Check what element the enemy that spawned this bullet is
+        // And set this bullet to the same element
+        if (enemy.GetComponent<Enemy>().isFire)
+        {
+            sr.color = Color.red;
+        }
+
+        if (enemy.GetComponent<Enemy>().isWater)
+        {
+            sr.color = Color.blue;
+        }
+
+        if (enemy.GetComponent<Enemy>().isEarth)
+        {
+            sr.color = Color.green;
+        }
     }
 
     // Update is called once per frame

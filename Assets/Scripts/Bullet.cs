@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
     private Vector3 forward;
     public bool playerBullet;
     private Vector3 playerPos;
+    private SpriteRenderer sr;
+    private string currentElement;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,28 @@ public class Bullet : MonoBehaviour
         forward = player.transform.right;
 
         playerPos = player.transform.position;
+
+        sr = GetComponentInChildren<SpriteRenderer>();
+
+        // Check what element the enemy that spawned this bullet is
+        // And set this bullet to the same element
+        if (player.GetComponent<Player>().isFire)
+        {
+            sr.color = Color.red;
+            currentElement = "Fire";
+        }
+
+        if (player.GetComponent<Player>().isWater)
+        {
+            sr.color = Color.blue;
+            currentElement = "Water";
+        }
+
+        if (player.GetComponent<Player>().isEarth)
+        {
+            sr.color = Color.green;
+            currentElement = "Earth";
+        }
 
     }
 
@@ -42,7 +66,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            enemy.GetComponent<Enemy>().DecreaseHealth(playerScript.bulletDamage);
+            other.GetComponent<Enemy>().DecreaseHealth(playerScript.bulletDamage, currentElement);
             Death();
         }
 

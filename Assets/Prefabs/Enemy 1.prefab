@@ -210,7 +210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1753063280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -223,7 +223,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5256310910314906926}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -298,7 +298,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5256310910314906926}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -370,8 +370,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1909089664}
   - {fileID: 1753063280}
+  - {fileID: 1909089664}
   m_Father: {fileID: 1685264734}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -539,10 +539,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5288220c0752e5c4f9c3219709ea82e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  e_BulletSpeed: 75
-  e_BulletDist: 40
-  e_BulletDamage: 1
-  e_ShotCooldown: 0.27
+  e_BulletSpeed: 35
+  e_BulletDist: 55
+  e_BulletDamage: 20
+  e_ShotCooldown: 0.85
   bullet: {fileID: 4038859663916889700, guid: 78cb3e5b8fd42ec4789b86ec4f8e6ede, type: 3}
   e_GunHolder: {fileID: 1468054769482580342}
   patrolPoints:
@@ -553,15 +553,18 @@ MonoBehaviour:
   - {fileID: 0}
   e_MoveSpeed: 20
   e_ChaseSpeed: 20
-  e_EvadeSpeed: 0
+  e_EvadeSpeed: 5
   e_MaxHealth: 100
   e_CurHealth: 0
   e_HealthDeath: 0
-  e_ViewDis: 55
+  e_ViewDis: 75
+  e_HealthBar: {fileID: 1909089665}
+  e_HealthBarBG: {fileID: 1753063281}
   evadetimerMax: 0.5
   isFire: 0
   isWater: 0
   isEarth: 0
+  room: {fileID: 0}
 --- !u!50 &69293741866475660
 Rigidbody2D:
   serializedVersion: 4

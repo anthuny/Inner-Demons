@@ -31,9 +31,14 @@ public class Enemy : MonoBehaviour
     public float e_CurHealth;
     public float e_HealthDeath = 0;
     public float e_ViewDis;
-    private GameObject healthHolderEGO;
+
+    [SerializeField]
     private Image e_HealthBar;
+    [SerializeField]
+    public Image e_HealthBarBG;
+
     private GameObject player;
+    private Player playerScript;
     private bool targetInViewRange;
     private bool targetInShootRange;
     private bool alreadyChosen;
@@ -46,9 +51,10 @@ public class Enemy : MonoBehaviour
     public bool isWater;
     public bool isEarth;
 
-    private Gamemode gamemode;
+    //Room
+    public GameObject room;
 
-    private Transform trans;
+    private Gamemode gamemode;
 
     void Start()
     {
@@ -60,11 +66,30 @@ public class Enemy : MonoBehaviour
         //Change name of enemy, including the enemy count
         name = "Enemy " + gamemode.enemyCount;
 
-        //e_HealthBar = GameObject.Find("Enemy " + gamemode.enemyCount).GetComponentInChildren<Image>();
-        e_HealthBar = GetComponentInChildren<Image>();
-
         sr = GetComponentInChildren<SpriteRenderer>();
         player = GameObject.Find("Player");
+        playerScript = player.GetComponent<Player>();
+
+
+        // Exists so each enemy has a reference to the room that it's in
+        GameObject[] rooms;
+        rooms = GameObject.FindGameObjectsWithTag("Room");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector2 position = transform.position;
+        foreach (GameObject enemy in rooms)
+        {
+            Vector2 diff = new Vector2(enemy.transform.position.x, enemy.transform.position.y) - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = enemy;
+                distance = curDistance;
+            }
+        }
+
+        //Set the nearest room as the reference for room
+        room = closest;
 
         Reset();
     }
@@ -73,7 +98,37 @@ public class Enemy : MonoBehaviour
     {
         e_CurHealth = e_MaxHealth;
         e_HealthBar.fillAmount = 1f;
-        currentPoint = 0;
+        // Current patrol point
+        //currentPoint = 0;
+
+        // Randomly choose an element for the enemy to be
+        float randNum;
+        randNum = Random.Range(1, 4);
+
+        // If random number is 1, enemy is fire
+        if (randNum == 1)
+        {
+            isEarth = false;
+            isWater = false;
+            isFire = true;
+        }
+
+        // If random number is 2, enemy is water
+        if (randNum == 2)
+        {
+            isEarth = false;
+            isFire = false;
+            isWater = true;
+        }
+
+        // If random number is 3, enemy is earth
+        if (randNum == 3)
+        {
+            isWater = false;
+            isFire = false;
+            isEarth = true;
+        }
+
     }
     void Update()
     {
@@ -106,16 +161,84 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public void DecreaseHealth(float bulletDamage)
+    public void DecreaseHealth(float bulletDamage, string playersCurElement)
     {
         if (e_CurHealth > e_HealthDeath)
         {
-            e_CurHealth -= bulletDamage;
-            e_HealthBar.fillAmount -= bulletDamage / 100;
+            // If player countered the enemy with their hit, take bonus damage
+            if (playersCurElement == "Fire" && isEarth)
+            {
+                e_CurHealth -= bulletDamage + playerScript.fireDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
+
+            // If player countered the enemy with their hit, take bonus damage
+            if (playersCurElement == "Water" && isFire)
+            {
+                e_CurHealth -= bulletDamage + playerScript.waterDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
+
+            // If player countered the enemy with their hit, take bonus damage
+            if (playersCurElement == "Earth" && isWater)
+            {
+                e_CurHealth -= bulletDamage + playerScript.earthDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
+
+
+            // If there is no element counter, do regular damage
+            if (playersCurElement == "Fire" && isWater)
+            {
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
+
+            // If there is no element counter, do regular damage
+            if (playersCurElement == "Fire" && isFire)
+            {
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
+
+            // If there is no element counter, do regular damage
+            if (playersCurElement == "Water" && isEarth)
+            {
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
+
+            // If there is no element counter, do regular damage
+            if (playersCurElement == "Water" && isWater)
+            {
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
+
+            // If there is no element counter, do regular damage
+            if (playersCurElement == "Earth" && isFire)
+            {
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
+
+            // If there is no element counter, do regular damage
+            if (playersCurElement == "Earth" && isEarth)
+            {
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
+            }
         }
         
         if (e_CurHealth <= e_HealthDeath)
         {
+            //Decrease enemy count
+            gamemode.enemyCount--;
+
+            //Decrease room enemy count
+            room.GetComponent<Room>().roomEnemyCount--;
+
+            //Kill enemy
             Destroy(gameObject);
         }
     }
