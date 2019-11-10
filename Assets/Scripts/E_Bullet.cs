@@ -31,12 +31,12 @@ public class E_Bullet : MonoBehaviour
 
         // Exists so each spawned bullet has a reference to the enemy that spawned it.
         // Allows multiple ranged enemies to be attacking at a time
-        GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemies;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;
         float distance = Mathf.Infinity;
         Vector2 position = transform.position;
-        foreach (GameObject go in gos)
+        foreach (GameObject go in enemies)
         {
             Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.x) - position;
             float curDistance = diff.sqrMagnitude;
@@ -88,7 +88,6 @@ public class E_Bullet : MonoBehaviour
 
         if (other.tag == "Enemy")
         {
-            Debug.Log(enemy);
             enemy = other.gameObject;
             enemyScript = enemy.GetComponent<Enemy>();
         }

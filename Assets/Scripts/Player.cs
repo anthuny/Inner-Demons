@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public float p_maxHealth = 100;
     public float p_curHealth;
     public float p_healthDeath = 0;
+    //private GameObject p_HealthBarGO;
     private Image p_HealthBar;
     private Rigidbody2D rb;
     private Vector3 inputVector;
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
     {
         name = "Player";
         rb = GetComponent<Rigidbody2D>();
-        p_HealthBar = GameObject.Find("PlayerHealth").GetComponent<Image>();
+        p_HealthBar = GameObject.Find("/Player/Canvas/Health").GetComponent<Image>();
         Reset();
     }
 

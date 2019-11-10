@@ -7,6 +7,7 @@ public class Gamemode : MonoBehaviour
     private GameObject player;
     private Transform spawnPos;
     public GameObject playerPrefab;
+    public int enemyCount = 0;
 
     // Start is called before the first frame update
     void Start()

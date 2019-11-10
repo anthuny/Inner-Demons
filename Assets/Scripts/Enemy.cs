@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
     public float e_CurHealth;
     public float e_HealthDeath = 0;
     public float e_ViewDis;
+    private GameObject healthHolderEGO;
     private Image e_HealthBar;
     private GameObject player;
     private bool targetInViewRange;
@@ -45,14 +46,26 @@ public class Enemy : MonoBehaviour
     public bool isWater;
     public bool isEarth;
 
+    private Gamemode gamemode;
 
-    // Use this for initialization
+    private Transform trans;
+
     void Start()
     {
-        name = "Enemy 1";
+        gamemode = GameObject.Find("EGOGamemode").GetComponent<Gamemode>();
+
+        //Increase enemy count
+        gamemode.enemyCount++;
+
+        //Change name of enemy, including the enemy count
+        name = "Enemy " + gamemode.enemyCount;
+
+        //e_HealthBar = GameObject.Find("Enemy " + gamemode.enemyCount).GetComponentInChildren<Image>();
+        e_HealthBar = GetComponentInChildren<Image>();
+
         sr = GetComponentInChildren<SpriteRenderer>();
-        e_HealthBar = GameObject.Find("EnemyHealth").GetComponent<Image>();
         player = GameObject.Find("Player");
+
         Reset();
     }
 
