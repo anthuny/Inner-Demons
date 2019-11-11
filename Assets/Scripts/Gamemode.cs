@@ -32,12 +32,6 @@ public class Gamemode : MonoBehaviour
     public float shotCooldown = 0.25f;
 
     [Header("Enemy Ranged Statistics")]
-    public float e_BulletDamage;
-    public float e_ShotCooldown;
-    public float e_BulletSpeed;
-    public float e_BulletDist;
-
-    [Header("Enemy Ranged Attacking Statistics")]
     public float e_MoveSpeed;
     public float e_ChaseSpeed;
     public float e_EvadeSpeed;
@@ -46,6 +40,13 @@ public class Gamemode : MonoBehaviour
     public float e_HealthDeath = 0;
     public float e_ViewDis;
     public float evadetimerMax;
+
+    [Header("Enemy Ranged Attacking Statistics")]
+    public float e_BulletDamage;
+    public float e_ShotCooldown;
+    public float e_BulletSpeed;
+    public float e_BulletDist;
+
     // Start is called before the first frame update
     void Start()
     {
