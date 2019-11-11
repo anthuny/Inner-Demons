@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 69293741866475660}
   - component: {fileID: 1850676726580164052}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Enemy Ranged
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -539,28 +539,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5288220c0752e5c4f9c3219709ea82e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  e_BulletSpeed: 35
-  e_BulletDist: 55
-  e_BulletDamage: 20
-  e_ShotCooldown: 0.85
   bullet: {fileID: 4038859663916889700, guid: 78cb3e5b8fd42ec4789b86ec4f8e6ede, type: 3}
   e_GunHolder: {fileID: 1468054769482580342}
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  e_MoveSpeed: 20
-  e_ChaseSpeed: 20
-  e_EvadeSpeed: 5
-  e_MaxHealth: 100
-  e_CurHealth: 0
-  e_HealthDeath: 0
-  e_ViewDis: 75
   e_HealthBar: {fileID: 1909089665}
   e_HealthBarBG: {fileID: 1753063281}
-  evadetimerMax: 0.5
   isFire: 0
   isWater: 0
   isEarth: 0

@@ -14,11 +14,10 @@ public class Enemy : MonoBehaviour
     //Evading
     private float random;
 
-    [SerializeField]
-    private Image e_HealthBar;
-    [SerializeField]
+    public Image e_HealthBar;
     public Image e_HealthBarBG;
 
+    public float e_CurHealth;
     private GameObject player;
     private Player playerScript;
     private bool targetInViewRange;
@@ -78,7 +77,7 @@ public class Enemy : MonoBehaviour
 
     void Reset()
     {
-        gamemode.e_CurHealth = gamemode.e_MaxHealth;
+        e_CurHealth = gamemode.e_MaxHealth;
         e_HealthBar.fillAmount = 1f;
         // Current patrol point
         //currentPoint = 0;
@@ -145,74 +144,74 @@ public class Enemy : MonoBehaviour
 
     public void DecreaseHealth(float bulletDamage, string playersCurElement)
     {
-        if (gamemode.e_CurHealth > gamemode.e_HealthDeath)
+        if (e_CurHealth > gamemode.e_HealthDeath)
         {
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Fire" && isEarth)
             {
-                gamemode.e_CurHealth -= bulletDamage + gamemode.fireDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage + gamemode.fireDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Water" && isFire)
             {
-                gamemode.e_CurHealth -= bulletDamage + gamemode.waterDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage + gamemode.waterDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Earth" && isWater)
             {
-                gamemode.e_CurHealth -= bulletDamage + gamemode.earthDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage + gamemode.earthDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Fire" && isWater)
             {
-                gamemode.e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Fire" && isFire)
             {
-                gamemode.e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Water" && isEarth)
             {
-                gamemode.e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Water" && isWater)
             {
-                gamemode.e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Earth" && isFire)
             {
-                gamemode.e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Earth" && isEarth)
             {
-                gamemode.e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
+                e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
         }
         
-        if (gamemode.e_CurHealth <= gamemode.e_HealthDeath)
+        if (e_CurHealth <= gamemode.e_HealthDeath)
         {
             //Decrease enemy count
             gamemode.enemyCount--;

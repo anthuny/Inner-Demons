@@ -7,9 +7,11 @@ public class Gamemode : MonoBehaviour
     [Header("General")]
     public GameObject playerPrefab;
     public int enemyCount = 0;
-    public float chooseDamageIncrease;
-    public float chooseHealthIncrease;
-    public float chooseE_DamageIncrease;
+    public float chooseDamageInc;
+    public float chooseHealthInc;
+    public float chooseE_DamageInc;
+    public float chooseProjectileSpeedInc;
+    public float chooseReloadSpeedInc;
     private GameObject player;
     private Transform spawnPos;
 
@@ -36,7 +38,7 @@ public class Gamemode : MonoBehaviour
     public float e_ChaseSpeed;
     public float e_EvadeSpeed;
     public float e_MaxHealth = 100;
-    public float e_CurHealth;
+
     public float e_HealthDeath = 0;
     public float e_ViewDis;
     public float evadetimerMax;
@@ -66,5 +68,30 @@ public class Gamemode : MonoBehaviour
                 player = GameObject.Find("Player");
             }
         }
+    }
+
+    // Increase Statistics
+    public void IncreaseStatistics()
+    {
+        // Increase projectile speed
+        bulletSpeed += chooseProjectileSpeedInc;
+
+        // Increase reload speed
+        shotCooldown -= chooseReloadSpeedInc;
+    }
+
+    public void IncreaseDamage()
+    {
+        bulletDamage += chooseDamageInc;
+    }
+
+    public void IncreaseHealth()
+    {
+        p_maxHealth += chooseHealthInc;
+    }
+
+    public void IncreaseEnemyDamage()
+    {
+        e_BulletDamage += chooseE_DamageInc;
     }
 }

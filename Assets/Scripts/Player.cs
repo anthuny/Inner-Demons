@@ -118,11 +118,17 @@ public class Player : MonoBehaviour
             gamemode.playerSpeed += 2.5f;
             gamemode.shotCooldown -= .1f;
         }
+
+        if (Input.GetKeyDown("h"))
+        {
+            gamemode.p_healthDeath = -10000f;
+        }
     }
 
     void Shoot()
     {
-        if (!hasShot)
+        // If the player has NOT shot, and the dialogue is NOT triggered
+        if (!hasShot && !FindObjectOfType<DialogueManager>().dialogueTriggered)
         {
             hasShot = true;
             Instantiate(bullet, gunHolder.position, Quaternion.identity);
@@ -179,9 +185,15 @@ public class Player : MonoBehaviour
         {
             memory = other.gameObject;
 
-            if (!FindObjectOfType<DialogueManager>().dialogueTriggered)
+            // Only allow player to interact with each memory once
+            if (!memory.GetComponent<Memory>().interacted)
             {
-                TriggerDialogue();
+                memory.GetComponent<Memory>().interacted = true;
+
+                if (!FindObjectOfType<DialogueManager>().dialogueTriggered)
+                {
+                    TriggerDialogue();
+                }
             }
         }
     }
