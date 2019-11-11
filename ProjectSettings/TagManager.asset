@@ -10,6 +10,7 @@ TagManager:
   - RoomCollider
   - SpawnPoint
   - Room
+  - Memory
   layers:
   - Default
   - TransparentFX

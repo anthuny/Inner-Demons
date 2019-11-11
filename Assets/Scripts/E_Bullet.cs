@@ -17,7 +17,7 @@ public class E_Bullet : MonoBehaviour
     private Vector2 dir;
     private Vector2 playerVel;
     private SpriteRenderer sr;
-
+    private Gamemode gamemode;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,7 @@ public class E_Bullet : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody2D>();
         playerPos = player.transform.position;      
         playerVel = playerRb.velocity;
+        gamemode = FindObjectOfType<Gamemode>();
 
         // Exists so each spawned bullet has a reference to the enemy that spawned it.
         // Allows multiple ranged enemies to be attacking at a time
@@ -70,6 +71,10 @@ public class E_Bullet : MonoBehaviour
         {
             sr.color = Color.green;
         }
+
+
+        //Increase the size of the bullet based on the damage of the enemy
+        transform.localScale = new Vector2(7, 7) * gamemode.e_BulletDamage / 20;
     }
 
     // Update is called once per frame
@@ -83,14 +88,14 @@ public class E_Bullet : MonoBehaviour
         pos.x = transform.position.x;
         pos.y = transform.position.y;
 
-        pos.x += dir.x * enemyScript.e_BulletSpeed * Time.deltaTime;
-        pos.y += dir.y * enemyScript.e_BulletSpeed * Time.deltaTime;
+        pos.x += dir.x * gamemode.e_BulletSpeed * Time.deltaTime;
+        pos.y += dir.y * gamemode.e_BulletSpeed * Time.deltaTime;
 
         transform.position = pos;
 
         //If bullet distance goes too far
         float distance = Vector3.Distance(enemyPos, transform.position);
-        if (enemyScript.e_BulletDist <= distance)
+        if (gamemode.e_BulletDist <= distance)
         {
             Death();
         }
@@ -100,7 +105,7 @@ public class E_Bullet : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            player.GetComponent<Player>().DecreaseHealth(enemyScript.e_BulletDamage);
+            player.GetComponent<Player>().DecreaseHealth(gamemode.e_BulletDamage);
             Death();
         }
 

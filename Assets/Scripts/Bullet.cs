@@ -12,10 +12,12 @@ public class Bullet : MonoBehaviour
     private Vector3 playerPos;
     private SpriteRenderer sr;
     private string currentElement;
+    private Gamemode gamemode;
 
     // Start is called before the first frame update
     void Start()
     {
+        gamemode = FindObjectOfType<Gamemode>();
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         enemy = GameObject.Find("Enemy 1");
@@ -28,34 +30,37 @@ public class Bullet : MonoBehaviour
 
         // Check what element the enemy that spawned this bullet is
         // And set this bullet to the same element
-        if (player.GetComponent<Player>().isFire)
+        if (gamemode.isFire)
         {
             sr.color = Color.red;
             currentElement = "Fire";
         }
 
-        if (player.GetComponent<Player>().isWater)
+        if (gamemode.isWater)
         {
             sr.color = Color.blue;
             currentElement = "Water";
         }
 
-        if (player.GetComponent<Player>().isEarth)
+        if (gamemode.isEarth)
         {
             sr.color = Color.green;
             currentElement = "Earth";
         }
+
+        //Increase the size of the bullet based on the damage of the player
+        transform.localScale = new Vector2(5,5) * gamemode.bulletDamage / 20;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += forward * Time.deltaTime * playerScript.bulletSpeed;
+        transform.position += forward * Time.deltaTime * gamemode.bulletSpeed;
 
         //If bullet distance goes too far
         float distance = Vector2.Distance(playerPos, transform.position);
-        if (playerScript.bulletDist <= distance)
+        if (gamemode.bulletDist <= distance)
         {
             Death();
         }
@@ -66,7 +71,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().DecreaseHealth(playerScript.bulletDamage, currentElement);
+            other.GetComponent<Enemy>().DecreaseHealth(gamemode.bulletDamage, currentElement);
             Death();
         }
 

@@ -10,8 +10,6 @@ public class Health : MonoBehaviour
     void Start()
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera");
-
-
     }
 
     // Update is called once per frame
@@ -22,4 +20,3 @@ public class Health : MonoBehaviour
         transform.position = transform.root.transform.position + transform.up * yOffset;
     }
 }
- //+ new Vector3(transform.root.transform.position.x, yOffset);

@@ -6,31 +6,13 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     //Bullet
-    public float e_BulletSpeed;
-    public float e_BulletDist;
     private bool e_HasShot;
-    public float e_BulletDamage;
     private float e_ShotTimer = 0f;
-    public float e_ShotCooldown = 0.25f;
     public GameObject bullet;
     public Transform e_GunHolder;
 
-    //Patrolling
-    private int currentPoint;
-    public Transform[] patrolPoints;
-    bool isMovingForward = true;
-
     //Evading
     private float random;
-
-    //Enemy
-    public float e_MoveSpeed;
-    public float e_ChaseSpeed;
-    public float e_EvadeSpeed;
-    public float e_MaxHealth = 100;
-    public float e_CurHealth;
-    public float e_HealthDeath = 0;
-    public float e_ViewDis;
 
     [SerializeField]
     private Image e_HealthBar;
@@ -43,7 +25,7 @@ public class Enemy : MonoBehaviour
     private bool targetInShootRange;
     private bool alreadyChosen;
     private float timer;
-    public float evadetimerMax;
+
     private SpriteRenderer sr;
 
     //Elements
@@ -96,7 +78,7 @@ public class Enemy : MonoBehaviour
 
     void Reset()
     {
-        e_CurHealth = e_MaxHealth;
+        gamemode.e_CurHealth = gamemode.e_MaxHealth;
         e_HealthBar.fillAmount = 1f;
         // Current patrol point
         //currentPoint = 0;
@@ -163,74 +145,74 @@ public class Enemy : MonoBehaviour
 
     public void DecreaseHealth(float bulletDamage, string playersCurElement)
     {
-        if (e_CurHealth > e_HealthDeath)
+        if (gamemode.e_CurHealth > gamemode.e_HealthDeath)
         {
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Fire" && isEarth)
             {
-                e_CurHealth -= bulletDamage + playerScript.fireDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage + gamemode.fireDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Water" && isFire)
             {
-                e_CurHealth -= bulletDamage + playerScript.waterDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage + gamemode.waterDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Earth" && isWater)
             {
-                e_CurHealth -= bulletDamage + playerScript.earthDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage + gamemode.earthDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
 
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Fire" && isWater)
             {
-                e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Fire" && isFire)
             {
-                e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Water" && isEarth)
             {
-                e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Water" && isWater)
             {
-                e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Earth" && isFire)
             {
-                e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Earth" && isEarth)
             {
-                e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
+                gamemode.e_CurHealth -= bulletDamage;
+                e_HealthBar.fillAmount = gamemode.e_CurHealth / 100;
             }
         }
         
-        if (e_CurHealth <= e_HealthDeath)
+        if (gamemode.e_CurHealth <= gamemode.e_HealthDeath)
         {
             //Decrease enemy count
             gamemode.enemyCount--;
@@ -261,7 +243,7 @@ public class Enemy : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.transform.position);
 
         //Is the player further away then e_ViewDis?
-        if (distance >= e_ViewDis)
+        if (distance >= gamemode.e_ViewDis)
         {
             targetInViewRange = false;
         }
@@ -291,11 +273,11 @@ public class Enemy : MonoBehaviour
         if (targetInViewRange)
         {
             //If not in shooting range, chase
-            if (distance > e_BulletDist)
+            if (distance > gamemode.e_BulletDist)
             {
                 targetInShootRange = false;
 
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, e_ChaseSpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, gamemode.e_ChaseSpeed * Time.deltaTime);
                 transform.right = player.transform.position - transform.position;
             }
         }
@@ -303,13 +285,13 @@ public class Enemy : MonoBehaviour
 
     void Evade()
     {
-        if (timer <= evadetimerMax)
+        if (timer <= gamemode.evadetimerMax)
         {
             alreadyChosen = true;
             timer += Time.deltaTime;
         }
 
-        if (timer >= evadetimerMax)
+        if (timer >= gamemode.evadetimerMax)
         {
             timer = 0;
             alreadyChosen = false;
@@ -326,19 +308,19 @@ public class Enemy : MonoBehaviour
             float distance = Vector2.Distance(transform.position, player.transform.position);
 
             //If in shooting range, stop chasing and begin evading
-            if (distance <= e_BulletDist)
+            if (distance <= gamemode.e_BulletDist)
             {
                 targetInShootRange = true;
                 transform.right = player.transform.position - transform.position;
 
                 if (random == 1)
                 {
-                    transform.Translate(Vector2.up * Time.deltaTime * e_EvadeSpeed, Space.Self);
+                    transform.Translate(Vector2.up * Time.deltaTime * gamemode.e_EvadeSpeed, Space.Self);
                 }
 
                 if (random == 2)
                 {
-                    transform.Translate(Vector2.down * Time.deltaTime * e_EvadeSpeed, Space.Self);
+                    transform.Translate(Vector2.down * Time.deltaTime * gamemode.e_EvadeSpeed, Space.Self);
                 }
             }
         }
@@ -346,12 +328,12 @@ public class Enemy : MonoBehaviour
 
     void ShotCooldown()
     {
-        if (e_ShotTimer <= e_ShotCooldown)
+        if (e_ShotTimer <= gamemode.e_ShotCooldown)
         {
             e_ShotTimer += Time.deltaTime;
         }
 
-        if (e_ShotTimer >= e_ShotCooldown)
+        if (e_ShotTimer >= gamemode.e_ShotCooldown)
         {
             e_HasShot = false;
             e_ShotTimer = 0;
