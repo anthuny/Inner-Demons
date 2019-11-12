@@ -26,7 +26,9 @@ public class DialogueManager : MonoBehaviour
     [TextArea(3, 10)]
     public string[] choiceText;
     public Text statIncrease;
+    public string statIncreaseText;
     public float waitTimeAlphaStart;
+    private GameObject memory;
 
     [Header("Other Character's Dialogue Box")]
     public Animator animator;
@@ -66,6 +68,11 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        statIncreaseText = "+ Projectile Speed\n+ Reload Speed";
+
+        // Reset stat increase text to default
+        statIncrease.text = statIncreaseText;
+
         // Make it so the player cannot trigger this again
         dialogueTriggered = true;
 
@@ -90,6 +97,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown("space") && dialogueTriggered && sentences.Count != 0)
         {
+            Debug.Log(sentences.Count);
             DisplayNextSentence();
         }
 
@@ -149,14 +157,31 @@ public class DialogueManager : MonoBehaviour
         // Display the choices 
         choices.SetActive(true);
 
-        Memory memory = GameObject.Find("Memory").GetComponent<Memory>();
+        // Detects nearest memory
+        GameObject[] memories;
+        memories = GameObject.FindGameObjectsWithTag("Memory");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector2 position = playerScript.gameObject.transform.position;
+        foreach (GameObject go in memories)
+        {
+            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.y) - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+
+        memory = closest;
 
         // Set Good text
         if (!buttonTextSent)
         {
             buttonTextSent = true;
 
-            buttonGood.text = memory.memoryResponses[0];
+            buttonGood.text = memory.GetComponent<Memory>().memoryResponses[0];
             StartCoroutine(ButtonGoodText(buttonGood.text));
         }
     }
@@ -174,14 +199,35 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(charTimeGap);
         }
 
+        // Reset alpha of text to 0
+        textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusDamage.GetComponent<CanvasGroup>().alpha = 0;
+
         // Enable stat increase text to transition in
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = true;
         textPlusDamage.GetComponent<AlphaTransition>().canIncrease = true;
 
-        Memory memory = GameObject.Find("Memory").GetComponent<Memory>();
+        // Detects nearest memory
+        GameObject[] memories;
+        memories = GameObject.FindGameObjectsWithTag("Memory");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector2 position = playerScript.gameObject.transform.position;
+        foreach (GameObject go in memories)
+        {
+            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.y) - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+
+        memory = closest;
 
         // Set Neutral text
-        buttonNeutral.text = memory.memoryResponses[1];
+        buttonNeutral.text = memory.GetComponent<Memory>().memoryResponses[1];
         StartCoroutine(ButtonNeutralText(buttonNeutral.text));
     }
 
@@ -196,15 +242,35 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(charTimeGap);
         }
 
+        // Reset alpha of text to 0
+        textNeutralResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusHealth.GetComponent<CanvasGroup>().alpha = 0;
+
         // Enable stat increase text to transition in
         textNeutralResp.GetComponent<AlphaTransition>().canIncrease = true;
         textPlusHealth.GetComponent<AlphaTransition>().canIncrease = true;
 
+        // Detects nearest memory
+        GameObject[] memories;
+        memories = GameObject.FindGameObjectsWithTag("Memory");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector2 position = playerScript.gameObject.transform.position;
+        foreach (GameObject go in memories)
+        {
+            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.y) - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
 
-        Memory memory = GameObject.Find("Memory").GetComponent<Memory>();
+        memory = closest;
 
         // Set Bad text
-        buttonBad.text = memory.memoryResponses[2];
+        buttonBad.text = memory.GetComponent<Memory>().memoryResponses[2];
         StartCoroutine(ButtonBadText(buttonBad.text));
     }
 
@@ -219,6 +285,10 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(charTimeGap);
         }
 
+        // Reset alpha of text to 0
+        textBadResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusEDamage.GetComponent<CanvasGroup>().alpha = 0;
+
         // Enable stat increase text to transition in
         textBadResp.GetComponent<AlphaTransition>().canIncrease = true;
         textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = true;
@@ -227,6 +297,10 @@ public class DialogueManager : MonoBehaviour
     // Button select upon on GOOD choice being selected
     public void ChooseGood()
     {
+        // DISABLE stat increase text from transition in
+        textGoodResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusDamage.GetComponent<AlphaTransition>().canIncrease = false;
+
         // Make the buttons disappear
         choices.SetActive(false);
 
@@ -247,6 +321,10 @@ public class DialogueManager : MonoBehaviour
     // Button select upon on NEUTRAL choice being selected
     public void ChooseNeutral()
     {
+        // DISABLE stat increase text from transition in
+        textNeutralResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusHealth.GetComponent<AlphaTransition>().canIncrease = false;
+
         // Make the buttons disappear
         choices.SetActive(false);
 
@@ -267,6 +345,10 @@ public class DialogueManager : MonoBehaviour
     // Button select upon on BAD choice being selected
     public void ChooseBad()
     {
+        // DISABLE stat increase text from transition in
+        textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = false;
+
         // Make the buttons disappear
         choices.SetActive(false);
 
@@ -292,20 +374,29 @@ public class DialogueManager : MonoBehaviour
         {
             // If the player chooses the an option, display appropriate text in their dialogue
             pDialogueText.text = choiceText[0];
+
+            // Add specific stat to statIncrease based on choice
+            statIncrease.text += "\n+ Damage";
+
         }
 
         if (chooseNeutral)
         {
             // If the player chooses the an option, display appropriate text in their dialogue
             pDialogueText.text = choiceText[1];
+
+            // Add specific stat to statIncrease based on choice
+            statIncrease.text += "\n+ Health";
         }
 
         if (chooseBad)
         {
             // If the player chooses the an option, display appropriate text in their dialogue
             pDialogueText.text = choiceText[2];
-        }
 
+            // Add specific stat to statIncrease based on choice
+            statIncrease.text += "\n+ Enemy Power";
+        }
 
         yield return new WaitForSeconds(waitTimeAlphaStart);
 
@@ -317,17 +408,39 @@ public class DialogueManager : MonoBehaviour
 
         yield return new WaitForSeconds(8f);
 
+        // Reset stat increase text to default
+        statIncrease.text = "+ Projectile Speed\n+ Reload Speed";
+
+        // Remove player dialogue box from screen
         animatorP.SetBool("isOpenP", false);
     }
 
     void CloseDialogue()
     {
+        // Reset alpha of text to 0
+        textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusDamage.GetComponent<CanvasGroup>().alpha = 0;
+        textNeutralResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusHealth.GetComponent<CanvasGroup>().alpha = 0;
+        textBadResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusEDamage.GetComponent<CanvasGroup>().alpha = 0;
+
+        textGoodResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        textNeutralResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusHealth.GetComponent<AlphaTransition>().canIncrease = false;
+        textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = false;
+
         // Close the Dialogue box
         animator.SetBool("isOpen", false);
 
         dialogueTriggered = false;
+        buttonTextSent = false;
 
         // Turn the memory off
-        playerScript.memory.gameObject.SetActive(false);
-    }
+        memory.gameObject.SetActive(false);
+
+        memory.GetComponent<Memory>().interacted = false;
+}
 }

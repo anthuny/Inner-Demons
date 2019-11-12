@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     private GameObject room;
 
     //Memory
-    public GameObject memory;
+    private GameObject memory;
 
     private void Start()
     {
