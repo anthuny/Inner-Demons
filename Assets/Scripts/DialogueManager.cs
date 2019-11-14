@@ -97,7 +97,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown("space") && dialogueTriggered && sentences.Count != 0)
         {
-            Debug.Log(sentences.Count);
             DisplayNextSentence();
         }
 
