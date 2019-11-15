@@ -1,0 +1,5935 @@
+fileFormatVersion: 2
+guid: 22ecd5b5bdfcfee458a45b88ccd8a787
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7383778312562845418
+    second: Enchanted Forest Characters with animations_0
+  - first:
+      213: 3007135303679770973
+    second: Enchanted Forest Characters with animations_1
+  - first:
+      213: -3836681465447209298
+    second: Enchanted Forest Characters with animations_2
+  - first:
+      213: -2878131774290811365
+    second: Enchanted Forest Characters with animations_3
+  - first:
+      213: -8965182152267205268
+    second: Enchanted Forest Characters with animations_4
+  - first:
+      213: -2450663311134318478
+    second: Enchanted Forest Characters with animations_5
+  - first:
+      213: -4739275250619426812
+    second: Enchanted Forest Characters with animations_6
+  - first:
+      213: 6157178776733432485
+    second: Enchanted Forest Characters with animations_7
+  - first:
+      213: -5554489371083738218
+    second: Enchanted Forest Characters with animations_8
+  - first:
+      213: 5746294014279618669
+    second: Enchanted Forest Characters with animations_9
+  - first:
+      213: -5972359603319167947
+    second: Enchanted Forest Characters with animations_10
+  - first:
+      213: 3538318916432076612
+    second: Enchanted Forest Characters with animations_11
+  - first:
+      213: -1635157092367202613
+    second: Enchanted Forest Characters with animations_12
+  - first:
+      213: 5608901302591939779
+    second: Enchanted Forest Characters with animations_13
+  - first:
+      213: -5988492161720261760
+    second: Enchanted Forest Characters with animations_14
+  - first:
+      213: -9057193939105287258
+    second: Enchanted Forest Characters with animations_15
+  - first:
+      213: -6350678226279734603
+    second: Enchanted Forest Characters with animations_16
+  - first:
+      213: 7341592497088194139
+    second: Enchanted Forest Characters with animations_17
+  - first:
+      213: 6728362911485732438
+    second: Enchanted Forest Characters with animations_18
+  - first:
+      213: -2366300164534528584
+    second: Enchanted Forest Characters with animations_19
+  - first:
+      213: -6756389264436485155
+    second: Enchanted Forest Characters with animations_20
+  - first:
+      213: 1297199825807728745
+    second: Enchanted Forest Characters with animations_21
+  - first:
+      213: 1275506160032080472
+    second: Enchanted Forest Characters with animations_22
+  - first:
+      213: 8968142958559698140
+    second: Enchanted Forest Characters with animations_23
+  - first:
+      213: 558919745157289829
+    second: Enchanted Forest Characters with animations_24
+  - first:
+      213: -1897719067991868278
+    second: Enchanted Forest Characters with animations_25
+  - first:
+      213: -1559927588717513358
+    second: Enchanted Forest Characters with animations_26
+  - first:
+      213: 6084327487266519470
+    second: Enchanted Forest Characters with animations_27
+  - first:
+      213: 3491046289075042761
+    second: Enchanted Forest Characters with animations_28
+  - first:
+      213: 875414091578146494
+    second: Enchanted Forest Characters with animations_29
+  - first:
+      213: 931441546790357496
+    second: Enchanted Forest Characters with animations_30
+  - first:
+      213: -3239761604049157821
+    second: Enchanted Forest Characters with animations_31
+  - first:
+      213: -8707876440499969908
+    second: Enchanted Forest Characters with animations_32
+  - first:
+      213: -1607766296069447802
+    second: Enchanted Forest Characters with animations_33
+  - first:
+      213: 194196475258574103
+    second: Enchanted Forest Characters with animations_34
+  - first:
+      213: -8861748523844280877
+    second: Enchanted Forest Characters with animations_35
+  - first:
+      213: 889632919433736375
+    second: Enchanted Forest Characters with animations_36
+  - first:
+      213: 345634142045383229
+    second: Enchanted Forest Characters with animations_37
+  - first:
+      213: 4675216934459736272
+    second: Enchanted Forest Characters with animations_38
+  - first:
+      213: 3852008619436740275
+    second: Enchanted Forest Characters with animations_39
+  - first:
+      213: 7940095965793004800
+    second: Enchanted Forest Characters with animations_40
+  - first:
+      213: 3672047883702383807
+    second: Enchanted Forest Characters with animations_41
+  - first:
+      213: 8854940917005007117
+    second: Enchanted Forest Characters with animations_42
+  - first:
+      213: 4592008533467227685
+    second: Enchanted Forest Characters with animations_43
+  - first:
+      213: 3186500015040681733
+    second: Enchanted Forest Characters with animations_44
+  - first:
+      213: 7492860061438746416
+    second: Enchanted Forest Characters with animations_45
+  - first:
+      213: 9109386196812540916
+    second: Enchanted Forest Characters with animations_46
+  - first:
+      213: -2923574050513923326
+    second: Enchanted Forest Characters with animations_47
+  - first:
+      213: -4409302771523977098
+    second: Enchanted Forest Characters with animations_48
+  - first:
+      213: 3724696871731757541
+    second: Enchanted Forest Characters with animations_49
+  - first:
+      213: -8517634286888087458
+    second: Enchanted Forest Characters with animations_50
+  - first:
+      213: -292532796732933166
+    second: Enchanted Forest Characters with animations_51
+  - first:
+      213: -5173901510841434156
+    second: Enchanted Forest Characters with animations_52
+  - first:
+      213: 7343472313373046202
+    second: Enchanted Forest Characters with animations_53
+  - first:
+      213: -2335285521693062566
+    second: Enchanted Forest Characters with animations_54
+  - first:
+      213: 2319120531340553181
+    second: Enchanted Forest Characters with animations_55
+  - first:
+      213: 6913586231471951732
+    second: Enchanted Forest Characters with animations_56
+  - first:
+      213: -6553945607612090263
+    second: Enchanted Forest Characters with animations_57
+  - first:
+      213: 6111862981884117219
+    second: Enchanted Forest Characters with animations_58
+  - first:
+      213: -996688649662697002
+    second: Enchanted Forest Characters with animations_59
+  - first:
+      213: 3023659432138093073
+    second: Enchanted Forest Characters with animations_60
+  - first:
+      213: 2089734761214147111
+    second: Enchanted Forest Characters with animations_61
+  - first:
+      213: -8313503548201402893
+    second: Enchanted Forest Characters with animations_62
+  - first:
+      213: -5894513982616490380
+    second: Enchanted Forest Characters with animations_63
+  - first:
+      213: 373181871116111593
+    second: Enchanted Forest Characters with animations_64
+  - first:
+      213: 6994592074899298200
+    second: Enchanted Forest Characters with animations_65
+  - first:
+      213: -9161612461627580193
+    second: Enchanted Forest Characters with animations_66
+  - first:
+      213: -7738303712164284249
+    second: Enchanted Forest Characters with animations_67
+  - first:
+      213: -2250778422851295730
+    second: Enchanted Forest Characters with animations_68
+  - first:
+      213: 3306584334693493965
+    second: Enchanted Forest Characters with animations_69
+  - first:
+      213: 744026997179625506
+    second: Enchanted Forest Characters with animations_70
+  - first:
+      213: -2043936293753515302
+    second: Enchanted Forest Characters with animations_71
+  - first:
+      213: -2468360714325375450
+    second: Enchanted Forest Characters with animations_72
+  - first:
+      213: 1721401368907973683
+    second: Enchanted Forest Characters with animations_73
+  - first:
+      213: -7003572134136886919
+    second: Enchanted Forest Characters with animations_74
+  - first:
+      213: -6945560143387810603
+    second: Enchanted Forest Characters with animations_75
+  - first:
+      213: -3000087757958336024
+    second: Enchanted Forest Characters with animations_76
+  - first:
+      213: 8497050393547199435
+    second: Enchanted Forest Characters with animations_77
+  - first:
+      213: -1405926815917499285
+    second: Enchanted Forest Characters with animations_78
+  - first:
+      213: -3088917668898285480
+    second: Enchanted Forest Characters with animations_79
+  - first:
+      213: -7318781925356444421
+    second: Enchanted Forest Characters with animations_80
+  - first:
+      213: 9193921741894450623
+    second: Enchanted Forest Characters with animations_81
+  - first:
+      213: -4702356296107051236
+    second: Enchanted Forest Characters with animations_82
+  - first:
+      213: -3550491855221541128
+    second: Enchanted Forest Characters with animations_83
+  - first:
+      213: -6774825194909658593
+    second: Enchanted Forest Characters with animations_84
+  - first:
+      213: 5522428161858840055
+    second: Enchanted Forest Characters with animations_85
+  - first:
+      213: -1829739860096553913
+    second: Enchanted Forest Characters with animations_86
+  - first:
+      213: 4908687453261640702
+    second: Enchanted Forest Characters with animations_87
+  - first:
+      213: 6493921412403511878
+    second: Enchanted Forest Characters with animations_88
+  - first:
+      213: -7309142800456239678
+    second: Enchanted Forest Characters with animations_89
+  - first:
+      213: -6849664368659625596
+    second: Enchanted Forest Characters with animations_90
+  - first:
+      213: 6204366067346074515
+    second: Enchanted Forest Characters with animations_91
+  - first:
+      213: 5934791421182568185
+    second: Enchanted Forest Characters with animations_92
+  - first:
+      213: -540712132708593951
+    second: Enchanted Forest Characters with animations_93
+  - first:
+      213: -7509430304529245133
+    second: Enchanted Forest Characters with animations_94
+  - first:
+      213: -7206346713712791061
+    second: Enchanted Forest Characters with animations_95
+  - first:
+      213: -1926589401498841846
+    second: Enchanted Forest Characters with animations_96
+  - first:
+      213: 7995749117020595232
+    second: Enchanted Forest Characters with animations_97
+  - first:
+      213: -3229089389348720254
+    second: Enchanted Forest Characters with animations_98
+  - first:
+      213: 7983550018092113228
+    second: Enchanted Forest Characters with animations_99
+  - first:
+      213: 8978608795033253796
+    second: Enchanted Forest Characters with animations_100
+  - first:
+      213: -4376653855910337614
+    second: Enchanted Forest Characters with animations_101
+  - first:
+      213: 3735409846406989852
+    second: Enchanted Forest Characters with animations_102
+  - first:
+      213: 6527076038203423004
+    second: Enchanted Forest Characters with animations_103
+  - first:
+      213: 5026710603875557414
+    second: Enchanted Forest Characters with animations_104
+  - first:
+      213: 5481091344104298815
+    second: Enchanted Forest Characters with animations_105
+  - first:
+      213: 8212600951489100451
+    second: Enchanted Forest Characters with animations_106
+  - first:
+      213: -502315113681436716
+    second: Enchanted Forest Characters with animations_107
+  - first:
+      213: 4731661172593003874
+    second: Enchanted Forest Characters with animations_108
+  - first:
+      213: -7511005455225484672
+    second: Enchanted Forest Characters with animations_109
+  - first:
+      213: -3922155619884546443
+    second: Enchanted Forest Characters with animations_110
+  - first:
+      213: -5256112349280081368
+    second: Enchanted Forest Characters with animations_111
+  - first:
+      213: -4692427678466600595
+    second: Enchanted Forest Characters with animations_112
+  - first:
+      213: 375828784259749113
+    second: Enchanted Forest Characters with animations_113
+  - first:
+      213: -3268493841568099042
+    second: Enchanted Forest Characters with animations_114
+  - first:
+      213: -6590033769026437820
+    second: Enchanted Forest Characters with animations_115
+  - first:
+      213: -8532503724012214431
+    second: Enchanted Forest Characters with animations_116
+  - first:
+      213: 2048179458595165777
+    second: Enchanted Forest Characters with animations_117
+  - first:
+      213: 1516799481756205129
+    second: Enchanted Forest Characters with animations_118
+  - first:
+      213: 290760835263935590
+    second: Enchanted Forest Characters with animations_119
+  - first:
+      213: 3115292161359696013
+    second: Enchanted Forest Characters with animations_120
+  - first:
+      213: -737962702386673816
+    second: Enchanted Forest Characters with animations_121
+  - first:
+      213: -3177824580028337953
+    second: Enchanted Forest Characters with animations_122
+  - first:
+      213: 38855975386388712
+    second: Enchanted Forest Characters with animations_123
+  - first:
+      213: 3214161541382315264
+    second: Enchanted Forest Characters with animations_124
+  - first:
+      213: 6639259769996503206
+    second: Enchanted Forest Characters with animations_125
+  - first:
+      213: 3669925118200195000
+    second: Enchanted Forest Characters with animations_126
+  - first:
+      213: -3504428947944271594
+    second: Enchanted Forest Characters with animations_127
+  - first:
+      213: -2872369939641632193
+    second: Enchanted Forest Characters with animations_128
+  - first:
+      213: 7713235708419705860
+    second: Enchanted Forest Characters with animations_129
+  - first:
+      213: 8955364918345144634
+    second: Enchanted Forest Characters with animations_130
+  - first:
+      213: 8111434872751830537
+    second: Enchanted Forest Characters with animations_131
+  - first:
+      213: 2687925060386375175
+    second: Enchanted Forest Characters with animations_132
+  - first:
+      213: -100199845213404203
+    second: Enchanted Forest Characters with animations_133
+  - first:
+      213: -3521760935676264904
+    second: Enchanted Forest Characters with animations_134
+  - first:
+      213: 8316767484302298587
+    second: Enchanted Forest Characters with animations_135
+  - first:
+      213: -3758740710588031990
+    second: Enchanted Forest Characters with animations_136
+  - first:
+      213: -7632851179429940680
+    second: Enchanted Forest Characters with animations_137
+  - first:
+      213: 3349714182650524146
+    second: Enchanted Forest Characters with animations_138
+  - first:
+      213: 8397233310529568653
+    second: Enchanted Forest Characters with animations_139
+  - first:
+      213: 1958142948094951007
+    second: Enchanted Forest Characters with animations_140
+  - first:
+      213: -5248783081277420762
+    second: Enchanted Forest Characters with animations_141
+  - first:
+      213: -4011956372482863884
+    second: Enchanted Forest Characters with animations_142
+  - first:
+      213: 3923160049914704905
+    second: Enchanted Forest Characters with animations_143
+  - first:
+      213: 6075142109430574554
+    second: Enchanted Forest Characters with animations_144
+  - first:
+      213: 8013750745612593423
+    second: Enchanted Forest Characters with animations_145
+  - first:
+      213: 4769056488867781722
+    second: Enchanted Forest Characters with animations_146
+  - first:
+      213: 3252966934249776969
+    second: Enchanted Forest Characters with animations_147
+  - first:
+      213: -8218036808856688793
+    second: Enchanted Forest Characters with animations_148
+  - first:
+      213: -3279300691804783593
+    second: Enchanted Forest Characters with animations_149
+  - first:
+      213: 2174955346840159246
+    second: Enchanted Forest Characters with animations_150
+  - first:
+      213: 5009270341856552218
+    second: Enchanted Forest Characters with animations_151
+  - first:
+      213: 5854636801757058139
+    second: Enchanted Forest Characters with animations_152
+  - first:
+      213: 5091246992035157555
+    second: Enchanted Forest Characters with animations_153
+  - first:
+      213: 7476720725588813772
+    second: Enchanted Forest Characters with animations_154
+  - first:
+      213: 4918311270985189485
+    second: Enchanted Forest Characters with animations_155
+  - first:
+      213: -373408957435408376
+    second: Enchanted Forest Characters with animations_156
+  - first:
+      213: -5169302110503061154
+    second: Enchanted Forest Characters with animations_157
+  - first:
+      213: -3277116002680845223
+    second: Enchanted Forest Characters with animations_158
+  - first:
+      213: 5684764193210140457
+    second: Enchanted Forest Characters with animations_159
+  - first:
+      213: 4743278812712856756
+    second: Enchanted Forest Characters with animations_160
+  - first:
+      213: -8010771263685237955
+    second: Enchanted Forest Characters with animations_161
+  - first:
+      213: 5160659851139926448
+    second: Enchanted Forest Characters with animations_162
+  - first:
+      213: 1159680469554545456
+    second: Enchanted Forest Characters with animations_163
+  - first:
+      213: 6783645055280119999
+    second: Enchanted Forest Characters with animations_164
+  - first:
+      213: -4112711197983779127
+    second: Enchanted Forest Characters with animations_165
+  - first:
+      213: -2953731767398375051
+    second: Enchanted Forest Characters with animations_166
+  - first:
+      213: 199914030755215172
+    second: Enchanted Forest Characters with animations_167
+  - first:
+      213: -7110825446910923074
+    second: Enchanted Forest Characters with animations_168
+  - first:
+      213: -4421925076473879015
+    second: Enchanted Forest Characters with animations_169
+  - first:
+      213: -7308300014910086779
+    second: Enchanted Forest Characters with animations_170
+  - first:
+      213: -5809783872180616611
+    second: Enchanted Forest Characters with animations_171
+  - first:
+      213: 7261869206463043604
+    second: Enchanted Forest Characters with animations_172
+  - first:
+      213: 8324324962973902692
+    second: Enchanted Forest Characters with animations_173
+  - first:
+      213: -4785422354627322858
+    second: Enchanted Forest Characters with animations_174
+  - first:
+      213: 7375090188399650830
+    second: Enchanted Forest Characters with animations_175
+  - first:
+      213: -2959324791820945481
+    second: Enchanted Forest Characters with animations_176
+  - first:
+      213: 6428034104502527072
+    second: Enchanted Forest Characters with animations_177
+  - first:
+      213: 4031094007144186027
+    second: Enchanted Forest Characters with animations_178
+  - first:
+      213: 6503564266685704575
+    second: Enchanted Forest Characters with animations_179
+  - first:
+      213: -587898590285896155
+    second: Enchanted Forest Characters with animations_180
+  - first:
+      213: -1991177430511987684
+    second: Enchanted Forest Characters with animations_181
+  - first:
+      213: 8990997568487377531
+    second: Enchanted Forest Characters with animations_182
+  - first:
+      213: -3656478282514075913
+    second: Enchanted Forest Characters with animations_183
+  - first:
+      213: 7368682105132931740
+    second: Enchanted Forest Characters with animations_184
+  - first:
+      213: 3034541399497776743
+    second: Enchanted Forest Characters with animations_185
+  - first:
+      213: 2376008392883794364
+    second: Enchanted Forest Characters with animations_186
+  - first:
+      213: 5514056670273961254
+    second: Enchanted Forest Characters with animations_187
+  - first:
+      213: -2394870695071819050
+    second: Enchanted Forest Characters with animations_188
+  - first:
+      213: -2650151097200591790
+    second: Enchanted Forest Characters with animations_189
+  - first:
+      213: -5008138338200202060
+    second: Enchanted Forest Characters with animations_190
+  - first:
+      213: 2934252557286200944
+    second: Enchanted Forest Characters with animations_191
+  - first:
+      213: -4689084125421460377
+    second: Enchanted Forest Characters with animations_192
+  - first:
+      213: -1480902538778558354
+    second: Enchanted Forest Characters with animations_193
+  - first:
+      213: 8579624267345625914
+    second: Enchanted Forest Characters with animations_194
+  - first:
+      213: 446464978750988443
+    second: Enchanted Forest Characters with animations_195
+  - first:
+      213: -95931999139729589
+    second: Enchanted Forest Characters with animations_196
+  - first:
+      213: -8246778965823954739
+    second: Enchanted Forest Characters with animations_197
+  - first:
+      213: 4471083888070130725
+    second: Enchanted Forest Characters with animations_198
+  - first:
+      213: 559458832015037655
+    second: Enchanted Forest Characters with animations_199
+  - first:
+      213: 6820183098121093420
+    second: Enchanted Forest Characters with animations_200
+  - first:
+      213: 5829855461412116322
+    second: Enchanted Forest Characters with animations_201
+  - first:
+      213: -6953309690176178120
+    second: Enchanted Forest Characters with animations_202
+  - first:
+      213: -1246152569728983531
+    second: Enchanted Forest Characters with animations_203
+  - first:
+      213: 4597583211946171966
+    second: Enchanted Forest Characters with animations_204
+  - first:
+      213: -8759806667813142920
+    second: Enchanted Forest Characters with animations_205
+  - first:
+      213: 6747628096715052774
+    second: Enchanted Forest Characters with animations_206
+  - first:
+      213: -878804886935490105
+    second: Enchanted Forest Characters with animations_207
+  - first:
+      213: 4950337669338095135
+    second: Enchanted Forest Characters with animations_208
+  - first:
+      213: -8575107689554182132
+    second: Enchanted Forest Characters with animations_209
+  - first:
+      213: -6681491660906489850
+    second: Enchanted Forest Characters with animations_210
+  - first:
+      213: -417084617377659916
+    second: Enchanted Forest Characters with animations_211
+  - first:
+      213: -447138006984407244
+    second: Enchanted Forest Characters with animations_212
+  - first:
+      213: 6430800597809810117
+    second: Enchanted Forest Characters with animations_213
+  - first:
+      213: 3440686328701329077
+    second: Enchanted Forest Characters with animations_214
+  - first:
+      213: 8244195943903958134
+    second: Enchanted Forest Characters with animations_215
+  - first:
+      213: -4539117457166616169
+    second: Enchanted Forest Characters with animations_216
+  - first:
+      213: -3281222308362501174
+    second: Enchanted Forest Characters with animations_217
+  - first:
+      213: -6975013490664960795
+    second: Enchanted Forest Characters with animations_218
+  - first:
+      213: 5183645975395926370
+    second: Enchanted Forest Characters with animations_219
+  - first:
+      213: -71306456179205602
+    second: Enchanted Forest Characters with animations_220
+  - first:
+      213: 3875527868945725008
+    second: Enchanted Forest Characters with animations_221
+  - first:
+      213: 601360503182743194
+    second: Enchanted Forest Characters with animations_222
+  - first:
+      213: 1175739479127303501
+    second: Enchanted Forest Characters with animations_223
+  - first:
+      213: -2899835713758020093
+    second: Enchanted Forest Characters with animations_224
+  - first:
+      213: 7067594507414070406
+    second: Enchanted Forest Characters with animations_225
+  - first:
+      213: -5283633078349587232
+    second: Enchanted Forest Characters with animations_226
+  - first:
+      213: 2871660643559959241
+    second: Enchanted Forest Characters with animations_227
+  - first:
+      213: -7735358109913935574
+    second: Enchanted Forest Characters with animations_228
+  - first:
+      213: -4562794049390994419
+    second: Enchanted Forest Characters with animations_229
+  - first:
+      213: 2011967143599303689
+    second: Enchanted Forest Characters with animations_230
+  - first:
+      213: 653154155346684986
+    second: Enchanted Forest Characters with animations_231
+  - first:
+      213: -4454769813378941733
+    second: Enchanted Forest Characters with animations_232
+  - first:
+      213: 1888851311228314333
+    second: Enchanted Forest Characters with animations_233
+  - first:
+      213: -3119713229537798926
+    second: Enchanted Forest Characters with animations_234
+  - first:
+      213: 3929969782457605071
+    second: Enchanted Forest Characters with animations_235
+  - first:
+      213: 7457479229643159180
+    second: Enchanted Forest Characters with animations_236
+  - first:
+      213: -5426532412406787263
+    second: Enchanted Forest Characters with animations_237
+  - first:
+      213: -4918459047124359296
+    second: Enchanted Forest Characters with animations_238
+  - first:
+      213: -2961471169597444273
+    second: Enchanted Forest Characters with animations_239
+  - first:
+      213: -572112189550964221
+    second: Enchanted Forest Characters with animations_240
+  - first:
+      213: -574692809675718822
+    second: Enchanted Forest Characters with animations_241
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 485
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b28e3c0a47bfa8479a641827fe3e91e
+      internalID: 7383778312562845418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_1
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 480
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7493994a8f5086e42914d8bc021bfb6e
+      internalID: 3007135303679770973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_2
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 485
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3c74b24716b961458b05b1cb2e01e7b
+      internalID: -3836681465447209298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_3
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 485
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b2606e3213fb8c47a2dee689c267b4f
+      internalID: -2878131774290811365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_4
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 480
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cb1d6a552a70794c807db96d7dc22bb
+      internalID: -8965182152267205268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_5
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 485
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8c7bc5211abe1f47959c969b54462dc
+      internalID: -2450663311134318478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_6
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 484
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed6ba5a7f680a34384a87e61901babf
+      internalID: -4739275250619426812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_7
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 480
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46ec8f8b4cf16d24c97f11a4698a1f79
+      internalID: 6157178776733432485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_8
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 484
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8534c0a3b11acad438cf717f365560f6
+      internalID: -5554489371083738218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_9
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 483
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd51ad1326c8d744c9cc146967c31277
+      internalID: 5746294014279618669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_10
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 480
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77ba130a9d667184a99a5224e6274553
+      internalID: -5972359603319167947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_11
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 483
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c8fc23a1831d1e4a842c6609b0830b7
+      internalID: 3538318916432076612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_12
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 485
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00caac31bd2b0584c99c2f15f5f024f3
+      internalID: -1635157092367202613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_13
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 480
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 806fa859b3c513c40a61743521f03ffd
+      internalID: 5608901302591939779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_14
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 485
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 841459da520beb941a04a1d0470f7d87
+      internalID: -5988492161720261760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_15
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 489
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5e1086c41b5daf44b531de15ce70757
+      internalID: -9057193939105287258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_16
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 482
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b77906dbac70db441a1de0364713e2f4
+      internalID: -6350678226279734603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_17
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 489
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53c03301abd0bba44b71069e668a5568
+      internalID: 7341592497088194139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_18
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 488
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6412511a43ab683488c5f32f30258a67
+      internalID: 6728362911485732438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_19
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 482
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83b4aad2fa3415540a2ebd9dc0473ff2
+      internalID: -2366300164534528584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_20
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 488
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af550f01257ab9a4d88a8266c7af375f
+      internalID: -6756389264436485155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_21
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 482
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d008a7837c6c34429a2d7f385edbb07
+      internalID: 1297199825807728745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_22
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 480
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d1dd17d04a34348a874132fdfa0f0a
+      internalID: 1275506160032080472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_23
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 482
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c06174d0f1994349ae17538db5111e4
+      internalID: 8968142958559698140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_24
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 480
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdec83ceda9f8624e923fa12386cc388
+      internalID: 558919745157289829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_25
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 480
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 488ab385624ee3943b5b559648e15e7f
+      internalID: -1897719067991868278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_26
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 480
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 920bcbcc49fff0346845c0b8d7a8be40
+      internalID: -1559927588717513358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_27
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 480
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 123865a719fa18b4faa34a570402af84
+      internalID: 6084327487266519470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_28
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 480
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aa6a251a6e4d314194937d78ee6cff5
+      internalID: 3491046289075042761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_29
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 482
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc4f0ea6b72a150449c185dcbaf83bc0
+      internalID: 875414091578146494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_30
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 482
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9d182c1f19aa244394c4404f06741cc
+      internalID: 931441546790357496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_31
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 480
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eca12b618ab99e44fb7e9493b1ea8957
+      internalID: -3239761604049157821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_32
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 448
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca2ed0c67ac22dd4889f169e728551ce
+      internalID: -8707876440499969908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_33
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 448
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c10d2f77f611fa6408b6e2635c894f19
+      internalID: -1607766296069447802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_34
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 448
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d22d254996a2f834ea1ce4c3d2c35d8c
+      internalID: 194196475258574103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_35
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 448
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3475fd32362e18643b08ef90183a2643
+      internalID: -8861748523844280877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_36
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 448
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4b37361b0ef29d488562bab8847b134
+      internalID: 889632919433736375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_37
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 450
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27d29cdd7a083b44089ae419816c695b
+      internalID: 345634142045383229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_38
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 449
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e197caa8c8a8b8a4b9388e931978dd12
+      internalID: 4675216934459736272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_39
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 448
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d49ec9ef517646b48a586eda7fd758d7
+      internalID: 3852008619436740275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_40
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 448
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e259953a35e36a4eafd5c313ae35a45
+      internalID: 7940095965793004800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_41
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 448
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 418a76562fbb52540ac30f131f750ecb
+      internalID: 3672047883702383807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_42
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 448
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f6a860d4ed92d74e9c9ab0e15838ec9
+      internalID: 8854940917005007117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_43
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 448
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4a8cb58ebbef9b46b27be201105388e
+      internalID: 4592008533467227685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_44
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 448
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8276e2329540294fa501fdebf7e26f5
+      internalID: 3186500015040681733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_45
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 450
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6644c7ed9fb281140b259a418644b893
+      internalID: 7492860061438746416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_46
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 449
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce51f7ec35a4e584e8929642c3719239
+      internalID: 9109386196812540916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_47
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 448
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a63dcc35a51143041826b703e0bd22d2
+      internalID: -2923574050513923326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_48
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 416
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64dd6d2c895490a4ba31627f336ea674
+      internalID: -4409302771523977098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_49
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 416
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24f0b5f387fc3b64da09130392feb3dc
+      internalID: 3724696871731757541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_50
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 416
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb3ed240f8d46094f8c30029ebb3d465
+      internalID: -8517634286888087458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_51
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 416
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 807db51fb406aa04da64981f7d6b6904
+      internalID: -292532796732933166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_52
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 416
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75c97ddf2bd4bc54993adae6a9862789
+      internalID: -5173901510841434156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_53
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 418
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffeee3cde83f8344eba39d8cd15341d0
+      internalID: 7343472313373046202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_54
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 417
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b90922e4505c10d469eb623570ea309d
+      internalID: -2335285521693062566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_55
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 416
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3003cf91b62eaa46879a76dcb981099
+      internalID: 2319120531340553181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_56
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 416
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 907c198e1c776274c86152131ade1a54
+      internalID: 6913586231471951732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_57
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 416
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adeaf51f635cb344285728e1d9533c74
+      internalID: -6553945607612090263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_58
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 416
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5686bef10ace4b34a894ddf7579512e2
+      internalID: 6111862981884117219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_59
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 416
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 586a3c3bcc7ce1c4591f12e2135f536d
+      internalID: -996688649662697002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_60
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 416
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25700825a216344f834739f0928ea34
+      internalID: 3023659432138093073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_61
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 418
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d120ca9ecdb0fcb40a0f500a93fce50d
+      internalID: 2089734761214147111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_62
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 418
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14dd4596ebb796045aac62d2727d362c
+      internalID: -8313503548201402893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_63
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 416
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 675ecedd39d4b5c419d79ada5d4dbf93
+      internalID: -5894513982616490380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_64
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 384
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac1d1e9f72af062459b4cebc915eef60
+      internalID: 373181871116111593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_65
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 384
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5b593b1cdde2e145a99288e1e3178e4
+      internalID: 6994592074899298200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_66
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 384
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60af83ff9cbe2f4479fb97983152d3fe
+      internalID: -9161612461627580193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_67
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 384
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95a25520e52d698489c645bc791a0861
+      internalID: -7738303712164284249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_68
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 384
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9a4ad4dbdd134140acbcec1e0575552
+      internalID: -2250778422851295730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_69
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 386
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 971580b4d35c77144a2a8b4d3e23ca8b
+      internalID: 3306584334693493965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_70
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 385
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50393956ff3647547a7896d260ca961e
+      internalID: 744026997179625506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_71
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 384
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc6d555a3ef0d15459eb2482f1776a4a
+      internalID: -2043936293753515302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_72
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 384
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 578e5bdcadcca5344bcd7fcdfccd5cde
+      internalID: -2468360714325375450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_73
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 384
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f19bd70058e8d249a9cc81ad117bc9c
+      internalID: 1721401368907973683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_74
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 384
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22c2d84f4da115641b6b580e590234d5
+      internalID: -7003572134136886919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_75
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 384
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf95ff031d80d274ea6fe2c8d64a44c8
+      internalID: -6945560143387810603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_76
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 384
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f13583b766939584f8f6d3558a1b9ceb
+      internalID: -3000087757958336024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_77
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 386
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f6db1a634373104cb1eb3716c64238d
+      internalID: 8497050393547199435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_78
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 385
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cb0e5f2f28f65547a89d7896f350e05
+      internalID: -1405926815917499285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_79
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 384
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 249461b04e2d3614d9e7efa13f79ba2b
+      internalID: -3088917668898285480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_80
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 352
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18609a025a5cea54db2bad24d838b307
+      internalID: -7318781925356444421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_81
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 352
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21e286bbbe70a4d429693e52e1f9bc8f
+      internalID: 9193921741894450623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_82
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 352
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afb7293b50d32c649aa1790cb72939af
+      internalID: -4702356296107051236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_83
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 352
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88985022272491d47bc364f7689cff74
+      internalID: -3550491855221541128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_84
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 352
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 050436f246f5d994dba144d6d9b5cdc0
+      internalID: -6774825194909658593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_85
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 352
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8af4ab840bac06347841d4df6b12a826
+      internalID: 5522428161858840055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_86
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 352
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f9861405ba275044be4f5130e6cada7
+      internalID: -1829739860096553913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_87
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 352
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cb3ebfbe519f4e4aa9060806befe80b
+      internalID: 4908687453261640702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_88
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 352
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5395df8c38ebafc42b31d8745f0d87d9
+      internalID: 6493921412403511878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_89
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 352
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c311d1a893139b34babfff691da21de1
+      internalID: -7309142800456239678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_90
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 352
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd4d8a2f1b799f54090af9151301a6b6
+      internalID: -6849664368659625596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_91
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 352
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00965e5772563cf4ca9ea7e3695f1299
+      internalID: 6204366067346074515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_92
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 352
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1e443abed23b92429f3fe58b0a916d1
+      internalID: 5934791421182568185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_93
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 354
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c106a5ba9eb434945bc6e818f219ec8b
+      internalID: -540712132708593951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_94
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 353
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 744673a0a5af7fe4882bd582eb33142f
+      internalID: -7509430304529245133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_95
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 352
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba2913e9365c25245a67cc676e5a4f42
+      internalID: -7206346713712791061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_96
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 320
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4958f0ada77d994881ba9c5cfb9dfa6
+      internalID: -1926589401498841846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_97
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 320
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75fc9376e66edb94c9fcdc99a5fff651
+      internalID: 7995749117020595232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_98
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 320
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 160c33d4a11a0104287d149e3b22ffe9
+      internalID: -3229089389348720254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_99
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 320
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1b38eec0ffe92c428ea84bda822a87a
+      internalID: 7983550018092113228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_100
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 320
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b46eb1446dba1404aba8e9fecdc50091
+      internalID: 8978608795033253796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_101
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 320
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a7898aa31d3b0479d2bb3d9b016fb0
+      internalID: -4376653855910337614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_102
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 320
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95ac492f13c959145b9c156e2dd41509
+      internalID: 3735409846406989852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_103
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 320
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f354807289bc71f42abc0652631a3e96
+      internalID: 6527076038203423004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_104
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 320
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d75ca1a9c6c60554eb47de00e407333e
+      internalID: 5026710603875557414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_105
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 327
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e5308e78172e484d801476a72c728b8
+      internalID: 5481091344104298815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_106
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 320
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f222512b064c4884bb488d8af4b2c2a8
+      internalID: 8212600951489100451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_107
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 327
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6730153160004994bb69ed11aafac217
+      internalID: -502315113681436716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_108
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 320
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 673934c9bc247f44ca9b6b5b220d8e9e
+      internalID: 4731661172593003874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_109
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 326
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bc45ec95663f0e4ab6a9a3533ca526b
+      internalID: -7511005455225484672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_110
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 320
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c78dcb7c03c03b45ac3af3786c13610
+      internalID: -3922155619884546443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_111
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 325
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d87d2135328696244ab15ace62347efa
+      internalID: -5256112349280081368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_112
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 320
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d715b10a4ef9bc4ea7ba6a644327c2d
+      internalID: -4692427678466600595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_113
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 327
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7258acf8f7cbb4a4f98de27e7af03498
+      internalID: 375828784259749113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_114
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 322
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18f2aa11ea2dc4946bc566cb6193f6e6
+      internalID: -3268493841568099042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_115
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 322
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5977cc7178154ca46a3f3255f0f17433
+      internalID: -6590033769026437820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_116
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 328
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 003c812b153e7fb489b5ac9b82569d03
+      internalID: -8532503724012214431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_117
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 320
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1bec747930176f48a6835f35bae0e17
+      internalID: 2048179458595165777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_118
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 288
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a1651c0c320c9488505f57ce4ff273
+      internalID: 1516799481756205129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_119
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 288
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1569e2ca67f0f0e4d9b2ff65401c1d05
+      internalID: 290760835263935590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_120
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 288
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b437c71083d69146bbd60c79c9d1457
+      internalID: 3115292161359696013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_121
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 288
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3553ba9ce0b0cf4a890780257594df7
+      internalID: -737962702386673816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_122
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 288
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac710ca99b07d2f49b66558a4ad1c835
+      internalID: -3177824580028337953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_123
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 288
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a75fa8d99c0f68449c739f33760440e
+      internalID: 38855975386388712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_124
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 288
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a56e5cf009aca546ac211e7b3d467c1
+      internalID: 3214161541382315264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_125
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 288
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56561b9c0a9919a49bfd4aebe2994c78
+      internalID: 6639259769996503206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_126
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 288
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c29ac22d1bfcf854b9febe5e5a8ccadc
+      internalID: 3669925118200195000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_127
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 288
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 628d1f2ba13f4cd43acefd1ade80ddd2
+      internalID: -3504428947944271594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_128
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 288
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64dadaa95bf670f4a883cb0386658a9d
+      internalID: -2872369939641632193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_129
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 288
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b167dea72ea592a42800243a8a712a8b
+      internalID: 7713235708419705860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_130
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 288
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0493e19143786db4ab03b7d5c053394b
+      internalID: 8955364918345144634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_131
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 288
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ca5fc170b58df0498d524945bc2c944
+      internalID: 8111434872751830537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_132
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 288
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0808b630d4f4f04eae07aec6173ddb2
+      internalID: 2687925060386375175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_133
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 288
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43c9db1ee00a4c9408d5d2ffb14cd972
+      internalID: -100199845213404203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_134
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 256
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b1af9d1ccd3a40468b1a407d8d76ead
+      internalID: -3521760935676264904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_135
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 256
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54c3a343d1ed02b43b19801fe276ddd1
+      internalID: 8316767484302298587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_136
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 256
+        width: 23
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b4f5a872ca605c4b9c0c4a106b7cae0
+      internalID: -3758740710588031990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_137
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 256
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b97908ba349898e46abc80577da0c9b7
+      internalID: -7632851179429940680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_138
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 256
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 797ebc1861e3fb74d93e6da63597f74d
+      internalID: 3349714182650524146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_139
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 258
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38254c4e06545704080cded12489488b
+      internalID: 8397233310529568653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_140
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 257
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59b1daf4ca9fe4f458bd90a7c7e1070d
+      internalID: 1958142948094951007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_141
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 256
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 304e1d9987e5ba741937308e82cd3bb9
+      internalID: -5248783081277420762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_142
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 256
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af19954ba3066c6499bf7f3eb0487c1e
+      internalID: -4011956372482863884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_143
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 256
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415351fe842b9584c84c4246e9bbf77c
+      internalID: 3923160049914704905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_144
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 256
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 663011a796c73fa4b84201eefd8a0b72
+      internalID: 6075142109430574554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_145
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 256
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c406002662287a4486b2acdd77ebbe2
+      internalID: 8013750745612593423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_146
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 256
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adc6fec5845414848b66c3596f722c91
+      internalID: 4769056488867781722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_147
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 256
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5542e9ab966085c4fa4a0b5546d80697
+      internalID: 3252966934249776969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_148
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 256
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64f474a2fd8a9bd46990877f99d3c6e9
+      internalID: -8218036808856688793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_149
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 256
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cb892bd35fefdf469740a48eeea9cf9
+      internalID: -3279300691804783593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_150
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 224
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f93feb898fc2c4f81ee66151ef0599
+      internalID: 2174955346840159246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_151
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 224
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3380be4a5971af4eb088bcea788999e
+      internalID: 5009270341856552218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_152
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 224
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f67e2149faaef704a9222f139941c3e1
+      internalID: 5854636801757058139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_153
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 224
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7cb8fd27dddbc043bdd869b5d12bacc
+      internalID: 5091246992035157555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_154
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 224
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a597db7c59bdc74a9fe47474b04fb8d
+      internalID: 7476720725588813772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_155
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf9b45a770643ea4880a59859774b8af
+      internalID: 4918311270985189485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_156
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 225
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 718866b56fbe48c4f95e06dbab723851
+      internalID: -373408957435408376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_157
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 224
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d122a9e2570418445b68408ae6b81ce4
+      internalID: -5169302110503061154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_158
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 224
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dc3e11fc062c7d41a8422a237931f4d
+      internalID: -3277116002680845223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_159
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 224
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48db63b571b2f314984dceb295f4de9a
+      internalID: 5684764193210140457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_160
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 224
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b51e934a3840064197c9dff29c2fc27
+      internalID: 4743278812712856756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_161
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 224
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8409cc6abd3e05148891ec55dec64f16
+      internalID: -8010771263685237955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_162
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 224
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f11aaf436a9d664ab5eb00168bb6aed
+      internalID: 5160659851139926448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_163
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 226
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f25a9fed31580fc44bcfa512fe0be29b
+      internalID: 1159680469554545456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_164
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 225
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fcc50ee8f0a7c54cac73da3d4cebe34
+      internalID: 6783645055280119999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_165
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 224
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13dc52bfd572a224abc20f18417e69f8
+      internalID: -4112711197983779127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_166
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 192
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c72216e505116146976339357e646c6
+      internalID: -2953731767398375051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_167
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 192
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46df69b6d65f7ca4eb8e009ae3af269b
+      internalID: 199914030755215172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_168
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 192
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 779fe9ac7876a324c8290b251ea5e8a4
+      internalID: -7110825446910923074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_169
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 192
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebfa6ed9e8bf2ae44b5b707896cf1600
+      internalID: -4421925076473879015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_170
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 192
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c929ee3aafe207428e421d23eb79aef
+      internalID: -7308300014910086779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_171
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 194
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e1eac4042a9c824eb6f8b7dc27b1826
+      internalID: -5809783872180616611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_172
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 192
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95a7b2d9fde540b40b52945e00aec3bc
+      internalID: 7261869206463043604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_173
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 192
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c7405d1385ee424aa54751093d96b8f
+      internalID: 8324324962973902692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_174
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 192
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c65da749b33109d47b9a54ec88b9ca6c
+      internalID: -4785422354627322858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_175
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 192
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a4cec28f401a3e4d9abc66353913c8a
+      internalID: 7375090188399650830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_176
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 192
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d0d51a9ee1d1c24cb97c2691addff1e
+      internalID: -2959324791820945481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_177
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 192
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1930e96a7994ab94391da7d7ec6601e3
+      internalID: 6428034104502527072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_178
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 192
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b90ffa83f8e9c844895914bb2f36f842
+      internalID: 4031094007144186027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_179
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 194
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7889c9b7f35482c43a3676441dbf030a
+      internalID: 6503564266685704575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_180
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 193
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb9d76e9f9ef96744865a4c0543be96b
+      internalID: -587898590285896155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_181
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 192
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9be5e6e7dd083a34c8b6d16381b81aac
+      internalID: -1991177430511987684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_182
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 160
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d12ef5a3e4a95844db30ee4807e72862
+      internalID: 8990997568487377531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_183
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 160
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf0bcfdb28b6afc4782d07e9aed352f3
+      internalID: -3656478282514075913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_184
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 160
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a934ab34e5b9c7549a221d0c0b7b73aa
+      internalID: 7368682105132931740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_185
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 160
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbd5e3a103cee204983cfcdb33593f1e
+      internalID: 3034541399497776743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_186
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 160
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d7624866a15b684aab1c0c7a677d62d
+      internalID: 2376008392883794364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_187
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 162
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b958efb91cc8f64c9fd486d67421f64
+      internalID: 5514056670273961254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_188
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 161
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19170a1687982cc4689a7799d1dc5a48
+      internalID: -2394870695071819050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_189
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 160
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1131f86c23ba3c94ca66257d8e770090
+      internalID: -2650151097200591790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_190
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 160
+        width: 26
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8daf8eb75e7a744429e104039a362302
+      internalID: -5008138338200202060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_191
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 160
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79f63a4f12ca3934fbf0b804a74d8574
+      internalID: 2934252557286200944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_192
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 160
+        width: 26
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d438bff64788054cadc0fe4d4bc7987
+      internalID: -4689084125421460377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_193
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 160
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0d96f21c28a0b2438f03241934d347b
+      internalID: -1480902538778558354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_194
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 160
+        width: 30
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7867f09567567834ca607b6ddfe9d39d
+      internalID: 8579624267345625914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_195
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 162
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 646374ce497d49444ab3a78163bd3d45
+      internalID: 446464978750988443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_196
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 161
+        width: 30
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8631f4d4e4eb7ed4c87e899a6bb685a7
+      internalID: -95931999139729589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_197
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 160
+        width: 30
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbaca0d023914aa478849a3df583751d
+      internalID: -8246778965823954739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_198
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 128
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc37520a95caa0842b9cbcf8959a1ae5
+      internalID: 4471083888070130725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_199
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 128
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75439a1a8f195fb42a541dfebbd90b8f
+      internalID: 559458832015037655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_200
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 128
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 710625e7b7859214d86085f8db830b9a
+      internalID: 6820183098121093420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_201
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 128
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ca83ec435f02614baec38408bb375ed
+      internalID: 5829855461412116322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_202
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 128
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dea3cfe119e21742a92fc484d4c36d2
+      internalID: -6953309690176178120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_203
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 130
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0011bc8ff8d4470448c1ae0c239b1701
+      internalID: -1246152569728983531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_204
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 129
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd6b59361b461c447a7b53d596a05483
+      internalID: 4597583211946171966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_205
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 31
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cad5631501f078048914987b265e7642
+      internalID: -8759806667813142920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_206
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 70
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f6ca4dbc18f03642b5b51f506bec0cd
+      internalID: 6747628096715052774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_207
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 64
+        width: 38
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74ae5e57458316647a49a4fd9a0b712f
+      internalID: -878804886935490105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_208
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 70
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69b2d5b3fb143d94caa94bb1e3a671a9
+      internalID: 4950337669338095135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_209
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 70
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ce084bb778415740b74332cac09fc41
+      internalID: -8575107689554182132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_210
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 64
+        width: 38
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3641de9cd12e6c64293a2929cfb65286
+      internalID: -6681491660906489850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_211
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 70
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce5370131710f7743b9591ebb3bbef29
+      internalID: -417084617377659916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_212
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 69
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20b3546d5e41a084397e8b162cbdda4b
+      internalID: -447138006984407244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_213
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 64
+        width: 38
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3a44c78fc242ba4eb34d8ec70876587
+      internalID: 6430800597809810117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_214
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 69
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a39d792e71adda849b256d6f632f356b
+      internalID: 3440686328701329077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_215
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 68
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27ce7a68e3ca57d41b7de316aec825e3
+      internalID: 8244195943903958134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_216
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 64
+        width: 38
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3614962fc79af47baa121269b53cbb
+      internalID: -4539117457166616169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_217
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 68
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d79e26529d1d2c4f8ffe4444437b5d4
+      internalID: -3281222308362501174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_218
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 68
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b31a7752c884604fb44789190255a94
+      internalID: -6975013490664960795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_219
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 64
+        width: 38
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50850a970d9271043a883fa7d2d2fbbe
+      internalID: 5183645975395926370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_220
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 68
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13baa8292176ee547a10c15601248f42
+      internalID: -71306456179205602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_221
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 69
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a635d651e079e44185e36e887060782
+      internalID: 3875527868945725008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_222
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 64
+        width: 38
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7beb484f6b406a4496b83dda2ba27cd
+      internalID: 601360503182743194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_223
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 69
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2bfa4839baa9c341a5bc1ee3be64a0a
+      internalID: 1175739479127303501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_224
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 6
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 691c3bf19224cbe4bb2a2100cb143027
+      internalID: -2899835713758020093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_225
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
+        width: 38
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f19edecb5cb03c0458e640ba5e5197f0
+      internalID: 7067594507414070406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_226
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 6
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9027d0f612ae057408d69980ebb932a9
+      internalID: -5283633078349587232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_227
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 7
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb9f877f2509e0844a14605d8c2c4d2e
+      internalID: 2871660643559959241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_228
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 3
+        width: 38
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02b7ab85a9457d24aa4e5528d5ea61f8
+      internalID: -7735358109913935574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_229
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 7
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5e28d1ba163b97408f77e4da3a56551
+      internalID: -4562794049390994419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_230
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 8
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec1756dcecafcfb4ba4303ff48bdcbfb
+      internalID: 2011967143599303689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_231
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 3
+        width: 38
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 571ef26d24b5123489fedf4ae58082fc
+      internalID: 653154155346684986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_232
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 8
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5be8f0eee92398f4ea692dd1618d8b89
+      internalID: -4454769813378941733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_233
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 8
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8166d83cdb0249548a93573e316ee234
+      internalID: 1888851311228314333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_234
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 1
+        width: 38
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9c51b73ddef5d74ba17732de6309e85
+      internalID: -3119713229537798926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_235
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 8
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d3cb9579e0864547810ffdc15802de0
+      internalID: 3929969782457605071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_236
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 5
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 207b798bef2c33e48a6f177dc4b87ee9
+      internalID: 7457479229643159180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_237
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 0
+        width: 38
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdbbf25faa5289b409605dca28094b5c
+      internalID: -5426532412406787263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_238
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 5
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55a5f123b04a2244999a3fbab80dda0e
+      internalID: -4918459047124359296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_239
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 4
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f82bbd0a4344824ebbfb2a62dae7ac5
+      internalID: -2961471169597444273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_240
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 0
+        width: 38
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c41eff79c98e9284ba10431fc7ee7ab1
+      internalID: -572112189550964221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enchanted Forest Characters with animations_241
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 4
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7325d4c5fe00f4745a3738720da3ed61
+      internalID: -574692809675718822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: f25e03eb0445724419b9ff97b45a6d12
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

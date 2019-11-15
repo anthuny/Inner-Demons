@@ -68,6 +68,21 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        // Reset alpha of text to 0
+        textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusDamage.GetComponent<CanvasGroup>().alpha = 0;
+        textNeutralResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusHealth.GetComponent<CanvasGroup>().alpha = 0;
+        textBadResp.GetComponent<CanvasGroup>().alpha = 0;
+        textPlusEDamage.GetComponent<CanvasGroup>().alpha = 0;
+
+        textGoodResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        textNeutralResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusHealth.GetComponent<AlphaTransition>().canIncrease = false;
+        textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
+        textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = false;
+
         statIncreaseText = "+ Projectile Speed\n+ Reload Speed";
 
         // Reset stat increase text to default
@@ -121,7 +136,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         //If the player shoots, close player's dialogue box
-        if (Input.GetMouseButton(0)) 
+        if (Input.GetMouseButton(0))
         {
             animatorP.SetBool("isOpenP", false);
         }
@@ -441,5 +456,6 @@ public class DialogueManager : MonoBehaviour
         memory.gameObject.SetActive(false);
 
         memory.GetComponent<Memory>().interacted = false;
+    }
 }
-}
+

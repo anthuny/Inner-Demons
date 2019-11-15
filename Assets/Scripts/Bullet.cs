@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Player playerScript;
-    private GameObject player;
     public GameObject enemy;
-    private Vector3 forward;
     public bool playerBullet;
+    public Transform weaponHolder;
+
     private Vector3 playerPos;
     private SpriteRenderer sr;
     private string currentElement;
     private Gamemode gamemode;
-
+    private Vector3 forward;
+    private Player playerScript;
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class Bullet : MonoBehaviour
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         enemy = GameObject.Find("Enemy 1");
 
-        forward = player.transform.right;
+        forward = weaponHolder.transform.right;
 
         playerPos = player.transform.position;
 
@@ -49,8 +50,7 @@ public class Bullet : MonoBehaviour
         }
 
         //Increase the size of the bullet based on the damage of the player
-        transform.localScale = new Vector2(5,5) * gamemode.bulletDamage / 20;
-
+        transform.localScale = new Vector2(5, 5) * gamemode.bulletDamage / 20;
     }
 
     // Update is called once per frame
@@ -74,7 +74,6 @@ public class Bullet : MonoBehaviour
             other.GetComponent<Enemy>().DecreaseHealth(gamemode.bulletDamage, currentElement);
             Death();
         }
-
     }
 
     void Death()
@@ -82,3 +81,4 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 }
+ 

@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     private Image p_HealthBar;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    public Animator animator;
+
+    //Gamemode
+    private Gamemode gm;
 
     //Room
     public GameObject doors;
@@ -28,6 +32,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        gm = FindObjectOfType<Gamemode>();
         gamemode = FindObjectOfType<Gamemode>();
         name = "Player";
         rb = GetComponent<Rigidbody2D>();
@@ -43,7 +48,8 @@ public class Player : MonoBehaviour
         p_HealthBar.fillAmount = 1f;
         gamemode.isFire = true;
     }
-    void Update()
+
+    void FixedUpdate()
     {
         if (Input.GetMouseButton(0))
         {
@@ -54,12 +60,10 @@ public class Player : MonoBehaviour
         {
             ShotCooldown();
         }
-    }
 
-    void FixedUpdate()
-    {
+        AnimationController();
         Movement();
-        LookAtMouse();
+        StartCoroutine(LookAtMouse());
         GodMode();
         ElementManager();
     }
@@ -93,19 +97,19 @@ public class Player : MonoBehaviour
         // If player is Fire element, change visually
         if (gamemode.isFire)
         {
-            sr.color = Color.red;
+            //sr.color = Color.red;
         }
 
         // If player is Fire element, change visually
         if (gamemode.isWater)
         {
-            sr.color = Color.blue;
+            //sr.color = Color.blue;
         }
 
         // If player is Fire element, change visually
         if (gamemode.isEarth)
         {
-            sr.color = Color.green;
+            //sr.color = Color.green;
         }
     }
     void GodMode()
@@ -131,7 +135,8 @@ public class Player : MonoBehaviour
         if (!hasShot && !FindObjectOfType<DialogueManager>().dialogueTriggered)
         {
             hasShot = true;
-            Instantiate(bullet, gunHolder.position, Quaternion.identity);
+            GameObject go = Instantiate(bullet, gunHolder.position, Quaternion.identity);
+            go.GetComponent<Bullet>().weaponHolder = gunHolder;
             bullet.GetComponent<Bullet>().playerBullet = true;
         }
     }
@@ -204,14 +209,93 @@ public class Player : MonoBehaviour
         FindObjectOfType<DialogueManager>().StartDialogue(memory.GetComponent<Memory>().dialogue);
     }
 
-    void LookAtMouse()
+    IEnumerator LookAtMouse()
     {
+        Debug.Log(animator.speed);
+
         // if the player is NOT in a conversation, they can look around
         if (!FindObjectOfType<DialogueManager>().dialogueTriggered)
         {
+            if (animator.GetBool("attackingLeft") || (animator.GetBool("attackingRight")) || (animator.GetBool("attackingUp")) || (animator.GetBool("attackingDown")))
+            {
+                // This is a temporary fix, Needs speed to increase depending on how small gm.shotSpeed is
+                animator.speed = 1.5f;
+            }
+
+            if (!animator.GetBool("attackingLeft") && (!animator.GetBool("attackingRight")) && (!animator.GetBool("attackingUp")) && (!animator.GetBool("attackingDown")))
+            {
+                animator.speed = 1;
+            }
+
             Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            //Rotate the Weapon holder to rotate towards mouse location
+            transform.GetChild(1).gameObject.GetComponent<Transform>().rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            // If facing RIGHT
+            if (angle > -45 && angle < 45)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    animator.SetBool("attackingRight", true);
+                    animator.SetBool("attackingLeft", false);
+                    animator.SetBool("attackingDown", false);
+                    animator.SetBool("attackingUp", false);
+
+                    yield return new WaitForSeconds(0);
+
+                    animator.SetBool("attackingRight", false);
+                }
+            }
+
+            // If facing UP
+            if (angle > 45 && angle < 135)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    animator.SetBool("attackingUp", true);
+                    animator.SetBool("attackingLeft", false);
+                    animator.SetBool("attackingDown", false);
+                    animator.SetBool("attackingRight", false);
+
+                    yield return new WaitForSeconds(0);
+
+                    animator.SetBool("attackingUp", false);
+                }
+            }
+
+            // If facing LEFT
+            if (angle > 135 && angle < 180 || angle > -180 && angle < -135)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    animator.SetBool("attackingLeft", true);
+                    animator.SetBool("attackingRight", false);
+                    animator.SetBool("attackingDown", false);
+                    animator.SetBool("attackingUp", false);
+
+                    yield return new WaitForSeconds(0);
+
+                    animator.SetBool("attackingLeft", false);
+                }
+            }
+
+            // If facing DOWN
+            if (angle > -135 && angle < -45)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    animator.SetBool("attackingDown", true);
+                    animator.SetBool("attackingLeft", false);
+                    animator.SetBool("attackingRight", false);
+                    animator.SetBool("attackingUp", false);
+
+                    yield return new WaitForSeconds(0);
+
+                    animator.SetBool("attackingDown", false);
+                }
+            }
         }
     }
 
@@ -228,6 +312,57 @@ public class Player : MonoBehaviour
         if (FindObjectOfType<DialogueManager>().dialogueTriggered)
         {
             rb.velocity = new Vector2(0, 0);
+        }
+    }
+
+    void AnimationController()
+    {
+        // Check if player is NOT moving, to play correct animation
+        if (rb.velocity == new Vector2(0, 0))
+        {
+            animator.SetBool("isIdle", true);
+            animator.SetBool("walkingLeft", false);
+            animator.SetBool("walkingUp", false);
+            animator.SetBool("walkingDown", false);
+            animator.SetBool("walkingRight", false);
+        }
+
+        // If player is moving Left/Right, play animation accordingly
+        if (rb.velocity.x > 0)
+        {
+            animator.SetBool("isIdle", false);
+            animator.SetBool("walkingLeft", false);
+            animator.SetBool("walkingUp", false);
+            animator.SetBool("walkingDown", false);
+            animator.SetBool("walkingRight", true);
+        }
+
+        else if (rb.velocity.x < 0)
+        {
+            animator.SetBool("isIdle", false);
+            animator.SetBool("walkingRight", false);
+            animator.SetBool("walkingUp", false);
+            animator.SetBool("walkingDown", false);
+            animator.SetBool("walkingLeft", true);
+        }
+
+        // If player is moving Up/Down, play animation accordingly
+        else if (rb.velocity.y > 0)
+        {
+            animator.SetBool("isIdle", false);
+            animator.SetBool("walkingRight", false);
+            animator.SetBool("walkingLeft", false);
+            animator.SetBool("walkingDown", false);
+            animator.SetBool("walkingUp", true);
+        }
+
+        else if (rb.velocity.y < 0)
+        {
+            animator.SetBool("isIdle", false);
+            animator.SetBool("walkingRight", false);
+            animator.SetBool("walkingLeft", false);
+            animator.SetBool("walkingUp", false);
+            animator.SetBool("walkingDown", true);
         }
     }
  }  
