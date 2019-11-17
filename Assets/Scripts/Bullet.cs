@@ -50,7 +50,7 @@ public class Bullet : MonoBehaviour
         }
 
         //Increase the size of the bullet based on the damage of the player
-        transform.localScale = new Vector2(5, 5) * gamemode.bulletDamage / 20;
+        transform.localScale = new Vector2(5, 5) * gamemode.bulletDamage / 15;
     }
 
     // Update is called once per frame
@@ -72,6 +72,11 @@ public class Bullet : MonoBehaviour
         if (other.tag == "Enemy")
         {
             other.GetComponent<Enemy>().DecreaseHealth(gamemode.bulletDamage, currentElement);
+            Death();
+        }
+
+        if (other.tag == "Wall")
+        {
             Death();
         }
     }

@@ -74,7 +74,7 @@ public class E_Bullet : MonoBehaviour
 
 
         //Increase the size of the bullet based on the damage of the enemy
-        transform.localScale = new Vector2(7, 7) * gamemode.e_BulletDamage / 20;
+        transform.localScale = new Vector2(7, 7) * gamemode.e_BulletDamage / 5;
     }
 
     // Update is called once per frame

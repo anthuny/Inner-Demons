@@ -23,12 +23,16 @@ public class DialogueManager : MonoBehaviour
 
     [Header("General")]
     public float alphaIncSpeed;
+    public float alphaDecSpeed;
     [TextArea(3, 10)]
     public string[] choiceText;
     public Text statIncrease;
     public string statIncreaseText;
     public float waitTimeAlphaStart;
     private GameObject memory;
+    private Player player;
+    public bool talkPressed;
+    public bool buttonTriggered;
 
     [Header("Other Character's Dialogue Box")]
     public Animator animator;
@@ -41,6 +45,7 @@ public class DialogueManager : MonoBehaviour
     public Text buttonGood;
     public Text buttonNeutral;
     public Text buttonBad;
+    public GameObject buttonTalk;
 
     [Header("Responsibility Text")]
     public Text textGoodResp;
@@ -55,6 +60,9 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        buttonTalk.GetComponentInChildren<Button>().interactable = false;
+
+        player = FindObjectOfType<Player>();
         charTimeGap = charTimeGapDef;
 
         sentences = new Queue<string>();
@@ -64,6 +72,65 @@ public class DialogueManager : MonoBehaviour
         choices.SetActive(false);
 
         gamemode = FindObjectOfType<Gamemode>();
+    }
+
+    private void FixedUpdate()
+    {
+        EnableTalkButton();
+        memory = player.memory;
+    }
+
+    // Turns the talk button off
+    public void DisableTalkButton()
+    {
+        if (buttonTriggered)
+        {
+            buttonTriggered = false;
+            player.memory.GetComponent<Memory>().interacted = false;
+            buttonTalk.GetComponentInChildren<Button>().interactable = false;
+
+            buttonTalk.GetComponentInChildren<AlphaTransition>().canIncrease = false;
+            buttonTalk.GetComponentInChildren<CanvasGroup>().alpha = 1;
+            buttonTalk.GetComponentInChildren<AlphaTransition>().canDecrease = true;
+            talkPressed = false;
+        }
+    }
+
+    // Turns the talk button on
+    public void EnableTalkButton()
+    {
+        // Check if memory exists from player
+        if (player.memory)
+        {
+            //buttonTalk.GetComponentInChildren<CanvasGroup>().alpha = 0;
+
+            // Check if the particular memory has been interacted,
+            // and if the player is standing still,
+            // and if the player has hit the memory's hitbox
+            if (player.memory.GetComponent<Memory>().interacted && player.playerStill && !talkPressed)
+            {
+                buttonTalk.GetComponentInChildren<Button>().interactable = true;
+                buttonTalk.GetComponentInChildren<AlphaTransition>().canDecrease = false;
+                buttonTalk.GetComponentInChildren<AlphaTransition>().canIncrease = true;
+
+                // Allows the talk button to disable if player walks out of range
+                buttonTriggered = true;
+            }
+        }
+    }
+
+    // Function the talk button does
+    public void TriggerDialogue()
+    {
+        talkPressed = true;
+        // Get reference to the memory's sentences, and send them to the dialogue manager
+        StartDialogue(player.memory.GetComponent<Memory>().dialogue);
+
+        buttonTalk.GetComponentInChildren<Button>().interactable = false;
+        buttonTalk.GetComponentInChildren<AlphaTransition>().canIncrease = false;
+        buttonTalk.GetComponentInChildren<CanvasGroup>().alpha = 1;
+        buttonTalk.GetComponentInChildren<AlphaTransition>().canDecrease = true;
+
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -110,17 +177,21 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("space") && dialogueTriggered && sentences.Count != 0)
+        if (Input.touchCount > 0 && dialogueTriggered && sentences.Count != 0)
         {
-            DisplayNextSentence();
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                DisplayNextSentence();
+            }
         }
 
-        if (!Input.GetKey("space"))
+        if (Input.touchCount != 0)
         {
             timeFlag = false;
         }
 
-        if (Input.GetKey("space"))
+        if (Input.touchCount > 0)
         {
             timeFlag = true;
         }
@@ -136,7 +207,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         //If the player shoots, close player's dialogue box
-        if (Input.GetMouseButton(0))
+        if (Input.touchCount > 0)
         {
             animatorP.SetBool("isOpenP", false);
         }
@@ -326,7 +397,7 @@ public class DialogueManager : MonoBehaviour
         gamemode.IncreaseDamage();
 
         // Close Dialogue box
-        CloseDialogue();
+        StartCoroutine("CloseDialogue");
 
         // Open player dialogue;
         StartCoroutine(OpenPlayerDialogue());
@@ -350,7 +421,7 @@ public class DialogueManager : MonoBehaviour
         gamemode.IncreaseHealth();
 
         // Close Dialogue box
-        CloseDialogue();
+        StartCoroutine("CloseDialogue");
 
         // Open player dialogue;
         StartCoroutine(OpenPlayerDialogue());
@@ -374,7 +445,7 @@ public class DialogueManager : MonoBehaviour
         gamemode.IncreaseEnemyDamage();
 
         // Close Dialogue box
-        CloseDialogue();
+        StartCoroutine("CloseDialogue");
 
         // Open player dialogue;
         StartCoroutine(OpenPlayerDialogue());
@@ -429,7 +500,7 @@ public class DialogueManager : MonoBehaviour
         animatorP.SetBool("isOpenP", false);
     }
 
-    void CloseDialogue()
+    IEnumerator CloseDialogue()
     {
         // Reset alpha of text to 0
         textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
@@ -445,9 +516,14 @@ public class DialogueManager : MonoBehaviour
         textPlusHealth.GetComponent<AlphaTransition>().canIncrease = false;
         textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
         textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        
 
         // Close the Dialogue box
         animator.SetBool("isOpen", false);
+
+        gamemode.playerSpeed = gamemode.playerSpeedDead;
+        yield return new WaitForSeconds(1f);
+        gamemode.playerSpeed = 35f;
 
         dialogueTriggered = false;
         buttonTextSent = false;
