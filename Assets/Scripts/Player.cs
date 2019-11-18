@@ -77,9 +77,6 @@ public class Player : MonoBehaviour
         StartCoroutine(ShootAnimation());
         GodMode();
     }
-
-
-
     void GodMode()
     {
         // If the player presses 'G' their stats are increased
@@ -94,18 +91,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown("h"))
         {
             gamemode.p_healthDeath = -10000f;
-        }
-    }
-
-    void Shoot()
-    {
-        // If the player has NOT shot, and the dialogue is NOT triggered
-        if (!hasShot && !dg.dialogueTriggered)
-        {
-            hasShot = true;
-            GameObject go = Instantiate(bullet, gunHolder.position, Quaternion.identity);
-            go.GetComponent<Bullet>().weaponHolder = gunHolder;
-            bullet.GetComponent<Bullet>().playerBullet = true;
         }
     }
 
@@ -140,17 +125,19 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // If player enters a room, close all doors
+        // And check if room has already been entered before
         if (other.gameObject.tag == ("RoomCollider"))
         {
-            doors.SetActive(true);
-
             // Get reference to root of this object
-            // Spawn enemies in that room
             Transform roomTrans;
             roomTrans = other.transform.root;
             room = roomTrans.gameObject;
-            room.GetComponent<Room>().beenEntered = true;
-            room.GetComponent<Room>().StartCoroutine("SpawnEnemies");
+
+            if (!room.GetComponent<Room>().beenEntered)
+            {
+                room.GetComponent<Room>().beenEntered = true;
+                room.GetComponent<Room>().StartCoroutine("SpawnEnemies");
+            }
         }
 
         // If player talks to a memory
@@ -163,7 +150,9 @@ public class Player : MonoBehaviour
             {
                 memory.GetComponent<Memory>().interacted = true;
 
+                dg.inRange = true;
                 dg.EnableTalkButton();
+
             }
         }
     }
@@ -174,7 +163,20 @@ public class Player : MonoBehaviour
         // If player talks to a memory
         if (other.gameObject.tag == ("Memory") && dg.buttonTriggered)
         {
+            dg.inRange = false;
             dg.DisableTalkButton();
+        }
+    }
+
+    void Shoot()
+    {
+        // If the player has NOT shot, and the dialogue is NOT triggered
+        if (!hasShot && !dg.dialogueTriggered)
+        {
+            hasShot = true;
+            GameObject go = Instantiate(bullet, gunHolder.position, Quaternion.identity);
+            go.GetComponent<Bullet>().weaponHolder = gunHolder;
+            bullet.GetComponent<Bullet>().playerBullet = true;
         }
     }
 
@@ -194,20 +196,12 @@ public class Player : MonoBehaviour
                 animator.speed = 1;
             }
 
-            if (Input.touchCount > 0)
+            // If the player is touching the screen, OR 
+            // the player is imputing arrow key movements
+            if (Input.touchCount > 0 || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow))
             {
-                // Get the first touch on screen, and get it's position
-                //Touch touch = Input.GetTouch(0);
-                //Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-                //touchPos.z = 0f;
-
-                //float angle = Mathf.Atan2(touchPos.y, touchPos.x) * Mathf.Rad2Deg;
-
-                //Rotate the Weapon holder to rotate towards mouse location
-                //transform.GetChild(1).transform.right = touchPos - transform.GetChild(1).transform.position;
-
                 // If Joystick moves upwards
-                if (gamemode.joystickShoot.Vertical >= .1f && gamemode.joystickShoot.Horizontal >= -.35f && gamemode.joystickShoot.Horizontal <= .35f)
+                if (gamemode.joystickShoot.Vertical >= .1f || Input.GetKey(KeyCode.UpArrow))
                 {
                     // Rotate gun holder
                     gunHolder.localEulerAngles = new Vector3(0, 0, 90);
@@ -221,12 +215,10 @@ public class Player : MonoBehaviour
                     animator.SetBool("attackingUp", true);
 
                     yield return new WaitForSeconds(0);
-
-                    //animator.SetBool("attackingUp", false);
                 }
 
                 // If Joystick moves downwards
-                else if (gamemode.joystickShoot.Vertical <= -.1f && gamemode.joystickShoot.Horizontal >= -.35f && gamemode.joystickShoot.Horizontal <= .35f)
+                else if (gamemode.joystickShoot.Vertical <= -.1f || Input.GetKey(KeyCode.DownArrow))
                 {
                     // Rotate gun holder
                     gunHolder.localEulerAngles = new Vector3(0, 0, -90);
@@ -240,12 +232,10 @@ public class Player : MonoBehaviour
                     animator.SetBool("attackingDown", true);
 
                     yield return new WaitForSeconds(0);
-
-                    //animator.SetBool("attackingDown", false);
                 }
 
                 // If Joystick is moving Left
-                else if (gamemode.joystickShoot.Horizontal <= -.1f && gamemode.joystickShoot.Vertical >= -.35f && gamemode.joystickShoot.Vertical <= .35f)
+                else if (gamemode.joystickShoot.Horizontal <= -.1f || Input.GetKey(KeyCode.LeftArrow))
                 {
                     // Rotate gun holder
                     gunHolder.localEulerAngles = new Vector3(0, 0, -180);
@@ -259,12 +249,10 @@ public class Player : MonoBehaviour
                     animator.SetBool("attackingLeft", true);
 
                     yield return new WaitForSeconds(0);
-
-                    //animator.SetBool("attackingLeft", false);
                 }
 
                 // If Joystick is moving Right
-                else if (gamemode.joystickShoot.Horizontal >= .1f)
+                else if (gamemode.joystickShoot.Horizontal >= .1f || Input.GetKey(KeyCode.RightArrow))
                 {
                     // Rotate gun holder
                     gunHolder.localEulerAngles = new Vector3(0, 0, 0);
@@ -364,43 +352,52 @@ public class Player : MonoBehaviour
         // if the player is NOT in a conversation, they can move
         if (!FindObjectOfType<DialogueManager>().dialogueTriggered)
         {
-            // Enable movement and shoot joysticks if player is in dialogue
-            gamemode.joystickHolder.SetActive(true);
-
-            if (gamemode.joystickMove.Horizontal == 0 && gamemode.joystickMove.Vertical == 0)
+            if (gm.usingPC)
             {
-                playerStill = true;
-            }
-
-            else
-            {
-                playerStill = false;
-            }
-
-#if UNITY_IOS
-            if (gamemode.joystickMove.Horizontal >= .2f || gamemode.joystickMove.Vertical >= .2f)
-            {
-                inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeed, gamemode.joystickMove.Vertical * gamemode.playerSpeed);
+                inputVector = new Vector2(Input.GetAxisRaw("Horizontal") * gamemode.playerSpeed, Input.GetAxisRaw("Vertical") * gamemode.playerSpeed);
                 rb.velocity = inputVector;
 
-            } else if (gamemode.joystickMove.Horizontal <= -.2f || gamemode.joystickMove.Vertical <= -.2f)
-            {
-                inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeed, gamemode.joystickMove.Vertical * gamemode.playerSpeed);
-                rb.velocity = inputVector;
-            }
-            else
-            {
-                inputVector = new Vector2(0, 0);
-                rb.velocity = inputVector;
+                if (rb.velocity == new Vector2(0,0))
+                {
+                    playerStill = true;
+                } else
+                {
+                    playerStill = false;
+                }
             }
 
+            if (!gm.usingPC)
+            {
+                // disable movement and shoot joysticks if player is in dialogue
+                gamemode.joystickHolder.SetActive(true);
 
-#endif
+                if (gamemode.joystickMove.Horizontal == 0 && gamemode.joystickMove.Vertical == 0)
+                {
+                    playerStill = true;
+                }
 
-        //#if UNITY_EDITOR
-        //inputVector = new Vector2(Input.GetAxisRaw("Horizontal") * gamemode.playerSpeed, Input.GetAxisRaw("Vertical") * gamemode.playerSpeed);
-        //rb.velocity = inputVector;
-        //#endif
+                else
+                {
+                    playerStill = false;
+                }
+
+                if (gamemode.joystickMove.Horizontal >= .2f || gamemode.joystickMove.Vertical >= .2f)
+                {
+                    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeed, gamemode.joystickMove.Vertical * gamemode.playerSpeed);
+                    rb.velocity = inputVector;
+
+                }
+                else if (gamemode.joystickMove.Horizontal <= -.2f || gamemode.joystickMove.Vertical <= -.2f)
+                {
+                    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeed, gamemode.joystickMove.Vertical * gamemode.playerSpeed);
+                    rb.velocity = inputVector;
+                }
+                else
+                {
+                    inputVector = new Vector2(0, 0);
+                    rb.velocity = inputVector;
+                }
+            }
         }
 
         // Disable movement and shoot joysticks if player is in dialogue
@@ -413,9 +410,6 @@ public class Player : MonoBehaviour
 
     void MovementAnimation()
     {
-        //Debug.Log("Horizontal = " + joystickMove.Horizontal);
-        //Debug.Log("Vertical = " + joystickMove.Vertical);
-
         // Check if player is NOT moving, to play correct animation
         if (rb.velocity == new Vector2(0, 0))
         {
@@ -427,7 +421,7 @@ public class Player : MonoBehaviour
         }
 
         // If player is moving Up play animation accordingly
-        if (rb.velocity.y > 0 && rb.velocity.x > -0.75f && rb.velocity.x < 0.75f)
+        if (rb.velocity.y > 0 && rb.velocity.x > -0.9f && rb.velocity.x < 0.9f)
         {
             animator.SetBool("isIdle", false);
             animator.SetBool("walkingRight", false);
@@ -437,7 +431,7 @@ public class Player : MonoBehaviour
         }
 
         // If player is moving down play animation accordingly
-        if (rb.velocity.y < 0 && rb.velocity.x > -0.75f && rb.velocity.x < 0.75f)
+        if (rb.velocity.y < 0 && rb.velocity.x > -0.9f && rb.velocity.x < 0.9f)
         {
             animator.SetBool("isIdle", false);
             animator.SetBool("walkingRight", false);
@@ -447,7 +441,7 @@ public class Player : MonoBehaviour
         }
 
         // If player is moving right play animation accordingly
-        if (rb.velocity.x > 0 && rb.velocity.y > -0.75f && rb.velocity.y < 0.75f)
+        if (rb.velocity.x > 0 && rb.velocity.y > -0.9f && rb.velocity.y < 0.9f)
         {
             animator.SetBool("isIdle", false);
             animator.SetBool("walkingLeft", false);
@@ -458,7 +452,7 @@ public class Player : MonoBehaviour
         }
 
         // If player is moving Left play animation accordingly
-        if (rb.velocity.x < 0 && rb.velocity.y > -0.75f && rb.velocity.y < 0.75f)
+        if (rb.velocity.x < 0 && rb.velocity.y > -0.4f && rb.velocity.y < 0.4f)
         {
             animator.SetBool("isIdle", false);
             animator.SetBool("walkingRight", false);

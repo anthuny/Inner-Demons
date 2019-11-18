@@ -214,9 +214,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: walkingDown
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: walkingLeft
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4309850079775938826}
   m_Solo: 0
@@ -855,9 +852,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: walkingUp
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: walkingLeft
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3228743791791264574}
   m_Solo: 0
@@ -938,9 +932,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: walkingLeft
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: walkingUp
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2329057817252661715}
@@ -1173,9 +1164,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: walkingDown
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: walkingRight
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4309850079775938826}
@@ -1643,9 +1631,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: walkingUp
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: walkingRight
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3228743791791264574}
   m_Solo: 0
@@ -1768,9 +1753,6 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: walkingUp
-    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: walkingRight
     m_EventTreshold: 0
@@ -1938,9 +1920,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: walkingRight
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: walkingDown
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2452382748880465968}
@@ -2169,9 +2148,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: walkingLeft
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: walkingDown
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2329057817252661715}

@@ -6,20 +6,30 @@ public class Room : MonoBehaviour
 {
     private Transform[] enemySpawns;
     public GameObject enemyPrefab;
-    public GameObject doors;
+    private GameObject[] doors;
     public int roomEnemyCount = 0;
     public bool beenEntered;
     public float spawnWait;
-    public bool enemiesHaveSpawned;
+    private bool enemiesHaveSpawned;
     
     // Start is called before the first frame update
     void Start()
     {
-        doors.SetActive(false);
+        doors = GameObject.FindGameObjectsWithTag("Doors");
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].SetActive(false);
+        }
     }
 
     public IEnumerator SpawnEnemies()
     {
+        // For each door, close it
+        for (int f = 0; f < doors.Length; f++)
+        {
+            doors[f].SetActive(true);
+        }
+
         yield return new WaitForSeconds(spawnWait);
         enemySpawns = GetComponentsInChildren<Transform>();
 
@@ -33,7 +43,6 @@ public class Room : MonoBehaviour
                 enemiesHaveSpawned = true;
             }
         }
-
     }
 
     // Update is called once per frame
@@ -41,8 +50,10 @@ public class Room : MonoBehaviour
     {
         if (beenEntered && roomEnemyCount <= 0 && enemiesHaveSpawned)
         {
-            doors.SetActive(false);
-            gameObject.SetActive(false);
+            for (int i = 0; i < doors.Length; i++)
+            {
+                doors[i].SetActive(false);
+            }
         }
     }
 }

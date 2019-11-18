@@ -33,6 +33,7 @@ public class DialogueManager : MonoBehaviour
     private Player player;
     public bool talkPressed;
     public bool buttonTriggered;
+    public bool inRange;
 
     [Header("Other Character's Dialogue Box")]
     public Animator animator;
@@ -83,7 +84,7 @@ public class DialogueManager : MonoBehaviour
     // Turns the talk button off
     public void DisableTalkButton()
     {
-        if (buttonTriggered)
+        if (buttonTriggered && !inRange)
         {
             buttonTriggered = false;
             player.memory.GetComponent<Memory>().interacted = false;
@@ -107,7 +108,7 @@ public class DialogueManager : MonoBehaviour
             // Check if the particular memory has been interacted,
             // and if the player is standing still,
             // and if the player has hit the memory's hitbox
-            if (player.memory.GetComponent<Memory>().interacted && player.playerStill && !talkPressed)
+            if (player.memory.GetComponent<Memory>().interacted && player.playerStill && !talkPressed && inRange)
             {
                 buttonTalk.GetComponentInChildren<Button>().interactable = true;
                 buttonTalk.GetComponentInChildren<AlphaTransition>().canDecrease = false;
@@ -177,6 +178,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
+        // If player touches
         if (Input.touchCount > 0 && dialogueTriggered && sentences.Count != 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -184,6 +186,12 @@ public class DialogueManager : MonoBehaviour
             {
                 DisplayNextSentence();
             }
+        }
+
+        // If space is pressed
+        if (Input.GetKeyDown("space") && dialogueTriggered && sentences.Count != 0)
+        {
+            DisplayNextSentence();
         }
 
         if (Input.touchCount != 0)

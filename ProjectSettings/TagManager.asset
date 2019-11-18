@@ -12,6 +12,7 @@ TagManager:
   - Room
   - Memory
   - Wall
+  - Doors
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - 
   - Character Icon
   - Grid
-  - 
+  - Player UI
   - 
   - 
   - 

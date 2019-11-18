@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Gamemode : MonoBehaviour
 {
+    [Header("Current Platform")]
+    public bool usingPC;
+
     [Header("General")]
     public GameObject playerPrefab;
     public int enemyCount = 0;
@@ -128,28 +131,16 @@ public class Gamemode : MonoBehaviour
 
     void ElementManager()
     {
-        // If player presses 1, switch to fire element
-        if (Input.GetKeyDown("1"))
+        // If player presses a, switch to left element
+        if (Input.GetKeyDown("e"))
         {
-            isEarth = false;
-            isWater = false;
-            isFire = true;
+            currentElement -= 1;
         }
 
-        // If player pressed 2, switch to water element
-        if (Input.GetKeyDown("2"))
+        // If player pressed d, switch to right element
+        if (Input.GetKeyDown("q"))
         {
-            isFire = false;
-            isEarth = false;
-            isWater = true;
-        }
-
-        // If player presses 3, switch to earth element
-        if (Input.GetKeyDown("3"))
-        {
-            isFire = false;
-            isWater = false;
-            isEarth = true;
+            currentElement += 1;
         }
 
         // If player is Fire element, change visually
