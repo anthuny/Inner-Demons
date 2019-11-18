@@ -22,6 +22,8 @@ public class Gamemode : MonoBehaviour
     public GameObject fireElement;
     public GameObject waterElement;
     public GameObject earthElement;
+    public float lesserElementScale;
+    public float currentElementScale;
 
     [Header("Touch Inputs / Joysticks")]
     public GameObject joystickHolder;
@@ -160,16 +162,16 @@ public class Gamemode : MonoBehaviour
             // Move current element to current element position, and set it as a child
             fireElement.transform.position = currentEPos.transform.position;
             fireElement.transform.SetParent(currentEPos.transform);
-            fireElement.transform.localScale = new Vector2(1.45f, 1.45f);
+            fireElement.transform.localScale = new Vector2(currentElementScale, currentElementScale);
 
             // Adjust the other elements accordingly
             earthElement.transform.position = rightEPos.transform.position;
             earthElement.transform.SetParent(rightEPos.transform);
-            earthElement.transform.localScale = new Vector2(1.2f, 1.2f);
+            earthElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
 
             waterElement.transform.position = leftEPos.transform.position;
             waterElement.transform.SetParent(leftEPos.transform);
-            waterElement.transform.localScale = new Vector2(1.2f, 1.2f);
+            waterElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
         }
 
         // If player is water element, change visually
@@ -182,16 +184,16 @@ public class Gamemode : MonoBehaviour
             // Move current element to current element position, and set it as a child
             waterElement.transform.position = currentEPos.transform.position;
             waterElement.transform.SetParent(currentEPos.transform);
-            waterElement.transform.localScale = new Vector2(1.45f, 1.45f);
+            waterElement.transform.localScale = new Vector2(currentElementScale, currentElementScale);
 
             // Adjust the other elements accordingly
             fireElement.transform.position = rightEPos.transform.position;
             fireElement.transform.SetParent(rightEPos.transform);
-            fireElement.transform.localScale = new Vector2(1.2f, 1.2f);
+            fireElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
 
             earthElement.transform.position = leftEPos.transform.position;
             earthElement.transform.SetParent(leftEPos.transform);
-            earthElement.transform.localScale = new Vector2(1.2f, 1.2f);
+            earthElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
         }
 
         // If player is earth element, change visually
@@ -204,16 +206,16 @@ public class Gamemode : MonoBehaviour
             // Move current element to current element position, and set it as a child
             earthElement.transform.position = currentEPos.transform.position;
             earthElement.transform.SetParent(currentEPos.transform);
-            earthElement.transform.localScale = new Vector2(1.45f, 1.45f);
+            earthElement.transform.localScale = new Vector2(currentElementScale, currentElementScale);
 
             // Adjust the other elements accordingly
             waterElement.transform.position = rightEPos.transform.position;
             waterElement.transform.SetParent(rightEPos.transform);
-            waterElement.transform.localScale = new Vector2(1.2f, 1.2f);
+            waterElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
 
             fireElement.transform.position = leftEPos.transform.position;
             fireElement.transform.SetParent(leftEPos.transform);
-            fireElement.transform.localScale = new Vector2(1.2f, 1.2f);
+            fireElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
         }
 
         // Ensure current element doesn't go out of bounds
