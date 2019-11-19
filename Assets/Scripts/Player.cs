@@ -160,10 +160,20 @@ public class Player : MonoBehaviour
             }
         }
 
-            // If player talks to a memory
-            if (other.gameObject.tag == ("Memory"))
+        // If player talks to a memory
+        if (other.gameObject.tag == ("Memory"))
         {
-            memory = other.gameObject;
+            // If the object is a memory
+            if (!GameObject.FindGameObjectWithTag("Enemy"))
+            {
+                memory = other.gameObject;
+            }
+            
+            // if the object is the boss
+            else
+            {
+                memory = other.transform.parent.gameObject;
+            }
 
             // Only allow player to interact with each memory once
             if (!memory.GetComponent<Memory>().interacted)

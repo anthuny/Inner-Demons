@@ -17,9 +17,9 @@ public class DialogueManager : MonoBehaviour
     public float charTimeGapDef;
     private float charTimeGap;
     public bool timeFlag;
-    private bool chooseGood;
-    private bool chooseNeutral;
     private bool chooseBad;
+    private bool chooseNeutral;
+    private bool chooseGood;
 
     [Header("General")]
     public float alphaIncSpeed;
@@ -120,7 +120,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // Function the talk button does
+    // Function the talk button does when pressed
     public void TriggerDialogue()
     {
         talkPressed = true;
@@ -213,12 +213,6 @@ public class DialogueManager : MonoBehaviour
         {
             charTimeGap = charTimeGapDef;
         }
-
-        //If the player shoots, close player's dialogue box
-        if (Input.touchCount > 0)
-        {
-            animatorP.SetBool("isOpenP", false);
-        }
     }
     void DisplayNextSentence()
     {
@@ -250,24 +244,7 @@ public class DialogueManager : MonoBehaviour
         // Display the choices 
         choices.SetActive(true);
 
-        // Detects nearest memory
-        GameObject[] memories;
-        memories = GameObject.FindGameObjectsWithTag("Memory");
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector2 position = playerScript.gameObject.transform.position;
-        foreach (GameObject go in memories)
-        {
-            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.y) - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = go;
-                distance = curDistance;
-            }
-        }
-
-        memory = closest;
+        memory = player.memory;
 
         // Set Good text
         if (!buttonTextSent)
@@ -300,25 +277,6 @@ public class DialogueManager : MonoBehaviour
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = true;
         textPlusDamage.GetComponent<AlphaTransition>().canIncrease = true;
 
-        // Detects nearest memory
-        GameObject[] memories;
-        memories = GameObject.FindGameObjectsWithTag("Memory");
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector2 position = playerScript.gameObject.transform.position;
-        foreach (GameObject go in memories)
-        {
-            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.y) - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = go;
-                distance = curDistance;
-            }
-        }
-
-        memory = closest;
-
         // Set Neutral text
         buttonNeutral.text = memory.GetComponent<Memory>().memoryResponses[1];
         StartCoroutine(ButtonNeutralText(buttonNeutral.text));
@@ -342,25 +300,6 @@ public class DialogueManager : MonoBehaviour
         // Enable stat increase text to transition in
         textNeutralResp.GetComponent<AlphaTransition>().canIncrease = true;
         textPlusHealth.GetComponent<AlphaTransition>().canIncrease = true;
-
-        // Detects nearest memory
-        GameObject[] memories;
-        memories = GameObject.FindGameObjectsWithTag("Memory");
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector2 position = playerScript.gameObject.transform.position;
-        foreach (GameObject go in memories)
-        {
-            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.y) - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = go;
-                distance = curDistance;
-            }
-        }
-
-        memory = closest;
 
         // Set Bad text
         buttonBad.text = memory.GetComponent<Memory>().memoryResponses[2];
@@ -388,7 +327,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Button select upon on GOOD choice being selected
-    public void ChooseGood()
+    public void ChooseBad()
     {
         // DISABLE stat increase text from transition in
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = false;
@@ -398,11 +337,14 @@ public class DialogueManager : MonoBehaviour
         choices.SetActive(false);
 
         chooseNeutral = false;
-        chooseBad = false;
-        chooseGood = true;
+        chooseGood = false;
+        chooseBad = true;
 
         // Increase player's bullet damage
         gamemode.IncreaseDamage();
+
+        // Increase the player's Morality
+        gamemode.arrogance++;
 
         // Close Dialogue box
         StartCoroutine("CloseDialogue");
@@ -421,12 +363,15 @@ public class DialogueManager : MonoBehaviour
         // Make the buttons disappear
         choices.SetActive(false);
 
-        chooseBad = false;
         chooseGood = false;
+        chooseBad = false;
         chooseNeutral = true;
 
         // Increase player's health
         gamemode.IncreaseHealth();
+
+        // Increase the player's ignorance
+        gamemode.ignorance++;
 
         // Close Dialogue box
         StartCoroutine("CloseDialogue");
@@ -436,7 +381,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Button select upon on BAD choice being selected
-    public void ChooseBad()
+    public void ChooseGood()
     {
         // DISABLE stat increase text from transition in
         textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
@@ -445,12 +390,15 @@ public class DialogueManager : MonoBehaviour
         // Make the buttons disappear
         choices.SetActive(false);
 
-        chooseGood = false;
+        chooseBad = false;
         chooseNeutral = false;
-        chooseBad = true;
+        chooseGood = true;
 
         // Increase enemy's bullet damage
         gamemode.IncreaseEnemyDamage();
+
+        // Increase the player's Arrogance
+        gamemode.morality++;
 
         // Close Dialogue box
         StartCoroutine("CloseDialogue");
@@ -463,7 +411,7 @@ public class DialogueManager : MonoBehaviour
     {
         animatorP.SetBool("isOpenP", true);
 
-        if (chooseGood)
+        if (chooseBad)
         {
             // If the player chooses the an option, display appropriate text in their dialogue
             pDialogueText.text = choiceText[0];
