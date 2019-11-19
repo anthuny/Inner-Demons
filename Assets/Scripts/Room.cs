@@ -12,6 +12,7 @@ public class Room : MonoBehaviour
     public float spawnWait;
     private bool enemiesHaveSpawned;
     public bool doorsClosed;
+    public bool isBossRoom;
 
     public IEnumerator SpawnEnemies()
     {
@@ -23,10 +24,22 @@ public class Room : MonoBehaviour
             //Make sure not to spawn an enemy for the root, only children
             if (i != this.gameObject.transform && i.tag == "SpawnPoint")
             {
-                GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);
-                go.GetComponent<Enemy>().room = gameObject;
-                roomEnemyCount++;
-                enemiesHaveSpawned = true;
+                if (!isBossRoom)
+                {
+                    GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);
+                    go.GetComponent<Enemy>().room = gameObject;
+                    roomEnemyCount++;
+                    enemiesHaveSpawned = true;
+                }
+                else
+                {
+                    GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);
+                    go.GetComponent<Enemy>().room = gameObject;
+                    go.GetComponent<Enemy>().isBoss = true;
+                    go.GetComponent<Memory>().enabled = true;
+                    roomEnemyCount++;
+                    enemiesHaveSpawned = true;
+                }
             }
         }
     }

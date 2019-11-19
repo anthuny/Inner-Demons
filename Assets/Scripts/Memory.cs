@@ -13,14 +13,63 @@ public class Memory : MonoBehaviour
 
     private DialogueManager dm;
 
-    private void Start()
+    private GameObject enemy;
+    private GameObject bossDialogueBad;
+    private GameObject bossDialogueNeutral;
+    private GameObject bossDialogueGood;
+    private GameObject bossDialogueBalanced;
+    private GameObject dialogueToSelect;
+
+    private Gamemode gm;
+    private void OnEnable()
     {
-        dm = FindObjectOfType<DialogueManager>();
+        gm = FindObjectOfType<Gamemode>();
 
-        // Set each text in the options to equal the memories responses 
-        dm.buttonGood.text = memoryResponses[0];
+        // Referencing each boss dialogue texts
+        bossDialogueBad = GameObject.Find("EGOBossDialogueBad");
+        bossDialogueNeutral = GameObject.Find("EGOBossDialogueNeutral");
+        bossDialogueGood = GameObject.Find("EGOBossDialogueGood");
+        bossDialogueBalanced = GameObject.Find("EGOBossDialogueBalanced");
 
-        //dm.buttonNeutral.text = memoryResponses[1] + "\n\nAvoid Responsbility \n\n+ Health";
-        //dm.buttonBad.text = memoryResponses[2] + "\n\nDeny Responsbility \n\n+ Enemy Damage";
+        // If the memory script is on the boss
+        if (transform.tag == "Enemy")
+        {
+            enemy = transform.gameObject;
+
+            // If the player's arrogrance is the highest, set the gameobject to select to be the arrogant dialogue one
+            if (gm.arroganceHighest)
+            {
+                dialogueToSelect = bossDialogueBad;
+            }
+
+            // If the player's ignorance is the highest, set the gameobject to select to be the ignorance dialogue one
+            if (gm.ignoranceHighest)
+            {
+                dialogueToSelect = bossDialogueNeutral;
+            }
+
+            // If the player's morality is the highest, set the gameobject to select to be the morality dialogue one
+            if (gm.moralityHighest)
+            {
+                dialogueToSelect = bossDialogueGood;
+            }
+
+            if (!gm.moralityHighest && !gm.ignoranceHighest && !gm.arroganceHighest)
+            {
+                dialogueToSelect = bossDialogueBalanced;
+            }
+
+            // Assign the correct dialogue to the enemy to say
+            // Dialogue for enemy array length must match the chosen dialogues array length
+            for (int i = 0; i < dialogue.sentences.Length; i++)
+            {
+                dialogue.sentences[i] = dialogueToSelect.GetComponent<BossDialogueChoices>().sentences[i];
+            }
+        }
+    }
+
+    private void Update()
+    {
+
     }
 }
