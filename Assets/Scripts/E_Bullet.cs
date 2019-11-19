@@ -103,16 +103,10 @@ public class E_Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "PlayerHitbox")
         {
             player.GetComponent<Player>().DecreaseHealth(gamemode.e_BulletDamage);
             Death();
-        }
-
-        if (other.tag == "Enemy")
-        {
-            enemy = other.gameObject;
-            enemyScript = enemy.GetComponent<Enemy>();
         }
     }
     void Death()

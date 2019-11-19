@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     //Room
     public GameObject doors;
-    private GameObject room;
+    public GameObject room;
 
     //Memory
     public GameObject memory;
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         gamemode.p_curHealth = gamemode.p_maxHealth;
         p_HealthBar.fillAmount = 1f;
         gamemode.isFire = true;
-
+        
         talkButton.GetComponentInChildren<CanvasGroup>().alpha = 0;
         talkButton.SetActive(true);
     }
@@ -124,24 +124,44 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // If player enters a room, close all doors
+        // If player enters a room, trigger enemies to spawn
         // And check if room has already been entered before
         if (other.gameObject.tag == ("RoomCollider"))
+        {
+            // Remove player dialogue box from screen
+            dg.animatorP.SetBool("isOpenP", false);
+
+            // Get reference to root of this object
+            Transform roomTrans;
+            roomTrans = other.transform.root;
+            room = roomTrans.gameObject;
+
+            if (room.GetComponent<Room>())
+            {
+                if (!room.GetComponent<Room>().beenEntered)
+                {
+                    room.GetComponent<Room>().beenEntered = true;
+                    room.GetComponent<Room>().StartCoroutine("SpawnEnemies");
+                }
+            }
+        }
+
+        // If player triggers with room collider, close doors
+        if (other.gameObject.tag == ("RoomEnter"))
         {
             // Get reference to root of this object
             Transform roomTrans;
             roomTrans = other.transform.root;
             room = roomTrans.gameObject;
 
-            if (!room.GetComponent<Room>().beenEntered)
+            if (room.GetComponent<Room>() && !room.GetComponent<Room>().doorsClosed)
             {
-                room.GetComponent<Room>().beenEntered = true;
-                room.GetComponent<Room>().StartCoroutine("SpawnEnemies");
+                room.GetComponent<Room>().CloseDoors();
             }
         }
 
-        // If player talks to a memory
-        if (other.gameObject.tag == ("Memory"))
+            // If player talks to a memory
+            if (other.gameObject.tag == ("Memory"))
         {
             memory = other.gameObject;
 
@@ -152,7 +172,6 @@ public class Player : MonoBehaviour
 
                 dg.inRange = true;
                 dg.EnableTalkButton();
-
             }
         }
     }
@@ -165,6 +184,19 @@ public class Player : MonoBehaviour
         {
             dg.inRange = false;
             dg.DisableTalkButton();
+        }
+
+        if (other.gameObject.tag == ("RoomCollider"))
+        {
+            // Remove player dialogue box from screen
+            dg.animatorP.SetBool("isOpenP", false);
+
+            // Get reference to root of this object
+            Transform roomTrans;
+            roomTrans = other.transform.root;
+            room = roomTrans.gameObject;
+            Room roomScript = room.GetComponent<Room>();
+            Destroy(roomScript);
         }
     }
 
@@ -381,12 +413,14 @@ public class Player : MonoBehaviour
                     playerStill = false;
                 }
 
+                // Only start moving the player if the joystick moves enough
                 if (gamemode.joystickMove.Horizontal >= .2f || gamemode.joystickMove.Vertical >= .2f)
                 {
                     inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeed, gamemode.joystickMove.Vertical * gamemode.playerSpeed);
                     rb.velocity = inputVector;
 
                 }
+                // Only start moving the player if the joystick moves enough
                 else if (gamemode.joystickMove.Horizontal <= -.2f || gamemode.joystickMove.Vertical <= -.2f)
                 {
                     inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeed, gamemode.joystickMove.Vertical * gamemode.playerSpeed);

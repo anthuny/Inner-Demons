@@ -470,7 +470,6 @@ public class DialogueManager : MonoBehaviour
 
             // Add specific stat to statIncrease based on choice
             statIncrease.text += "\n+ Damage";
-
         }
 
         if (chooseNeutral)

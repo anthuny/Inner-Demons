@@ -51,27 +51,6 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<Player>();
 
-
-        // Exists so each enemy has a reference to the room that it's in
-        GameObject[] rooms;
-        rooms = GameObject.FindGameObjectsWithTag("Room");
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector2 position = transform.position;
-        foreach (GameObject enemy in rooms)
-        {
-            Vector2 diff = new Vector2(enemy.transform.position.x, enemy.transform.position.y) - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = enemy;
-                distance = curDistance;
-            }
-        }
-
-        //Set the nearest room as the reference for room
-        room = closest;
-
         Reset();
     }
 
@@ -211,6 +190,7 @@ public class Enemy : MonoBehaviour
             }
         }
         
+        // If this object dies
         if (e_CurHealth <= gamemode.e_HealthDeath)
         {
             //Decrease enemy count

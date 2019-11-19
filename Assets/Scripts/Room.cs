@@ -11,25 +11,10 @@ public class Room : MonoBehaviour
     public bool beenEntered;
     public float spawnWait;
     private bool enemiesHaveSpawned;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        doors = GameObject.FindGameObjectsWithTag("Doors");
-        for (int i = 0; i < doors.Length; i++)
-        {
-            doors[i].SetActive(false);
-        }
-    }
+    public bool doorsClosed;
 
     public IEnumerator SpawnEnemies()
     {
-        // For each door, close it
-        for (int f = 0; f < doors.Length; f++)
-        {
-            doors[f].SetActive(true);
-        }
-
         yield return new WaitForSeconds(spawnWait);
         enemySpawns = GetComponentsInChildren<Transform>();
 
@@ -38,10 +23,22 @@ public class Room : MonoBehaviour
             //Make sure not to spawn an enemy for the root, only children
             if (i != this.gameObject.transform && i.tag == "SpawnPoint")
             {
-                Instantiate(enemyPrefab, i.position, Quaternion.identity);
+                GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);
+                go.GetComponent<Enemy>().room = gameObject;
                 roomEnemyCount++;
                 enemiesHaveSpawned = true;
             }
+        }
+    }
+    public void CloseDoors()
+    {
+        doors = FindObjectOfType<RoomManager>().doors;
+        doorsClosed = true;
+
+        // For each door, close it
+        for (int f = 0; f < doors.Length; f++)
+        {
+            doors[f].SetActive(true);
         }
     }
 
