@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         {
             gamemode.p_healthDeath = -10000;
             gamemode.bulletSpeed += 20;
-            gamemode.playerSpeed += 2.5f;
+            gamemode.playerSpeedCur += 2.5f;
             gamemode.shotCooldown -= .1f;
         }
 
@@ -396,7 +396,7 @@ public class Player : MonoBehaviour
         {
             if (gm.usingPC)
             {
-                inputVector = new Vector2(Input.GetAxisRaw("Horizontal") * gamemode.playerSpeed, Input.GetAxisRaw("Vertical") * gamemode.playerSpeed);
+                inputVector = new Vector2(Input.GetAxisRaw("Horizontal") * gamemode.playerSpeedCur, Input.GetAxisRaw("Vertical") * gamemode.playerSpeedCur);
                 rb.velocity = inputVector;
 
                 if (rb.velocity == new Vector2(0,0))
@@ -426,14 +426,14 @@ public class Player : MonoBehaviour
                 // Only start moving the player if the joystick moves enough
                 if (gamemode.joystickMove.Horizontal >= .2f || gamemode.joystickMove.Vertical >= .2f)
                 {
-                    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeed, gamemode.joystickMove.Vertical * gamemode.playerSpeed);
+                    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeedCur, gamemode.joystickMove.Vertical * gamemode.playerSpeedCur);
                     rb.velocity = inputVector;
 
                 }
                 // Only start moving the player if the joystick moves enough
                 else if (gamemode.joystickMove.Horizontal <= -.2f || gamemode.joystickMove.Vertical <= -.2f)
                 {
-                    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeed, gamemode.joystickMove.Vertical * gamemode.playerSpeed);
+                    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeedCur, gamemode.joystickMove.Vertical * gamemode.playerSpeedCur);
                     rb.velocity = inputVector;
                 }
                 else

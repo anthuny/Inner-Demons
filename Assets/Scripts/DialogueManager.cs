@@ -343,7 +343,7 @@ public class DialogueManager : MonoBehaviour
         // Increase player's bullet damage
         gamemode.IncreaseDamage();
 
-        // Increase the player's Morality
+        // Increase the player's arrogance
         gamemode.arrogance++;
 
         // Close Dialogue box
@@ -397,7 +397,7 @@ public class DialogueManager : MonoBehaviour
         // Increase enemy's bullet damage
         gamemode.IncreaseEnemyDamage();
 
-        // Increase the player's Arrogance
+        // Increase the player's morality
         gamemode.morality++;
 
         // Close Dialogue box
@@ -429,7 +429,7 @@ public class DialogueManager : MonoBehaviour
             statIncrease.text += "\n+ Health";
         }
 
-        if (chooseBad)
+        if (chooseGood)
         {
             // If the player chooses the an option, display appropriate text in their dialogue
             pDialogueText.text = choiceText[2];
@@ -476,9 +476,9 @@ public class DialogueManager : MonoBehaviour
         // Close the Dialogue box
         animator.SetBool("isOpen", false);
 
-        gamemode.playerSpeed = gamemode.playerSpeedDead;
+        gamemode.playerSpeedCur = gamemode.playerSpeedDead;
         yield return new WaitForSeconds(1f);
-        gamemode.playerSpeed = 35f;
+        gamemode.playerSpeedCur = gamemode.playerSpeedDef;
 
         dialogueTriggered = false;
         buttonTextSent = false;

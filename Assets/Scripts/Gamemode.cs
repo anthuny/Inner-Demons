@@ -55,7 +55,8 @@ public class Gamemode : MonoBehaviour
     private Touch touch;
 
     [Header("Player Statistics")]
-    public float playerSpeed;
+    public float playerSpeedCur;
+    public float playerSpeedDef;
     public float playerSpeedDead = 0;
     public float p_maxHealth = 100;
     public float p_curHealth;
@@ -95,6 +96,8 @@ public class Gamemode : MonoBehaviour
     void Start()
     {
         spawnPos = GameObject.Find("EGOSpawnPoint").transform;
+
+        playerSpeedCur = playerSpeedDef;
     }
 
     // Update is called once per frame
