@@ -18,15 +18,6 @@ public class Gamemode : MonoBehaviour
     private GameObject player;
     private Transform spawnPos;
 
-    [Header("Choices")]
-    public int arrogance;
-    public int ignorance;
-    public int morality;
-    public bool arroganceHighest;
-    public bool ignoranceHighest;
-    public bool moralityHighest;
-    public int maxChoice;
-
     [Header("Element Handler")]
     public GameObject currentEPos;
     public GameObject leftEPos;
@@ -83,7 +74,6 @@ public class Gamemode : MonoBehaviour
     public float e_HealthDeath = 0;
     public float e_ViewDis;
     public float evadetimerMax;
-    public float bossDeathSpeed = 0;
 
     [Header("Enemy Ranged Attacking Statistics")]
     public float e_BulletDamage;
@@ -112,45 +102,6 @@ public class Gamemode : MonoBehaviour
         }
 
         ElementManager();
-        CalculateChoiceHigh();
-    }
-
-    public void CalculateChoiceHigh()
-    {
-        // Check what the highest choice is out of all choices
-        maxChoice = Mathf.Max(arrogance, ignorance, morality);
-
-        if (maxChoice == arrogance && maxChoice == ignorance && maxChoice == morality)
-        {
-            arroganceHighest = false;
-            ignoranceHighest = false;
-            moralityHighest = false;
-            return;
-        }
-
-        // If maxchoice is arrogance and NOT balanced
-        if (maxChoice == arrogance)
-        {
-            arroganceHighest = true;
-            ignoranceHighest = false;
-            moralityHighest = false;
-        }
-
-        // If maxchoice is igorance and NOT balanced
-        if (maxChoice == ignorance)
-        {
-            ignoranceHighest = true;
-            arroganceHighest = false;
-            moralityHighest = false;
-        }
-
-        // If maxchoice is morality and NOT balanced
-        if (maxChoice == morality)
-        {
-            moralityHighest = true;
-            arroganceHighest = false;
-            ignoranceHighest = false;
-        }
     }
 
     // Increase Statistics

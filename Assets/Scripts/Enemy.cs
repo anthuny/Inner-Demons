@@ -35,13 +35,6 @@ public class Enemy : MonoBehaviour
     //Room
     public GameObject room;
 
-    //Boss
-    public bool isBoss;
-    public bool bossDialogueReady;
-    private bool changedTag;
-    public GameObject memoryRange;
-
-
     private Gamemode gamemode;
 
     void Start()
@@ -103,26 +96,10 @@ public class Enemy : MonoBehaviour
         LookAt();
         Shoot();
         ElementManager();
-        AllowBossDialogue();
-        BossBehaviour();
 
         Vector3 z;
         z = transform.position;
         z.z = 0f;
-    }
-
-    void AllowBossDialogue()
-    {
-        //Check if this object is a boss, and if it's tag hasn't already been changed
-        if (bossDialogueReady)
-        {
-            memoryRange.SetActive(true);
-        }
-    }
-
-    void BossBehaviour()
-    {
-
     }
 
     void ElementManager()
@@ -142,6 +119,7 @@ public class Enemy : MonoBehaviour
             sr.color = Color.green;
         }
     }
+
 
     public void DecreaseHealth(float bulletDamage, string playersCurElement)
     {
@@ -167,6 +145,7 @@ public class Enemy : MonoBehaviour
                 e_CurHealth -= bulletDamage + gamemode.earthDamage;
                 e_HealthBar.fillAmount = e_CurHealth / 100;
             }
+
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Fire" && isWater)
@@ -212,7 +191,7 @@ public class Enemy : MonoBehaviour
         }
         
         // If this object dies
-        if (e_CurHealth <= gamemode.e_HealthDeath && !isBoss)
+        if (e_CurHealth <= gamemode.e_HealthDeath)
         {
             //Decrease enemy count
             gamemode.enemyCount--;
@@ -223,17 +202,11 @@ public class Enemy : MonoBehaviour
             //Kill enemy
             Destroy(gameObject);
         }
-
-        if (e_CurHealth <= gamemode.e_HealthDeath && isBoss)
-        {
-            bossDialogueReady = true;
-            //Trigger dialogue system
-        }
     }
 
     void LookAt()
     {
-        if (player != null && !bossDialogueReady)
+        if (player != null)
         {
             transform.right = player.transform.position - transform.position;
         }
@@ -264,9 +237,8 @@ public class Enemy : MonoBehaviour
             ShotCooldown();
         }
 
-        // If the enemy can shoot, check if enemy has had their tag changed
-        // to memory (for boss), if so, don't allow it to shoot
-        if (!e_HasShot && targetInViewRange && !bossDialogueReady)
+        // if CAN shoot
+        if (!e_HasShot && targetInViewRange)
         {
             e_HasShot = true;
 
@@ -285,6 +257,7 @@ public class Enemy : MonoBehaviour
                 targetInShootRange = false;
 
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, gamemode.e_ChaseSpeed * Time.deltaTime);
+                transform.right = player.transform.position - transform.position;
             }
         }
     }
@@ -317,6 +290,7 @@ public class Enemy : MonoBehaviour
             if (distance <= gamemode.e_BulletDist)
             {
                 targetInShootRange = true;
+                transform.right = player.transform.position - transform.position;
 
                 if (random == 1)
                 {

@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 0.14827341, y: 0.6627989, z: 0.29077777}
   m_Children: []
   m_Father: {fileID: 1468054769684797856}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &708481032
 SpriteRenderer:
@@ -113,7 +113,7 @@ RectTransform:
   m_Children:
   - {fileID: 5256310910314906926}
   m_Father: {fileID: 1468054769684797856}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -408,7 +408,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1468054769684797856}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1468054769542096176
 GameObject:
@@ -439,7 +439,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1468054769684797856}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4670586704301967050
 SpriteRenderer:
@@ -500,7 +500,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1468054769684797856}
   - component: {fileID: 6552139943265748156}
-  - component: {fileID: 8693137476184924405}
   - component: {fileID: 69293741866475660}
   - component: {fileID: 1850676726580164052}
   m_Layer: 0
@@ -521,7 +520,6 @@ Transform:
   m_LocalPosition: {x: -4.36, y: 1, z: 7.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6849440438681981963}
   - {fileID: 1468054769542096177}
   - {fileID: 1468054769482580342}
   - {fileID: 708481031}
@@ -545,41 +543,10 @@ MonoBehaviour:
   e_GunHolder: {fileID: 1468054769482580342}
   e_HealthBar: {fileID: 1909089665}
   e_HealthBarBG: {fileID: 1753063281}
-  e_CurHealth: 0
   isFire: 0
   isWater: 0
   isEarth: 0
   room: {fileID: 0}
-  isBoss: 0
-  bossDialogueReady: 0
-  memoryRange: {fileID: 3740115777570664027}
-  maxChoice: 0
---- !u!114 &8693137476184924405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468054769684797858}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa0e7033d452f7b4781a9dffabfc90f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue:
-    name: Sam
-    sentences:
-    - No...
-    - There's no way...
-    - I've been defeated...
-    - ye
-    - I've lost
-    - 
-  memoryResponses:
-  - Deny
-  - Avoid
-  - Agree
-  interacted: 0
 --- !u!50 &69293741866475660
 Rigidbody2D:
   serializedVersion: 4
@@ -627,50 +594,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &3740115777570664027
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6849440438681981963}
-  - component: {fileID: 7051102942615303890}
-  m_Layer: 0
-  m_Name: BossDialogueHitBox
-  m_TagString: Memory
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &6849440438681981963
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3740115777570664027}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1468054769684797856}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &7051102942615303890
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3740115777570664027}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 22
