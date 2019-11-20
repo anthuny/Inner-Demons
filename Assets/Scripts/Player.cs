@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public GameObject talkButton;
     private DialogueManager dg;
 
+
     private void Start()
     {
         gm = FindObjectOfType<Gamemode>();
@@ -58,21 +59,19 @@ public class Player : MonoBehaviour
         talkButton.SetActive(true);
     }
 
+    private void Update()
+    {
+        MovementAnimation();
+    }
     void FixedUpdate()
     {
-        // Only use on unity engine pc versions
-        //if (Input.GetMouseButton(0))
-        //{
-        //    Shoot();
-        //}
-
 
         if (hasShot)
         {
             ShotCooldown();
         }
 
-        MovementAnimation();
+
         Movement();
         StartCoroutine(ShootAnimation());
         GodMode();
@@ -396,8 +395,8 @@ public class Player : MonoBehaviour
         {
             if (gm.usingPC)
             {
-                inputVector = new Vector2(Input.GetAxisRaw("Horizontal") * gamemode.playerSpeedCur, Input.GetAxisRaw("Vertical") * gamemode.playerSpeedCur);
-                rb.velocity = inputVector;
+                inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                rb.velocity = inputVector * gamemode.playerSpeedCur;
 
                 if (rb.velocity == new Vector2(0,0))
                 {
@@ -423,22 +422,29 @@ public class Player : MonoBehaviour
                     playerStill = false;
                 }
 
-                // Only start moving the player if the joystick moves enough
-                if (gamemode.joystickMove.Horizontal >= .2f || gamemode.joystickMove.Vertical >= .2f)
+                if (gamemode.joystickMove.Horizontal >= gamemode.joystickMove.DeadZone || gamemode.joystickMove.Horizontal <= gamemode.joystickMove.DeadZone
+                    || gamemode.joystickMove.Vertical >= gamemode.joystickMove.DeadZone || gamemode.joystickMove.Vertical <= gamemode.joystickMove.DeadZone)
                 {
-                    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeedCur, gamemode.joystickMove.Vertical * gamemode.playerSpeedCur);
-                    rb.velocity = inputVector;
+                    inputVector = new Vector2(gamemode.joystickMove.Horizontal, gamemode.joystickMove.Vertical);
+                    rb.velocity = inputVector * gamemode.playerSpeedCur;
+                }
 
-                }
                 // Only start moving the player if the joystick moves enough
-                else if (gamemode.joystickMove.Horizontal <= -.2f || gamemode.joystickMove.Vertical <= -.2f)
-                {
-                    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeedCur, gamemode.joystickMove.Vertical * gamemode.playerSpeedCur);
-                    rb.velocity = inputVector;
-                }
+                //if (gamemode.joystickMove.Horizontal >= .2f || gamemode.joystickMove.Vertical >= .2f)
+                //{
+                //    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeedCur, gamemode.joystickMove.Vertical * gamemode.playerSpeedCur);
+                //    rb.velocity = inputVector;
+
+                //}
+                //// Only start moving the player if the joystick moves enough
+                //else if (gamemode.joystickMove.Horizontal <= -.2f || gamemode.joystickMove.Vertical <= -.2f)
+                //{
+                //    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeedCur, gamemode.joystickMove.Vertical * gamemode.playerSpeedCur);
+                //    rb.velocity = inputVector;
+                //}
                 else
                 {
-                    inputVector = new Vector2(0, 0);
+                    inputVector = Vector2.zero;
                     rb.velocity = inputVector;
                 }
             }
@@ -454,55 +460,62 @@ public class Player : MonoBehaviour
 
     void MovementAnimation()
     {
+        Vector2 myVelocity = rb.velocity;
+        myVelocity.Normalize();
+
         // Check if player is NOT moving, to play correct animation
-        if (rb.velocity == new Vector2(0, 0))
+        if (rb.velocity == Vector2.zero)
         {
             animator.SetBool("walkingLeft", false);
             animator.SetBool("walkingUp", false);
             animator.SetBool("walkingDown", false);
             animator.SetBool("walkingRight", false);
             animator.SetBool("isIdle", true);
+            return;
         }
 
         // If player is moving Up play animation accordingly
-        if (rb.velocity.y > 0 && rb.velocity.x > -0.9f && rb.velocity.x < 0.9f)
+        else if (myVelocity.y > 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
         {
             animator.SetBool("isIdle", false);
             animator.SetBool("walkingRight", false);
             animator.SetBool("walkingLeft", false);
             animator.SetBool("walkingDown", false);
             animator.SetBool("walkingUp", true);
+            return;
         }
 
         // If player is moving down play animation accordingly
-        if (rb.velocity.y < 0 && rb.velocity.x > -0.9f && rb.velocity.x < 0.9f)
+        else if (myVelocity.y < 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
         {
             animator.SetBool("isIdle", false);
             animator.SetBool("walkingRight", false);
             animator.SetBool("walkingLeft", false);
             animator.SetBool("walkingUp", false);
             animator.SetBool("walkingDown", true);
+            return;
         }
 
         // If player is moving right play animation accordingly
-        if (rb.velocity.x > 0 && rb.velocity.y > -0.9f && rb.velocity.y < 0.9f)
+        else if (myVelocity.x > 0 && myVelocity.y > -0.9f && myVelocity.y < 0.9f)
         {
             animator.SetBool("isIdle", false);
             animator.SetBool("walkingLeft", false);
             animator.SetBool("walkingUp", false);
             animator.SetBool("walkingDown", false);
             animator.SetBool("walkingRight", true);
-
+            return;
         }
 
         // If player is moving Left play animation accordingly
-        if (rb.velocity.x < 0 && rb.velocity.y > -0.4f && rb.velocity.y < 0.4f)
+        else if (myVelocity.x < 0 && myVelocity.y > -0.4f && myVelocity.y < 0.4f)
         {
             animator.SetBool("isIdle", false);
             animator.SetBool("walkingRight", false);
             animator.SetBool("walkingUp", false);
             animator.SetBool("walkingDown", false);
             animator.SetBool("walkingLeft", true);
+            return;
         }
 
     }

@@ -123,6 +123,7 @@ public class Gamemode : MonoBehaviour
         // Check what the highest choice is out of all choices
         maxChoice = Mathf.Max(arrogance, ignorance, morality);
 
+
         if (maxChoice == arrogance && maxChoice == ignorance && maxChoice == morality)
         {
             arroganceHighest = false;
@@ -132,7 +133,7 @@ public class Gamemode : MonoBehaviour
         }
 
         // If maxchoice is arrogance and NOT balanced
-        if (maxChoice == arrogance)
+        else if (maxChoice == arrogance)
         {
             arroganceHighest = true;
             ignoranceHighest = false;
@@ -140,7 +141,7 @@ public class Gamemode : MonoBehaviour
         }
 
         // If maxchoice is igorance and NOT balanced
-        if (maxChoice == ignorance)
+        else if(maxChoice == ignorance)
         {
             ignoranceHighest = true;
             arroganceHighest = false;
@@ -148,7 +149,7 @@ public class Gamemode : MonoBehaviour
         }
 
         // If maxchoice is morality and NOT balanced
-        if (maxChoice == morality)
+        else if(maxChoice == morality)
         {
             moralityHighest = true;
             arroganceHighest = false;
