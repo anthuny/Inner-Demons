@@ -42,7 +42,7 @@ public class Gamemode : MonoBehaviour
     public Joystick joystickMove;
     public Joystick joystickShoot;
     public float minDragDistance;
-    private Vector2 startPos;
+    public Vector2 startPos;
     private Vector2 direction;
     private bool swipeAccepted;
     private float xDis;
@@ -52,7 +52,7 @@ public class Gamemode : MonoBehaviour
     private float lowestNumY;
     private float highestNumY;
     public GameObject swipeArea;
-    private Touch touch;
+    public Touch touch;
 
     [Header("Player Statistics")]
     public float playerSpeedCur;
