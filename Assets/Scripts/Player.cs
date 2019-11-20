@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     //Bullet
     public GameObject bullet;
     public Transform gunHolder;
-    private bool hasShot;
+    public bool hasShot;
     private float shotTimer = 0f;
 
     //Player
@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     public Animator animator;
+    private bool fired;
+    public GameObject[] enemiesInRange;
+    private Vector2 myVelocity;
 
     //Gamemode
     private Gamemode gm;
@@ -43,8 +46,7 @@ public class Player : MonoBehaviour
         name = "Player";
         rb = GetComponent<Rigidbody2D>();
         p_HealthBar = GameObject.Find("/Player/Canvas/Health").GetComponent<Image>();
-        sr = GetComponentInChildren<SpriteRenderer>();
-        
+        sr = GetComponentInChildren<SpriteRenderer>();  
 
         Reset();
     }
@@ -61,17 +63,18 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        MovementAnimation();
+        myVelocity = rb.velocity;
+        myVelocity.Normalize();
+
     }
     void FixedUpdate()
     {
-
         if (hasShot)
         {
             ShotCooldown();
         }
 
-        Shoot();
+        MovementAnimation();
         Movement();
         StartCoroutine(ShootAnimation());
         GodMode();
@@ -211,6 +214,22 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
+        //float Dist = Vector2.Distance(transform.position, )
+        //// If player inputs to shoot
+        //for (int i = 0; i < enemiesInRange.Length; i++)
+        //{
+
+        //}
+
+        // If using PC
+        if (gm.usingPC)
+        {
+            hasShot = true;
+            GameObject go = Instantiate(bullet, gunHolder.position, Quaternion.identity);
+            go.GetComponent<Bullet>().weaponHolder = gunHolder;
+            bullet.GetComponent<Bullet>().playerBullet = true;
+        }
+
         // If there is just one touch on screen, set touch to that one
         if (Input.touchCount == 1)
         {
@@ -227,54 +246,18 @@ public class Player : MonoBehaviour
             gm.touch = Input.touches[2];
         }
 
-        if (gm.touch.phase == TouchPhase.Stationary || Input.GetMouseButton(0))
+        // If using mobile
+        if (!gm.usingPC)
         {
-            if (!hasShot && !dg.dialogueTriggered)
+            if (gm.touch.phase == TouchPhase.Stationary && RectTransformUtility.RectangleContainsScreenPoint(gm.swipeArea.GetComponent<RectTransform>(), gm.touch.position))
             {
-                if (gm.usingPC)
-                {
-                    // Check if the user touched the swipe area
-                    if (RectTransformUtility.RectangleContainsScreenPoint(gm.swipeArea.GetComponent<RectTransform>(), Input.mousePosition))
-                    {
-                        // Handle finger movements based on touch phsae
-                        switch (gm.touch.phase)
-                        {
-                            // record initial touch position
-                            case TouchPhase.Began:
-                                gm.startPos = gm.touch.position;
-
-                                hasShot = true;
-                                GameObject go = Instantiate(bullet, gunHolder.position, Quaternion.identity);
-                                go.GetComponent<Bullet>().weaponHolder = gunHolder;
-                                bullet.GetComponent<Bullet>().playerBullet = true;
-
-                                break;
-                        }
-                    }
-                }
-
-                else
-                {
-                    if (RectTransformUtility.RectangleContainsScreenPoint(gm.swipeArea.GetComponent<RectTransform>(), gm.touch.position))
-                    {
-                        // Handle finger movements based on touch phsae
-                        switch (gm.touch.phase)
-                        {
-                            // record initial touch position
-                            case TouchPhase.Began:
-                                gm.startPos = gm.touch.position;
-
-                                hasShot = true;
-                                GameObject go = Instantiate(bullet, gunHolder.position, Quaternion.identity);
-                                go.GetComponent<Bullet>().weaponHolder = gunHolder;
-                                bullet.GetComponent<Bullet>().playerBullet = true;
-
-                                break;
-                        }
-                    }
-                }
+                hasShot = true;
+                GameObject go2 = Instantiate(bullet, gunHolder.position, Quaternion.identity);
+                go2.GetComponent<Bullet>().weaponHolder = gunHolder;
+                bullet.GetComponent<Bullet>().playerBullet = true;
             }
         }
+       
     }
 
     IEnumerator ShootAnimation()
@@ -286,7 +269,6 @@ public class Player : MonoBehaviour
             {
                 // This is a temporary fix, Needs speed to increase depending on how small gm.shotSpeed is
                 animator.speed = 1;
-                Debug.Log("Animator speed = " + animator.speed);
             }
 
             if (!animator.GetBool("attackingLeft") && (!animator.GetBool("attackingRight")) && (!animator.GetBool("attackingUp")) && (!animator.GetBool("attackingDown")))
@@ -295,121 +277,98 @@ public class Player : MonoBehaviour
             }
 
             // If the player is touching the screen, OR 
-            // the player is imputing arrow key movements
-            if (Input.touchCount > 0 || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow))
+            // the player is inputing arrow key movements
+
+            // TODO: NEED TO ALLOW PHONE INPUT IN THIS LINE. CURRENTLY ONLY PC WORKS WITH THIS. NEED TO FIND A WAY TO CHECK THIS (I COULDN'T TEST ON PHONE, THIS MIGHT WORK ON PHONE, CHECK
+            // IF IT DOES, IF NOT, ADD INPUT HERE)
+            if (Input.touchCount > 0 || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                // If Joystick moves upwards
-                if (gamemode.joystickShoot.Vertical >= .1f || Input.GetKeyDown(KeyCode.UpArrow))
+                Debug.Log("Attacking up animation playing");
+                // If the player is walking Up
+                // If the player has NOT shot, and the dialogue is NOT triggered
+                if (animator.GetBool("walkingUp") && !hasShot && !dg.dialogueTriggered)
                 {
-                    // If the player has NOT shot, and the dialogue is NOT triggered
-                    if (!hasShot && !dg.dialogueTriggered)
-                    {
-                        // Rotate gun holder
-                        gunHolder.localEulerAngles = new Vector3(0, 0, 90);
+                    // Shoot Bullet
+                    Shoot();
 
-                        // Shoot Bullet
-                        Shoot();
+                    animator.SetBool("walkingUp", false);
+                    animator.SetBool("isIdle", false);
+                    animator.SetBool("attackingLeft", false);
+                    animator.SetBool("attackingRight", false);
+                    animator.SetBool("attackingDown", false);
+                    animator.SetBool("attackingUp", true);
 
-                        animator.SetBool("isIdle", false);
-                        animator.SetBool("attackingLeft", false);
-                        animator.SetBool("attackingRight", false);
-                        animator.SetBool("attackingDown", false);
-                        animator.SetBool("attackingUp", true);
+                    yield return new WaitForSeconds(0);
 
-                        yield return new WaitForSeconds(0);
-
-                        animator.SetBool("attackingUp", false);
-                    }
+                    animator.SetBool("attackingUp", false);
                 }
 
-                // If Joystick moves downwards
-                else if (gamemode.joystickShoot.Vertical <= -.1f || Input.GetKeyDown(KeyCode.DownArrow))
+                // If the player is walking Down
+                // If the player has NOT shot, and the dialogue is NOT triggered
+                else if (animator.GetBool("walkingDown") && !hasShot && !dg.dialogueTriggered)
                 {
+                    // Shoot Bullet
+                    Shoot();
 
-                    // If the player has NOT shot, and the dialogue is NOT triggered
-                    if (!hasShot && !dg.dialogueTriggered)
-                    {
-                        // Rotate gun holder
-                        gunHolder.localEulerAngles = new Vector3(0, 0, -90);
+                    animator.SetBool("walkingDown", false);
+                    animator.SetBool("isIdle", false);
+                    animator.SetBool("attackingLeft", false);
+                    animator.SetBool("attackingRight", false);
+                    animator.SetBool("attackingUp", false);
+                    animator.SetBool("attackingDown", true);
 
-                        // Shoot Bullet
-                        Shoot();
+                    yield return new WaitForSeconds(0);
 
-                        animator.SetBool("isIdle", false);
-                        animator.SetBool("attackingLeft", false);
-                        animator.SetBool("attackingRight", false);
-                        animator.SetBool("attackingUp", false);
-                        animator.SetBool("attackingDown", true);
-
-                        yield return new WaitForSeconds(0);
-
-                        animator.SetBool("attackingDown", false);
-                    }
+                    animator.SetBool("attackingDown", false);
                 }
 
-                // If Joystick is moving Left
-                else if (gamemode.joystickShoot.Horizontal <= -.1f || Input.GetKeyDown(KeyCode.LeftArrow))
+                // If the player is walking Left
+                // If the player has NOT shot, and the dialogue is NOT triggered
+                else if (animator.GetBool("walkingLeft") && !hasShot && !dg.dialogueTriggered)
                 {
-                    // If the player has NOT shot, and the dialogue is NOT triggered
-                    if (!hasShot && !dg.dialogueTriggered)
-                    {
-                        Debug.Log("Animation called");
-                        // Rotate gun holder
-                        gunHolder.localEulerAngles = new Vector3(0, 0, -180);
+                    // Shoot Bullet
+                    Shoot();
 
-                        // Shoot Bullet
-                        Shoot();
+                    animator.SetBool("walkingLeft", false);
+                    animator.SetBool("isIdle", false);
+                    animator.SetBool("attackingRight", false);
+                    animator.SetBool("attackingDown", false);
+                    animator.SetBool("attackingUp", false);
+                    animator.SetBool("attackingLeft", true);
 
-                        animator.SetBool("isIdle", false);
-                        animator.SetBool("attackingRight", false);
-                        animator.SetBool("attackingDown", false);
-                        animator.SetBool("attackingUp", false);
-                        animator.SetBool("attackingLeft", true);
+                    yield return new WaitForSeconds(0);
 
-                        yield return new WaitForSeconds(0);
-
-                        animator.SetBool("attackingLeft", false);
-                    }
+                    animator.SetBool("attackingLeft", false);
                 }
 
-                // If Joystick is moving Right
-                else if (gamemode.joystickShoot.Horizontal >= .1f || Input.GetKeyDown(KeyCode.RightArrow))
+                // If the player is walking right
+                // If the player has NOT shot, and the dialogue is NOT triggered
+                else if (animator.GetBool("walkingRight") && !hasShot && !dg.dialogueTriggered)
                 {
-                    // If the player has NOT shot, and the dialogue is NOT triggered
-                    if (!hasShot && !dg.dialogueTriggered)
-                    {
-                        // Rotate gun holder
-                        gunHolder.localEulerAngles = new Vector3(0, 0, 0);
+                    // Shoot Bullet
+                    Shoot();
 
-                        // Shoot Bullet
-                        Shoot();
+                    animator.SetBool("walkingRight", false);
+                    animator.SetBool("isIdle", false);
+                    animator.SetBool("attackingDown", false);
+                    animator.SetBool("attackingUp", false);
+                    animator.SetBool("attackingLeft", false);
+                    animator.SetBool("attackingRight", true);
 
-                        animator.SetBool("isIdle", false);
-                        animator.SetBool("attackingDown", false);
-                        animator.SetBool("attackingUp", false);
-                        animator.SetBool("attackingLeft", false);
-                        animator.SetBool("attackingRight", true);
+                    yield return new WaitForSeconds(0);
 
-                        yield return new WaitForSeconds(animator.speed);
-
-                        animator.SetBool("attackingRight", false);
-                    }
+                    animator.SetBool("attackingRight", false);
                 }
 
-                // If the player is NOT shooting
-                else if (gamemode.joystickShoot.Horizontal >= -.1f && gamemode.joystickShoot.Horizontal <= .1f && gamemode.joystickShoot.Vertical >= -.1f && gamemode.joystickShoot.Vertical <= .1f ||
-                    !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+                // if the player is not moving
+                else if (animator.GetBool("isIdle") && !hasShot && !dg.dialogueTriggered)
                 {
-                    Debug.Log("is idle");
 
-                    // Rotate gun holder
                     animator.SetBool("attackingLeft", false);
                     animator.SetBool("attackingDown", false);
                     animator.SetBool("attackingUp", false);
                     animator.SetBool("attackingRight", false);
                     animator.SetBool("isIdle", true);
-
-                    gunHolder.localEulerAngles = new Vector3(0, 0, -90);
                 }
             }
         }
@@ -425,10 +384,11 @@ public class Player : MonoBehaviour
                 inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
                 rb.velocity = inputVector * gamemode.playerSpeedCur;
 
-                if (rb.velocity == new Vector2(0,0))
+                if (rb.velocity == new Vector2(0, 0))
                 {
                     playerStill = true;
-                } else
+                }
+                else
                 {
                     playerStill = false;
                 }
@@ -455,41 +415,59 @@ public class Player : MonoBehaviour
                     inputVector = new Vector2(gamemode.joystickMove.Horizontal, gamemode.joystickMove.Vertical);
                     rb.velocity = inputVector * gamemode.playerSpeedCur;
                 }
+            }
 
-                // Only start moving the player if the joystick moves enough
-                //if (gamemode.joystickMove.Horizontal >= .2f || gamemode.joystickMove.Vertical >= .2f)
-                //{
-                //    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeedCur, gamemode.joystickMove.Vertical * gamemode.playerSpeedCur);
-                //    rb.velocity = inputVector;
-
-                //}
-                //// Only start moving the player if the joystick moves enough
-                //else if (gamemode.joystickMove.Horizontal <= -.2f || gamemode.joystickMove.Vertical <= -.2f)
-                //{
-                //    inputVector = new Vector2(gamemode.joystickMove.Horizontal * gamemode.playerSpeedCur, gamemode.joystickMove.Vertical * gamemode.playerSpeedCur);
-                //    rb.velocity = inputVector;
-                //}
-                else
+            // If there are no enemies near the player
+            // Rotate the gunHolder towards the direction the player is facing
+            if (enemiesInRange.Length == 0)
+            {
+                // If moving Up
+                if (rb.velocity.y > 0)
                 {
-                    inputVector = Vector2.zero;
-                    rb.velocity = inputVector;
+                    // Rotate gun holder
+                    gunHolder.localEulerAngles = new Vector3(0, 0, 90);
+                }
+
+                // If moving Down
+                if (rb.velocity.y < 0)
+                {
+                    // Rotate gun holder
+                    gunHolder.localEulerAngles = new Vector3(0, 0, -90);
+                }
+
+                // If moving Right
+                if (rb.velocity.x > 0)
+                {
+                    // Rotate gun holder
+                    gunHolder.localEulerAngles = new Vector3(0, 0, 0);
+                }
+
+                // If moving Left
+                if (rb.velocity.x < 0)
+                {
+                    // Rotate gun holder
+                    gunHolder.localEulerAngles = new Vector3(0, 0, -180);
+                }
+
+                // If not moving
+                if (rb.velocity == Vector2.zero)
+                {
+                    // Rotate gun holder
+                    gunHolder.localEulerAngles = new Vector3(0, 0, -90);
                 }
             }
-        }
 
-        // Disable movement and shoot joysticks if player is in dialogue
-        if (FindObjectOfType<DialogueManager>().dialogueTriggered)
-        {
-            rb.velocity = new Vector2(0, 0);
-            gamemode.joystickHolder.SetActive(false);
+            // Disable movement and shoot joysticks if player is in dialogue
+            if (FindObjectOfType<DialogueManager>().dialogueTriggered)
+            {
+                rb.velocity = new Vector2(0, 0);
+                gamemode.joystickHolder.SetActive(false);
+            }
         }
     }
 
     void MovementAnimation()
     {
-        Vector2 myVelocity = rb.velocity;
-        myVelocity.Normalize();
-
         // Check if player is NOT moving, to play correct animation
         if (rb.velocity == Vector2.zero)
         {
