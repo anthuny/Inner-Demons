@@ -24,6 +24,7 @@ public class Room : MonoBehaviour
             //Make sure not to spawn an enemy for the root, only children
             if (i != this.gameObject.transform && i.tag == "SpawnPoint")
             {
+                // Spawning regular enemies
                 if (!isBossRoom)
                 {
                     GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);
@@ -31,6 +32,8 @@ public class Room : MonoBehaviour
                     roomEnemyCount++;
                     enemiesHaveSpawned = true;
                 }
+
+                //Spawning boss
                 else
                 {
                     GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);

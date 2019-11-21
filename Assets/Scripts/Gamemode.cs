@@ -40,7 +40,6 @@ public class Gamemode : MonoBehaviour
     [Header("Touch Inputs / Joysticks")]
     public GameObject joystickHolder;
     public Joystick joystickMove;
-    public Joystick joystickShoot;
     public float minDragDistance;
     public Vector2 startPos;
     private Vector2 direction;
@@ -51,7 +50,10 @@ public class Gamemode : MonoBehaviour
     private float highestNumX;
     private float lowestNumY;
     private float highestNumY;
-    public GameObject swipeArea;
+    public GameObject shootArea;
+    public GameObject waterButtonArea;
+    public GameObject fireButtonArea;
+    public GameObject earthButtonArea;
     public Touch touch;
 
     [Header("Player Statistics")]
@@ -68,6 +70,10 @@ public class Gamemode : MonoBehaviour
     public float fireDamage;
     public float waterDamage;
     public float earthDamage;
+    public float autoAimDis;
+    public bool autoAimOn;
+    public Transform nearestEnemy;
+    public Vector2 shootDir;
 
     [Header("Player Attacking Statistics")]
     public float bulletSpeed;
@@ -292,84 +298,22 @@ public class Gamemode : MonoBehaviour
                 touch = Input.touches[2];
             }
 
-            // Check if the user touched the swipe area
-            if (RectTransformUtility.RectangleContainsScreenPoint(swipeArea.GetComponent<RectTransform>(), touch.position))
+            // Check if the user touched the water button area
+            if (RectTransformUtility.RectangleContainsScreenPoint(waterButtonArea.GetComponent<RectTransform>(), touch.position))
+            {   
+                currentElement = 1;
+            }
+
+            // Check if the user touched the water button area
+            if (RectTransformUtility.RectangleContainsScreenPoint(fireButtonArea.GetComponent<RectTransform>(), touch.position))
             {
-                // Handle finger movements based on touch phsae
-                switch (touch.phase)
-                {
-                    // record initial touch position
-                    case TouchPhase.Began:
-                        startPos = touch.position;
-                        break;
+                currentElement = 0;
+            }
 
-                    // Determine direction by comparing the current touch position with the initial one.
-                    case TouchPhase.Moved:
-                        direction = touch.position - startPos;
-
-                        // Determine the largest number of the x and y values and set it to a value
-                        if (touch.position.x > startPos.x)
-                        {
-                            highestNumX = touch.position.x;
-                            lowestNumX = startPos.x;
-                        }
-                        else
-                        {
-                            highestNumX = startPos.x;
-                            lowestNumX = touch.position.x;
-                        }
-
-                        xDis = highestNumX - lowestNumX;
-
-                        if (touch.position.y > startPos.y)
-                        {
-                            highestNumY = touch.position.y;
-                            lowestNumY = startPos.y;
-                        }
-                        else
-                        {
-                            highestNumY = startPos.y;
-                            lowestNumY = touch.position.y;
-                        }
-
-                        yDis = highestNumY - lowestNumY;
-
-                        // Determine if the drag was long enough
-                        if (xDis >= minDragDistance)
-                        {
-                            //alreadyattemped = true;
-
-                            // Determine if the drag was horizontal or not
-                            if (xDis > yDis * 2)
-                            {
-                                swipeAccepted = true;
-                            }
-                        }
-                        else
-                        {
-                            swipeAccepted = false;
-                        }
-                        break;
-
-                    // Report that a direction has been chosen when the finger is lifted.
-                    case TouchPhase.Ended:
-                        if (swipeAccepted)
-                        {
-                            if (startPos.x > touch.position.x)
-                            {
-                                currentElement -= 1;
-                            }
-                            else
-                            {
-                                currentElement += 1;
-                            }
-
-                        }
-                        else
-                        {
-                        }
-                        break;
-                }
+            // Check if the user touched the water button area
+            if (RectTransformUtility.RectangleContainsScreenPoint(earthButtonArea.GetComponent<RectTransform>(), touch.position))
+            {
+                currentElement = 2;
             }
         }
     }

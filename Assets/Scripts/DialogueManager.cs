@@ -188,8 +188,8 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        // If space is pressed
-        if (Input.GetKeyDown("space") && dialogueTriggered && sentences.Count != 0)
+        // If enter is pressed
+        if (Input.GetKey(KeyCode.Return) && dialogueTriggered && sentences.Count != 0)
         {
             DisplayNextSentence();
         }
