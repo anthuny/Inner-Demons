@@ -15,8 +15,10 @@ public class Gamemode : MonoBehaviour
     public float chooseE_DamageInc;
     public float chooseProjectileSpeedInc;
     public float chooseReloadSpeedInc;
-    private GameObject player;
+    public Transform playerSpawnPoint;
+    public GameObject player;
     private Transform spawnPos;
+    private GameDownManager gdm;
 
     [Header("Choices")]
     public int arrogance;
@@ -28,14 +30,6 @@ public class Gamemode : MonoBehaviour
     public int maxChoice;
 
     [Header("Element Handler")]
-    public GameObject currentEPos;
-    public GameObject leftEPos;
-    public GameObject rightEPos;
-    public GameObject fireElement;
-    public GameObject waterElement;
-    public GameObject earthElement;
-    public float lesserElementScale;
-    public float currentElementScale;
 
     [Header("Touch Inputs / Joysticks")]
     public GameObject joystickHolder;
@@ -43,13 +37,6 @@ public class Gamemode : MonoBehaviour
     public float minDragDistance;
     public Vector2 startPos;
     private Vector2 direction;
-    private bool swipeAccepted;
-    private float xDis;
-    private float yDis;
-    private float lowestNumX;
-    private float highestNumX;
-    private float lowestNumY;
-    private float highestNumY;
     public GameObject shootArea;
     public GameObject waterButtonArea;
     public GameObject fireButtonArea;
@@ -70,7 +57,6 @@ public class Gamemode : MonoBehaviour
     public float fireDamage;
     public float waterDamage;
     public float earthDamage;
-    public float autoAimDis;
     public bool autoAimOn;
     public Transform nearestEnemy;
     public Vector2 shootDir;
@@ -80,6 +66,7 @@ public class Gamemode : MonoBehaviour
     public float bulletDist;
     public float bulletDamage;
     public float shotCooldown = 0.25f;
+    public float autoAimDis;
 
     [Header("Enemy Ranged Statistics")]
     public float e_MoveSpeed;
@@ -102,6 +89,7 @@ public class Gamemode : MonoBehaviour
     void Start()
     {
         spawnPos = GameObject.Find("EGOSpawnPoint").transform;
+        gdm = FindObjectOfType<GameDownManager>();
 
         playerSpeedCur = playerSpeedDef;
     }
@@ -109,21 +97,20 @@ public class Gamemode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.Find("Player");
-
-        if (player == null)
-        {
-            if (Input.GetKeyDown("r"))
-            {
-                Instantiate(playerPrefab, spawnPos.position, Quaternion.identity);
-                player = GameObject.Find("Player");
-            }
-        }
-
         ElementManager();
         CalculateChoiceHigh();
+        PlayerDeath();
     }
 
+    void PlayerDeath()
+    {
+        if (!player)
+        {
+            gdm.youFaintedBut.gameObject.SetActive(true);
+            gdm.restartBut.gameObject.SetActive(true);
+            gdm.menuBut.gameObject.SetActive(true);
+        }
+    }
     public void CalculateChoiceHigh()
     {
         // Check what the highest choice is out of all choices
@@ -190,130 +177,67 @@ public class Gamemode : MonoBehaviour
 
     void ElementManager()
     {
-        // If player presses a, switch to left element
-        if (Input.GetKeyDown("e"))
+        if (player)
         {
-            currentElement -= 1;
-        }
-
-        // If player pressed d, switch to right element
-        if (Input.GetKeyDown("q"))
-        {
-            currentElement += 1;
-        }
-
-        // If player is Fire element, change visually
-        if (currentElement == 0)
-        {
-            isEarth = false;
-            isWater = false;
-            isFire = true;
-
-            // Move current element to current element position, and set it as a child
-            fireElement.transform.position = currentEPos.transform.position;
-            fireElement.transform.SetParent(currentEPos.transform);
-            fireElement.transform.localScale = new Vector2(currentElementScale, currentElementScale);
-
-            // Adjust the other elements accordingly
-            earthElement.transform.position = rightEPos.transform.position;
-            earthElement.transform.SetParent(rightEPos.transform);
-            earthElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
-
-            waterElement.transform.position = leftEPos.transform.position;
-            waterElement.transform.SetParent(leftEPos.transform);
-            waterElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
-        }
-
-        // If player is water element, change visually
-        if (currentElement == 1)
-        {
-            isFire = false;
-            isEarth = false;
-            isWater = true;
-
-            // Move current element to current element position, and set it as a child
-            waterElement.transform.position = currentEPos.transform.position;
-            waterElement.transform.SetParent(currentEPos.transform);
-            waterElement.transform.localScale = new Vector2(currentElementScale, currentElementScale);
-
-            // Adjust the other elements accordingly
-            fireElement.transform.position = rightEPos.transform.position;
-            fireElement.transform.SetParent(rightEPos.transform);
-            fireElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
-
-            earthElement.transform.position = leftEPos.transform.position;
-            earthElement.transform.SetParent(leftEPos.transform);
-            earthElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
-        }
-
-        // If player is earth element, change visually
-        if (currentElement == 2)
-        {
-            isFire = false;
-            isWater = false;
-            isEarth = true;
-
-            // Move current element to current element position, and set it as a child
-            earthElement.transform.position = currentEPos.transform.position;
-            earthElement.transform.SetParent(currentEPos.transform);
-            earthElement.transform.localScale = new Vector2(currentElementScale, currentElementScale);
-
-            // Adjust the other elements accordingly
-            waterElement.transform.position = rightEPos.transform.position;
-            waterElement.transform.SetParent(rightEPos.transform);
-            waterElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
-
-            fireElement.transform.position = leftEPos.transform.position;
-            fireElement.transform.SetParent(leftEPos.transform);
-            fireElement.transform.localScale = new Vector2(lesserElementScale, lesserElementScale);
-        }
-
-        // Ensure current element doesn't go out of bounds
-        if (currentElement == -1)
-        {
-            currentElement = 2;
-        }
-
-        // Ensure current element doesn't go out of bounds
-        if (currentElement == 3)
-        {
-            currentElement = 0;
-        }
-
-        if (Input.touchCount > 0)
-        {
-            // If there is just one touch on screen, set touch to that one
-            if (Input.touchCount == 1)
+            // If player presses a, switch to left element
+            if (Input.GetKeyDown("e"))
             {
-                touch = Input.touches[0];
-            }
-            // If there is already a touch on the screen, set touch to the next one 
-            else if (Input.touchCount == 2)
-            {
-                touch = Input.touches[1];
-            }
-            //  If there is already TWO touches on the screen, set touch to the next one 
-            else if (Input.touchCount == 3)
-            {
-                touch = Input.touches[2];
+                currentElement -= 1;
             }
 
-            // Check if the user touched the water button area
-            if (RectTransformUtility.RectangleContainsScreenPoint(waterButtonArea.GetComponent<RectTransform>(), touch.position))
-            {   
-                currentElement = 1;
+            // If player pressed d, switch to right element
+            if (Input.GetKeyDown("q"))
+            {
+                currentElement += 1;
             }
 
-            // Check if the user touched the water button area
-            if (RectTransformUtility.RectangleContainsScreenPoint(fireButtonArea.GetComponent<RectTransform>(), touch.position))
+            // Ensure current element doesn't go out of bounds
+            if (currentElement == -1)
+            {
+                currentElement = 2;
+            }
+
+            // Ensure current element doesn't go out of bounds
+            if (currentElement == 3)
             {
                 currentElement = 0;
             }
 
-            // Check if the user touched the water button area
-            if (RectTransformUtility.RectangleContainsScreenPoint(earthButtonArea.GetComponent<RectTransform>(), touch.position))
+            if (Input.touchCount > 0)
             {
-                currentElement = 2;
+                // If there is just one touch on screen, set touch to that one
+                if (Input.touchCount == 1)
+                {
+                    touch = Input.touches[0];
+                }
+                // If there is already a touch on the screen, set touch to the next one 
+                else if (Input.touchCount == 2)
+                {
+                    touch = Input.touches[1];
+                }
+                //  If there is already TWO touches on the screen, set touch to the next one 
+                else if (Input.touchCount == 3)
+                {
+                    touch = Input.touches[2];
+                }
+
+                // Check if the user touched the water button area
+                if (RectTransformUtility.RectangleContainsScreenPoint(waterButtonArea.GetComponent<RectTransform>(), touch.position))
+                {
+                    currentElement = 1;
+                }
+
+                // Check if the user touched the water button area
+                if (RectTransformUtility.RectangleContainsScreenPoint(fireButtonArea.GetComponent<RectTransform>(), touch.position))
+                {
+                    currentElement = 0;
+                }
+
+                // Check if the user touched the water button area
+                if (RectTransformUtility.RectangleContainsScreenPoint(earthButtonArea.GetComponent<RectTransform>(), touch.position))
+                {
+                    currentElement = 2;
+                }
             }
         }
     }

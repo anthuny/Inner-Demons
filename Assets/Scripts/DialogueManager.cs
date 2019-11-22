@@ -189,7 +189,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         // If enter is pressed
-        if (Input.GetKey(KeyCode.Return) && dialogueTriggered && sentences.Count != 0)
+        if (Input.GetKeyDown(KeyCode.Return) && dialogueTriggered && sentences.Count != 0)
         {
             DisplayNextSentence();
         }

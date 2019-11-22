@@ -39,9 +39,13 @@ public class Player : MonoBehaviour
     public GameObject talkButton;
     private DialogueManager dg;
 
+    //GameDownManager
+    private GameDownManager gdm;
+
 
     private void Start()
     {
+        gdm = FindObjectOfType<GameDownManager>();
         gm = FindObjectOfType<Gamemode>();
         dg = FindObjectOfType<DialogueManager>();
         gamemode = FindObjectOfType<Gamemode>();
@@ -55,6 +59,7 @@ public class Player : MonoBehaviour
 
     void Reset()
     {
+        gdm.playerDied = false;
         gamemode.p_curHealth = gamemode.p_maxHealth;
         p_HealthBar.fillAmount = 1f;
         gamemode.isFire = true;
@@ -212,7 +217,11 @@ public class Player : MonoBehaviour
             roomTrans = other.transform.root;
             room = roomTrans.gameObject;
             roomScript = room.GetComponent<Room>();
-            Destroy(roomScript);
+            if (roomScript && gdm.playerDied)
+            {
+                roomScript.enabled = false;
+            }
+
         }
     }
 

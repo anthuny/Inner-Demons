@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private Transform player;
     public float camHeight;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.Find("Player").transform;
-    }
+    private Gamemode gm;
 
     // Update is called once per frame
+
+    private void Start()
+    {
+        gm = FindObjectOfType<Gamemode>();
+    }
     void Update()
     {
-        if (player != null)
+        if (gm.player)
         {
-            transform.position = new Vector3(player.position.x, player.position.y, camHeight);
+            transform.position = new Vector3(gm.player.transform.position.x, gm.player.transform.position.y, camHeight);
         }
 
     }
