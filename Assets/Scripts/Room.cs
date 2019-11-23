@@ -18,6 +18,8 @@ public class Room : MonoBehaviour
     private bool doneOnce;
     private bool playerDied;
     public Room room;
+    public bool canOpen;
+    public bool beenCleared;
 
     private void Start()
     {
@@ -30,6 +32,8 @@ public class Room : MonoBehaviour
 
     public IEnumerator SpawnEnemies()
     {
+        room.enemiesHaveSpawned = true;
+
         yield return new WaitForSeconds(spawnWait);
         room.enemySpawns = GetComponentsInChildren<Transform>();
 
@@ -44,7 +48,7 @@ public class Room : MonoBehaviour
                     GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);
                     go.GetComponent<Enemy>().room = gameObject;
                     room.roomEnemyCount++;
-                    room.enemiesHaveSpawned = true;
+
                 }
 
                 //Spawning boss
@@ -55,20 +59,8 @@ public class Room : MonoBehaviour
                     go.GetComponent<Enemy>().isBoss = true;
                     go.GetComponent<Memory>().enabled = true;
                     room.roomEnemyCount++;
-                    room.enemiesHaveSpawned = true;
                 }
             }
-        }
-    }
-    public void CloseDoors()
-    {
-        room.doors = FindObjectOfType<RoomManager>().doors;
-        room.doorsClosed = true;
-
-        // For each door, close it
-        for (int f = 0; f < doors.Length; f++)
-        {
-            room.doors[f].SetActive(true);
         }
     }
 
@@ -88,30 +80,47 @@ public class Room : MonoBehaviour
 
         room.doors = FindObjectOfType<RoomManager>().doors;
 
-        if (room.beenEntered && room.roomEnemyCount > 0 && room.enemiesHaveSpawned)
+        // Open doors
+        if (room.beenEntered && room.roomEnemyCount == 0 && doorsClosed && canOpen)
         {
             for (int i = 0; i < doors.Length; i++)
             {
-                Debug.Log("closing doors");
-                doors[i].SetActive(true);
+                room.doorsClosed = false;
+                doors[i].SetActive(false);
+
             }
+        }
+    }
+
+    public IEnumerator TriggerDoorClose()
+    {
+        // If the player has not already cleared this room,
+        // close the doors on entry
+        if (!beenCleared)
+        {
+            // Close doors
+            if (room.beenEntered && room.enemiesHaveSpawned && !doorsClosed)
+            {
+                for (int i = 0; i < doors.Length; i++)
+                {
+                    room.canOpen = false;
+                    room.doorsClosed = true;
+                    doors[i].SetActive(true);
+                }
+            }
+
+            yield return new WaitForSeconds(spawnWait + 0.25f);
+
+            canOpen = true;
         }
 
-        else
-        {
-            for (int i = 0; i < doors.Length; i++)
-            {
-                Debug.Log("opening doors 1");
-                doors[i].SetActive(false);
-            }
-        }
     }
 
     // If player dies...
     private void Reset()
     {
+        room.beenCleared = false;
         room.beenEntered = false;
-        room.doorsClosed = false;
 
         room.enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
@@ -123,8 +132,8 @@ public class Room : MonoBehaviour
 
         for (int i = 0; i < doors.Length; i++)
         {
-            Debug.Log("opening doors 2");
             doors[i].SetActive(false);
         }
     }
 }
+

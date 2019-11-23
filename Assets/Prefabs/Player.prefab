@@ -212,7 +212,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: TriggerDialogue
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 170738298}
   - component: {fileID: 170738299}
   m_Layer: 10
-  m_Name: Responsbility Bad
+  m_Name: Responsibility Good
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 220311444}
   - component: {fileID: 220311443}
   m_Layer: 10
-  m_Name: Story Bad
+  m_Name: Story Good
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -617,6 +617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294856566}
+  - component: {fileID: 6628043936063265349}
   m_Layer: 10
   m_Name: Choices
   m_TagString: Untagged
@@ -646,6 +647,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &6628043936063265349
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294856565}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &341364247
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +930,7 @@ GameObject:
   - component: {fileID: 512654604}
   - component: {fileID: 512654603}
   m_Layer: 10
-  m_Name: Text
+  m_Name: Other Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1076,6 +1089,7 @@ GameObject:
   - component: {fileID: 599101157}
   - component: {fileID: 599101156}
   - component: {fileID: 599101155}
+  - component: {fileID: 8130432979185456120}
   m_Layer: 10
   m_Name: Button Neutral
   m_TagString: Untagged
@@ -1199,6 +1213,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!225 &8130432979185456120
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599101153}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &666049997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1312,7 @@ GameObject:
   - component: {fileID: 896829976}
   - component: {fileID: 896829975}
   - component: {fileID: 896829974}
+  - component: {fileID: 2265981123218346838}
   m_Layer: 10
   m_Name: Button Good
   m_TagString: Untagged
@@ -1409,6 +1436,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!225 &2265981123218346838
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896829972}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1011448886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,7 +1766,7 @@ GameObject:
   - component: {fileID: 1102124916}
   - component: {fileID: 1102124915}
   m_Layer: 10
-  m_Name: Name
+  m_Name: Other Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1806,7 +1845,7 @@ GameObject:
   - component: {fileID: 1224060292}
   - component: {fileID: 1224060291}
   m_Layer: 10
-  m_Name: Story Good
+  m_Name: Story Bad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2451,7 +2490,7 @@ GameObject:
   - component: {fileID: 1682740169}
   - component: {fileID: 1682740170}
   m_Layer: 10
-  m_Name: Responsibility Good
+  m_Name: Responsibility Bad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2733,6 +2772,7 @@ GameObject:
   - component: {fileID: 1899668811}
   - component: {fileID: 1899668810}
   - component: {fileID: 1899668809}
+  - component: {fileID: 7095697115191333553}
   m_Layer: 10
   m_Name: Button Bad
   m_TagString: Untagged
@@ -2856,6 +2896,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!225 &7095697115191333553
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899668807}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1914125923
 GameObject:
   m_ObjectHideFlags: 0
@@ -2908,7 +2960,7 @@ GameObject:
   - component: {fileID: 1926822487}
   - component: {fileID: 1926822488}
   m_Layer: 10
-  m_Name: Responsbility Neutral
+  m_Name: Responsibility Neutral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3738,6 +3790,7 @@ MonoBehaviour:
   bullet: {fileID: 4038859663916889700, guid: c445db4b14bb4b84489845b392531811, type: 3}
   gunHolder: {fileID: 2365348021251494293}
   hasShot: 0
+  p_HealthBar: {fileID: 0}
   animator: {fileID: 1061047114}
   enemies: []
   doors: {fileID: 0}
@@ -3746,7 +3799,6 @@ MonoBehaviour:
   memory: {fileID: 0}
   playerStill: 0
   canInteract: 0
-  talkButton: {fileID: 3527503664179250012}
 --- !u!50 &4263720834769801563
 Rigidbody2D:
   serializedVersion: 4
@@ -3959,6 +4011,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1278962375649610282, guid: d95da88540d2d6e44a0c4c40c581b24a,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278962375649610277, guid: d95da88540d2d6e44a0c4c40c581b24a,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9133201526527734124, guid: d95da88540d2d6e44a0c4c40c581b24a,
         type: 3}
       propertyPath: Range
@@ -3999,27 +4061,17 @@ PrefabInstance:
       propertyPath: ContactFilter.layerMask.m_Bits
       value: 5943
       objectReference: {fileID: 0}
-    - target: {fileID: 1278962375649610277, guid: d95da88540d2d6e44a0c4c40c581b24a,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1278962375649610282, guid: d95da88540d2d6e44a0c4c40c581b24a,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d95da88540d2d6e44a0c4c40c581b24a, type: 3}
---- !u!1 &1278962376731018739 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1278962375649610280, guid: d95da88540d2d6e44a0c4c40c581b24a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1133187035}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1278962376731018736 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1278962375649610283, guid: d95da88540d2d6e44a0c4c40c581b24a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1133187035}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1278962376731018739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1278962375649610280, guid: d95da88540d2d6e44a0c4c40c581b24a,
     type: 3}
   m_PrefabInstance: {fileID: 1133187035}
   m_PrefabAsset: {fileID: 0}

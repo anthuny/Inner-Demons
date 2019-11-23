@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     //Player
     private Vector3 inputVector;
-    private Image p_HealthBar;
+    public Image p_HealthBar;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     public Animator animator;
@@ -36,8 +36,7 @@ public class Player : MonoBehaviour
     public GameObject memory;
     public bool playerStill;
     public bool canInteract;
-    public GameObject talkButton;
-    private DialogueManager dg;
+    private DialogueManager dm;
 
     //GameDownManager
     private GameDownManager gdm;
@@ -47,25 +46,13 @@ public class Player : MonoBehaviour
     {
         gdm = FindObjectOfType<GameDownManager>();
         gm = FindObjectOfType<Gamemode>();
-        dg = FindObjectOfType<DialogueManager>();
+        dm = FindObjectOfType<DialogueManager>();
         gamemode = FindObjectOfType<Gamemode>();
         name = "Player";
         rb = GetComponent<Rigidbody2D>();
-        p_HealthBar = GameObject.Find("/Player/Canvas/Health").GetComponent<Image>();
-        sr = GetComponentInChildren<SpriteRenderer>();  
+        sr = GetComponentInChildren<SpriteRenderer>();
 
-        Reset();
-    }
-
-    void Reset()
-    {
         gdm.playerDied = false;
-        gamemode.p_curHealth = gamemode.p_maxHealth;
-        p_HealthBar.fillAmount = 1f;
-        gamemode.isFire = true;
-        
-        talkButton.GetComponentInChildren<CanvasGroup>().alpha = 0;
-        talkButton.SetActive(true);
     }
 
     private void Update()
@@ -113,6 +100,7 @@ public class Player : MonoBehaviour
 
         if (gamemode.p_curHealth <= gamemode.p_healthDeath)
         {
+            gdm.playerDied = true;
             Destroy(gameObject);
         }
     }
@@ -140,7 +128,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == ("RoomCollider"))
         {
             // Remove player dialogue box from screen
-            dg.animatorP.SetBool("isOpenP", false);
+            dm.animatorP.SetBool("isOpenP", false);
 
             // Get reference to root of this object
             Transform roomTrans;
@@ -167,7 +155,7 @@ public class Player : MonoBehaviour
 
             if (room.GetComponent<Room>() && !room.GetComponent<Room>().doorsClosed)
             {
-                room.GetComponent<Room>().CloseDoors();
+                room.GetComponent<Room>().StartCoroutine("TriggerDoorClose");
             }
         }
 
@@ -191,8 +179,8 @@ public class Player : MonoBehaviour
             {
                 memory.GetComponent<Memory>().interacted = true;
 
-                dg.inRange = true;
-                dg.EnableTalkButton();
+                dm.inRange = true;
+                dm.EnableTalkButton();
             }
         }
     }
@@ -201,27 +189,26 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         // If player talks to a memory
-        if (other.gameObject.tag == ("Memory") && dg.buttonTriggered)
+        if (other.gameObject.tag == ("Memory") && dm.buttonTriggered)
         {
-            dg.inRange = false;
-            dg.DisableTalkButton();
+            dm.inRange = false;
+            dm.DisableTalkButton();
         }
 
         if (other.gameObject.tag == ("RoomCollider"))
         {
             // Remove player dialogue box from screen
-            dg.animatorP.SetBool("isOpenP", false);
+            dm.animatorP.SetBool("isOpenP", false);
 
             // Get reference to root of this object
             Transform roomTrans;
             roomTrans = other.transform.root;
             room = roomTrans.gameObject;
             roomScript = room.GetComponent<Room>();
-            if (roomScript && gdm.playerDied)
+            if (roomScript)
             {
-                roomScript.enabled = false;
+                room.GetComponent<Room>().beenCleared = true;
             }
-
         }
     }
 
@@ -311,7 +298,7 @@ public class Player : MonoBehaviour
                 gm.touch = Input.touches[2];
             }
 
-            if (!hasShot && !dg.dialogueTriggered)
+            if (!hasShot && !dm.dialogueTriggered)
             {
                 // If auto aim is on
                 if (gm.autoAimOn)
@@ -672,7 +659,7 @@ public class Player : MonoBehaviour
             animator.SetBool("walkingUp", false);
             animator.SetBool("walkingDown", false);
             animator.SetBool("walkingRight", false);
-            if (!hasShot && !dg.dialogueTriggered)
+            if (!hasShot && !dm.dialogueTriggered)
             {
                 animator.SetBool("isIdle", true);
             }

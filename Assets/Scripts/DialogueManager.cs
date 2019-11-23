@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Text nameText;
-    public Text dialogueText;
+    public GameObject nameText;
+    public GameObject dialogueText;
 
     private Queue<string> sentences;
     private Player playerScript;
@@ -20,13 +20,14 @@ public class DialogueManager : MonoBehaviour
     private bool chooseBad;
     private bool chooseNeutral;
     private bool chooseGood;
+    private Gamemode gm;
 
     [Header("General")]
     public float alphaIncSpeed;
     public float alphaDecSpeed;
     [TextArea(3, 10)]
     public string[] choiceText;
-    public Text statIncrease;
+    public GameObject statIncrease;
     public string statIncreaseText;
     public float waitTimeAlphaStart;
     private GameObject memory;
@@ -43,42 +44,75 @@ public class DialogueManager : MonoBehaviour
     public Text pDialogueText;
 
     [Header("Buttons")]
-    public Text buttonGood;
-    public Text buttonNeutral;
-    public Text buttonBad;
-    public GameObject buttonTalk;
+    public GameObject buttonBad;
+    public GameObject buttonNeutral;
+    public GameObject buttonGood;
+    private Button talkButton;
 
     [Header("Responsibility Text")]
-    public Text textGoodResp;
-    public Text textNeutralResp;
-    public Text textBadResp;
+    public GameObject textGoodResp;
+    public GameObject textNeutralResp;
+    public GameObject textBadResp;
 
     [Header("Statistic Text")]
-    public Text textPlusDamage;
-    public Text textPlusHealth;
-    public Text textPlusEDamage;
+    public GameObject textPlusDamage;
+    public GameObject textPlusHealth;
+    public GameObject textPlusEDamage;
 
     // Start is called before the first frame update
     void Start()
     {
-        buttonTalk.GetComponentInChildren<Button>().interactable = false;
-
         player = FindObjectOfType<Player>();
+
         charTimeGap = charTimeGapDef;
 
         sentences = new Queue<string>();
-        playerScript = GameObject.Find("Player").GetComponent<Player>();
 
-        // Ensure the choices are disabled by default
-        choices.SetActive(false);
+        gm = FindObjectOfType<Gamemode>();
 
-        gamemode = FindObjectOfType<Gamemode>();
+        if (player)
+        {
+            talkButton = gm.talkButton.GetComponentInChildren<Button>();
+            talkButton.interactable = false;
+            playerScript = GameObject.Find("Player").GetComponent<Player>();
+        }
     }
 
+    private void LateUpdate()
+    {
+        if (!player)
+        {
+            player = FindObjectOfType<Player>();
+        }
+    }
     private void FixedUpdate()
     {
-        EnableTalkButton();
-        memory = player.memory;
+        if (player)
+        {
+            memory = player.memory;
+            EnableTalkButton();
+
+            animatorP = GameObject.Find("Player Dialogue Box").GetComponent<Animator>();
+            animator = GameObject.Find("Other Dialogue Box").GetComponent<Animator>();
+
+            buttonGood = GameObject.Find("Button Good");
+            buttonNeutral = GameObject.Find("Button Neutral");
+            buttonBad = GameObject.Find("Button Bad");
+
+            textGoodResp = GameObject.Find("Responsibility Good");
+            textNeutralResp = GameObject.Find("Responsibility Neutral");
+            textBadResp = GameObject.Find("Responsibility Neutral");
+
+            textPlusDamage = GameObject.Find("+ Damage");
+            textPlusHealth = GameObject.Find("+ Health");
+            textPlusEDamage = GameObject.Find("+ Enemy Damage");
+
+            statIncrease = GameObject.Find("Statistic Increase");
+
+            nameText = GameObject.Find("Other Name");
+            dialogueText = GameObject.Find("Other Text");
+        }
+
     }
 
     // Turns the talk button off
@@ -88,11 +122,11 @@ public class DialogueManager : MonoBehaviour
         {
             buttonTriggered = false;
             player.memory.GetComponent<Memory>().interacted = false;
-            buttonTalk.GetComponentInChildren<Button>().interactable = false;
+            gm.talkButton.GetComponentInChildren<Button>().interactable = false;
 
-            buttonTalk.GetComponentInChildren<AlphaTransition>().canIncrease = false;
-            buttonTalk.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            buttonTalk.GetComponentInChildren<AlphaTransition>().canDecrease = true;
+            gm.talkButton.GetComponentInChildren<AlphaTransition>().canIncrease = false;
+            gm.talkButton.GetComponentInChildren<CanvasGroup>().alpha = 1;
+            gm.talkButton.GetComponentInChildren<AlphaTransition>().canDecrease = true;
             talkPressed = false;
         }
     }
@@ -103,16 +137,16 @@ public class DialogueManager : MonoBehaviour
         // Check if memory exists from player
         if (player.memory)
         {
-            //buttonTalk.GetComponentInChildren<CanvasGroup>().alpha = 0;
+            //gm.talkButton.GetComponentInChildren<CanvasGroup>().alpha = 0;
 
             // Check if the particular memory has been interacted,
             // and if the player is standing still,
             // and if the player has hit the memory's hitbox
             if (player.memory.GetComponent<Memory>().interacted && player.playerStill && !talkPressed && inRange)
             {
-                buttonTalk.GetComponentInChildren<Button>().interactable = true;
-                buttonTalk.GetComponentInChildren<AlphaTransition>().canDecrease = false;
-                buttonTalk.GetComponentInChildren<AlphaTransition>().canIncrease = true;
+                gm.talkButton.GetComponentInChildren<Button>().interactable = true;
+                gm.talkButton.GetComponentInChildren<AlphaTransition>().canDecrease = false;
+                gm.talkButton.GetComponentInChildren<AlphaTransition>().canIncrease = true;
 
                 // Allows the talk button to disable if player walks out of range
                 buttonTriggered = true;
@@ -123,14 +157,15 @@ public class DialogueManager : MonoBehaviour
     // Function the talk button does when pressed
     public void TriggerDialogue()
     {
+        choices.GetComponent<CanvasGroup>().alpha = 1;
         talkPressed = true;
         // Get reference to the memory's sentences, and send them to the dialogue manager
         StartDialogue(player.memory.GetComponent<Memory>().dialogue);
 
-        buttonTalk.GetComponentInChildren<Button>().interactable = false;
-        buttonTalk.GetComponentInChildren<AlphaTransition>().canIncrease = false;
-        buttonTalk.GetComponentInChildren<CanvasGroup>().alpha = 1;
-        buttonTalk.GetComponentInChildren<AlphaTransition>().canDecrease = true;
+        gm.talkButton.GetComponentInChildren<Button>().interactable = false;
+        gm.talkButton.GetComponentInChildren<AlphaTransition>().canIncrease = false;
+        gm.talkButton.GetComponentInChildren<CanvasGroup>().alpha = 1;
+        gm.talkButton.GetComponentInChildren<AlphaTransition>().canDecrease = true;
 
     }
 
@@ -154,7 +189,7 @@ public class DialogueManager : MonoBehaviour
         statIncreaseText = "+ Projectile Speed\n+ Reload Speed";
 
         // Reset stat increase text to default
-        statIncrease.text = statIncreaseText;
+        statIncrease.GetComponent<Text>().text = statIncreaseText;
 
         // Make it so the player cannot trigger this again
         dialogueTriggered = true;
@@ -163,7 +198,7 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("isOpen", true);
 
         // Set the name of the dialogue text
-        nameText.text = dialogue.name;
+        nameText.GetComponent<Text>().text = dialogue.name;
 
         // Clear all previous sentences
         sentences.Clear();
@@ -231,18 +266,20 @@ public class DialogueManager : MonoBehaviour
     // Types each character in a sentence one by one
     IEnumerator TypeSentence(string sentence)
     {
-        dialogueText.text = "";
+        dialogueText.GetComponent<Text>().text = "";
         foreach (char letter in sentence.ToCharArray())
         {
-            dialogueText.text += letter;
+            dialogueText.GetComponent<Text>().text += letter;
             yield return new WaitForSeconds(charTimeGap);
         }
     }
 
     void EndDialogue()
     {
-        // Display the choices 
-        choices.SetActive(true);
+        // Enable each button to be ready to be visible
+        buttonBad.GetComponent<CanvasGroup>().alpha = 1;
+        buttonNeutral.GetComponent<CanvasGroup>().alpha = 1;
+        buttonGood.GetComponent<CanvasGroup>().alpha = 1;
 
         memory = player.memory;
 
@@ -251,45 +288,46 @@ public class DialogueManager : MonoBehaviour
         {
             buttonTextSent = true;
 
-            buttonGood.text = memory.GetComponent<Memory>().memoryResponses[0];
-            StartCoroutine(ButtonGoodText(buttonGood.text));
+            // Assign what the text is going to say, then call it to happen
+            buttonBad.GetComponentInChildren<Text>().text = memory.GetComponent<Memory>().memoryResponses[0];
+            StartCoroutine(ButtonBadText(buttonBad.GetComponentInChildren<Text>().text));
         }
     }
 
     // Good text character by character
-    IEnumerator ButtonGoodText(string sentence)
+    IEnumerator ButtonBadText(string sentence)
     {
-        buttonGood.text = "";
-        buttonNeutral.text = "";
-        buttonBad.text = "";
+        buttonBad.GetComponentInChildren<Text>().text = "";
+        buttonNeutral.GetComponentInChildren<Text>().text = "";
+        buttonGood.GetComponentInChildren<Text>().text = "";
 
         foreach (char letter in sentence.ToCharArray())
         {
-            buttonGood.text += letter;
+            buttonBad.GetComponentInChildren<Text>().text += letter;
             yield return new WaitForSeconds(charTimeGap);
         }
 
         // Reset alpha of text to 0
-        textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
+        textBadResp.GetComponent<CanvasGroup>().alpha = 0;
         textPlusDamage.GetComponent<CanvasGroup>().alpha = 0;
 
         // Enable stat increase text to transition in
-        textGoodResp.GetComponent<AlphaTransition>().canIncrease = true;
+        textBadResp.GetComponent<AlphaTransition>().canIncrease = true;
         textPlusDamage.GetComponent<AlphaTransition>().canIncrease = true;
 
         // Set Neutral text
-        buttonNeutral.text = memory.GetComponent<Memory>().memoryResponses[1];
-        StartCoroutine(ButtonNeutralText(buttonNeutral.text));
+        buttonNeutral.GetComponentInChildren<Text>().text = memory.GetComponent<Memory>().memoryResponses[1];
+        StartCoroutine(ButtonNeutralText(buttonNeutral.GetComponentInChildren<Text>().text));
     }
 
     // Neutral text character by character
     IEnumerator ButtonNeutralText(string sentence)
     {
-        buttonNeutral.text = "";
+        buttonNeutral.GetComponentInChildren<Text>().text = "";
 
         foreach (char letter in sentence.ToCharArray())
         {
-            buttonNeutral.text += letter;
+            buttonNeutral.GetComponentInChildren<Text>().text += letter;
             yield return new WaitForSeconds(charTimeGap);
         }
 
@@ -302,27 +340,27 @@ public class DialogueManager : MonoBehaviour
         textPlusHealth.GetComponent<AlphaTransition>().canIncrease = true;
 
         // Set Bad text
-        buttonBad.text = memory.GetComponent<Memory>().memoryResponses[2];
-        StartCoroutine(ButtonBadText(buttonBad.text));
+        buttonGood.GetComponentInChildren<Text>().text = memory.GetComponent<Memory>().memoryResponses[2];
+        StartCoroutine(ButtonGoodText(buttonBad.GetComponentInChildren<Text>().text));
     }
 
     // Bad text character by character
-    IEnumerator ButtonBadText(string sentence)
+    IEnumerator ButtonGoodText(string sentence)
     {
-        buttonBad.text = "";
+        buttonGood.GetComponentInChildren<Text>().text = "";
 
         foreach (char letter in sentence.ToCharArray())
         {
-            buttonBad.text += letter;
+            buttonGood.GetComponentInChildren<Text>().text += letter;
             yield return new WaitForSeconds(charTimeGap);
         }
 
         // Reset alpha of text to 0
-        textBadResp.GetComponent<CanvasGroup>().alpha = 0;
+        textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
         textPlusEDamage.GetComponent<CanvasGroup>().alpha = 0;
 
         // Enable stat increase text to transition in
-        textBadResp.GetComponent<AlphaTransition>().canIncrease = true;
+        textGoodResp.GetComponent<AlphaTransition>().canIncrease = true;
         textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = true;
     }
 
@@ -417,7 +455,7 @@ public class DialogueManager : MonoBehaviour
             pDialogueText.text = choiceText[0];
 
             // Add specific stat to statIncrease based on choice
-            statIncrease.text += "\n+ Damage";
+            statIncrease.GetComponent<Text>().text += "\n+ Damage";
         }
 
         if (chooseNeutral)
@@ -426,7 +464,7 @@ public class DialogueManager : MonoBehaviour
             pDialogueText.text = choiceText[1];
 
             // Add specific stat to statIncrease based on choice
-            statIncrease.text += "\n+ Health";
+            statIncrease.GetComponent<Text>().text += "\n+ Health";
         }
 
         if (chooseGood)
@@ -435,7 +473,7 @@ public class DialogueManager : MonoBehaviour
             pDialogueText.text = choiceText[2];
 
             // Add specific stat to statIncrease based on choice
-            statIncrease.text += "\n+ Enemy Power";
+            statIncrease.GetComponent<Text>().text += "\n+ Enemy Power";
         }
 
         yield return new WaitForSeconds(waitTimeAlphaStart);
@@ -449,7 +487,7 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(8f);
 
         // Reset stat increase text to default
-        statIncrease.text = "+ Projectile Speed\n+ Reload Speed";
+        statIncrease.GetComponent<Text>().text = "+ Projectile Speed\n+ Reload Speed";
 
         // Remove player dialogue box from screen
         animatorP.SetBool("isOpenP", false);

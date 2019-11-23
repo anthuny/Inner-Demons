@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gamemode : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Gamemode : MonoBehaviour
     public GameObject player;
     private Transform spawnPos;
     private GameDownManager gdm;
+    private DialogueManager dm;
 
     [Header("Choices")]
     public int arrogance;
@@ -63,9 +65,13 @@ public class Gamemode : MonoBehaviour
 
     [Header("Player Attacking Statistics")]
     public float bulletSpeed;
+    public float bulletSpeedDef;
     public float bulletDist;
+    public float bulletDistDef;
     public float bulletDamage;
+    public float bulletDamageDef;
     public float shotCooldown = 0.25f;
+    public float shotCooldownDef;
     public float autoAimDis;
 
     [Header("Enemy Ranged Statistics")]
@@ -85,11 +91,15 @@ public class Gamemode : MonoBehaviour
     public float e_BulletSpeed;
     public float e_BulletDist;
 
+    [Header("Memory")]
+    public GameObject talkButton;
+
     // Start is called before the first frame update
     void Start()
     {
         spawnPos = GameObject.Find("EGOSpawnPoint").transform;
         gdm = FindObjectOfType<GameDownManager>();
+        dm = FindObjectOfType<DialogueManager>();
 
         playerSpeedCur = playerSpeedDef;
     }
@@ -104,13 +114,25 @@ public class Gamemode : MonoBehaviour
 
     void PlayerDeath()
     {
+        if (player)
+        {
+            talkButton = GameObject.Find("Talk Button");
+            talkButton.GetComponent<Button>().onClick.AddListener(dm.TriggerDialogue);
+            talkButton.GetComponent<Button>().interactable = false;
+        }
+
         if (!player)
         {
+            player = FindObjectOfType<Player>().gameObject;
             gdm.youFaintedBut.gameObject.SetActive(true);
             gdm.restartBut.gameObject.SetActive(true);
             gdm.menuBut.gameObject.SetActive(true);
+            arrogance = 0;
+            ignorance = 0;
+            morality = 0;
         }
     }
+
     public void CalculateChoiceHigh()
     {
         // Check what the highest choice is out of all choices
