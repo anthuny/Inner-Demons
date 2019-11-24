@@ -210,6 +210,13 @@ public class Player : MonoBehaviour
                 room.GetComponent<Room>().beenCleared = true;
             }
         }
+
+        // If player leaves memory's range. remove 
+        // the memory variable from player
+        if (other.gameObject.tag == ("Memory"))
+        {
+            memory = null;
+        }
     }
 
     public void Shoot()

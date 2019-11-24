@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Gamemode : MonoBehaviour
 {
     [Header("Current Platform")]
     public bool usingPC;
+
+    [Header("Developer Mode")]
+    public bool devMode;
 
     [Header("General")]
     public GameObject playerPrefab;
@@ -36,7 +40,6 @@ public class Gamemode : MonoBehaviour
     [Header("Touch Inputs / Joysticks")]
     public GameObject joystickHolder;
     public Joystick joystickMove;
-    public float minDragDistance;
     public Vector2 startPos;
     private Vector2 direction;
     public GameObject shootArea;
@@ -84,6 +87,7 @@ public class Gamemode : MonoBehaviour
     public float e_ViewDis;
     public float evadetimerMax;
     public float bossDeathSpeed = 0;
+    public float e_BulletScaleInc;
 
     [Header("Enemy Ranged Attacking Statistics")]
     public float e_BulletDamage;
@@ -109,28 +113,6 @@ public class Gamemode : MonoBehaviour
     {
         ElementManager();
         CalculateChoiceHigh();
-        PlayerDeath();
-    }
-
-    void PlayerDeath()
-    {
-        if (player)
-        {
-            talkButton = GameObject.Find("Talk Button");
-            talkButton.GetComponent<Button>().onClick.AddListener(dm.TriggerDialogue);
-            talkButton.GetComponent<Button>().interactable = false;
-        }
-
-        if (!player)
-        {
-            player = FindObjectOfType<Player>().gameObject;
-            gdm.youFaintedBut.gameObject.SetActive(true);
-            gdm.restartBut.gameObject.SetActive(true);
-            gdm.menuBut.gameObject.SetActive(true);
-            arrogance = 0;
-            ignorance = 0;
-            morality = 0;
-        }
     }
 
     public void CalculateChoiceHigh()
@@ -182,18 +164,21 @@ public class Gamemode : MonoBehaviour
         shotCooldown -= chooseReloadSpeedInc;
     }
 
-    public void IncreaseDamage()
+    public void TextStatBad()
     {
+        // Increase player damage
         bulletDamage += chooseDamageInc;
     }
 
-    public void IncreaseHealth()
+    public void TextStatNeutral()
     {
-        p_maxHealth += chooseHealthInc;
+        // Increase Enemy's health
+        e_MaxHealth += chooseHealthInc;
     }
 
-    public void IncreaseEnemyDamage()
+    public void TextStatGood()
     {
+        // Increase Enemy's Damage
         e_BulletDamage += chooseE_DamageInc;
     }
 
@@ -262,5 +247,23 @@ public class Gamemode : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void LaunchGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void LaunchMenu()
+    {
+        gdm.gamePaused = false;
+        Time.timeScale = 1;
+
+        // turn pause buttons off
+        gdm.pausedBut.gameObject.SetActive(false);
+        gdm.continueBut.gameObject.SetActive(false);
+        gdm.mainMenuBut.gameObject.SetActive(false);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

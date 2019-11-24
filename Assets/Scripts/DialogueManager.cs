@@ -12,7 +12,6 @@ public class DialogueManager : MonoBehaviour
     private Player playerScript;
     public GameObject choices;
     public bool dialogueTriggered;
-    private Gamemode gamemode;
     private bool buttonTextSent;
     public float charTimeGapDef;
     private float charTimeGap;
@@ -35,13 +34,14 @@ public class DialogueManager : MonoBehaviour
     public bool talkPressed;
     public bool buttonTriggered;
     public bool inRange;
+    public GameDownManager gdm;
 
     [Header("Other Character's Dialogue Box")]
     public Animator animator;
 
     [Header("Player's Dialogue Box")]
     public Animator animatorP;
-    public Text pDialogueText;
+    public GameObject pDialogueText;
 
     [Header("Buttons")]
     public GameObject buttonBad;
@@ -55,13 +55,15 @@ public class DialogueManager : MonoBehaviour
     public GameObject textBadResp;
 
     [Header("Statistic Text")]
-    public GameObject textPlusDamage;
-    public GameObject textPlusHealth;
-    public GameObject textPlusEDamage;
+    public GameObject textStatBad;
+    public GameObject textStatNeutral;
+    public GameObject textStatGood;
 
     // Start is called before the first frame update
     void Start()
     {
+        gdm = FindObjectOfType<GameDownManager>();
+
         player = FindObjectOfType<Player>();
 
         charTimeGap = charTimeGapDef;
@@ -75,6 +77,10 @@ public class DialogueManager : MonoBehaviour
             talkButton = gm.talkButton.GetComponentInChildren<Button>();
             talkButton.interactable = false;
             playerScript = GameObject.Find("Player").GetComponent<Player>();
+
+            buttonBad.GetComponent<Button>().interactable = false;
+            buttonNeutral.GetComponent<Button>().interactable = false;
+            buttonGood.GetComponent<Button>().interactable = false;
         }
     }
 
@@ -83,6 +89,9 @@ public class DialogueManager : MonoBehaviour
         if (!player)
         {
             player = FindObjectOfType<Player>();
+            buttonBad.GetComponent<Button>().interactable = false;
+            buttonNeutral.GetComponent<Button>().interactable = false;
+            buttonGood.GetComponent<Button>().interactable = false;
         }
     }
     private void FixedUpdate()
@@ -91,26 +100,6 @@ public class DialogueManager : MonoBehaviour
         {
             memory = player.memory;
             EnableTalkButton();
-
-            animatorP = GameObject.Find("Player Dialogue Box").GetComponent<Animator>();
-            animator = GameObject.Find("Other Dialogue Box").GetComponent<Animator>();
-
-            buttonGood = GameObject.Find("Button Good");
-            buttonNeutral = GameObject.Find("Button Neutral");
-            buttonBad = GameObject.Find("Button Bad");
-
-            textGoodResp = GameObject.Find("Responsibility Good");
-            textNeutralResp = GameObject.Find("Responsibility Neutral");
-            textBadResp = GameObject.Find("Responsibility Neutral");
-
-            textPlusDamage = GameObject.Find("+ Damage");
-            textPlusHealth = GameObject.Find("+ Health");
-            textPlusEDamage = GameObject.Find("+ Enemy Damage");
-
-            statIncrease = GameObject.Find("Statistic Increase");
-
-            nameText = GameObject.Find("Other Name");
-            dialogueText = GameObject.Find("Other Text");
         }
 
     }
@@ -159,6 +148,7 @@ public class DialogueManager : MonoBehaviour
     {
         choices.GetComponent<CanvasGroup>().alpha = 1;
         talkPressed = true;
+
         // Get reference to the memory's sentences, and send them to the dialogue manager
         StartDialogue(player.memory.GetComponent<Memory>().dialogue);
 
@@ -173,20 +163,30 @@ public class DialogueManager : MonoBehaviour
     {
         // Reset alpha of text to 0
         textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusDamage.GetComponent<CanvasGroup>().alpha = 0;
+        textStatBad.GetComponent<CanvasGroup>().alpha = 0;
         textNeutralResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusHealth.GetComponent<CanvasGroup>().alpha = 0;
+        textStatNeutral.GetComponent<CanvasGroup>().alpha = 0;
         textBadResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusEDamage.GetComponent<CanvasGroup>().alpha = 0;
+        textStatGood.GetComponent<CanvasGroup>().alpha = 0;
+
+        buttonBad.GetComponent<CanvasGroup>().alpha = 0;
+        buttonNeutral.GetComponent<CanvasGroup>().alpha = 0;
+        buttonGood.GetComponent<CanvasGroup>().alpha = 0;
 
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatBad.GetComponent<AlphaTransition>().canIncrease = false;
         textNeutralResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusHealth.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatNeutral.GetComponent<AlphaTransition>().canIncrease = false;
         textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatGood.GetComponent<AlphaTransition>().canIncrease = false;
 
-        statIncreaseText = "+ Projectile Speed\n+ Reload Speed";
+        buttonBad.GetComponentInChildren<Text>().text = "";
+        buttonNeutral.GetComponentInChildren<Text>().text = "";
+        buttonGood.GetComponentInChildren<Text>().text = "";
+
+        choices.GetComponent<CanvasGroup>().alpha = 0;
+
+        statIncreaseText = "+ Shot Speed\n+ Reload Speed";
 
         // Reset stat increase text to default
         statIncrease.GetComponent<Text>().text = statIncreaseText;
@@ -276,12 +276,31 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        // Enable each button to be ready to be visible
-        buttonBad.GetComponent<CanvasGroup>().alpha = 1;
-        buttonNeutral.GetComponent<CanvasGroup>().alpha = 1;
-        buttonGood.GetComponent<CanvasGroup>().alpha = 1;
-
         memory = player.memory;
+
+        // If the memory the player is talking to
+        // is NOT the boss, continue
+        if (player.memory.tag != "Enemy")
+        {
+            choices.GetComponent<CanvasGroup>().alpha = 1;
+
+            // Enable each button to be ready to be visible
+            buttonBad.GetComponent<CanvasGroup>().alpha = 1;
+
+            buttonBad.GetComponent<Button>().interactable = true;
+            buttonNeutral.GetComponent<Button>().interactable = true;
+            buttonGood.GetComponent<Button>().interactable = true;
+        }
+
+        else
+        {
+            gdm.winBut.gameObject.SetActive(true);
+            gdm.menuBut2.gameObject.SetActive(true);
+
+            // Pause the game for the menu to show up
+            Time.timeScale = 0;
+
+        }
 
         // Set Good text
         if (!buttonTextSent)
@@ -309,15 +328,17 @@ public class DialogueManager : MonoBehaviour
 
         // Reset alpha of text to 0
         textBadResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusDamage.GetComponent<CanvasGroup>().alpha = 0;
+        textStatBad.GetComponent<CanvasGroup>().alpha = 0;
 
         // Enable stat increase text to transition in
         textBadResp.GetComponent<AlphaTransition>().canIncrease = true;
-        textPlusDamage.GetComponent<AlphaTransition>().canIncrease = true;
+        textStatBad.GetComponent<AlphaTransition>().canIncrease = true;
 
         // Set Neutral text
         buttonNeutral.GetComponentInChildren<Text>().text = memory.GetComponent<Memory>().memoryResponses[1];
         StartCoroutine(ButtonNeutralText(buttonNeutral.GetComponentInChildren<Text>().text));
+
+        buttonNeutral.GetComponent<CanvasGroup>().alpha = 1;
     }
 
     // Neutral text character by character
@@ -333,15 +354,17 @@ public class DialogueManager : MonoBehaviour
 
         // Reset alpha of text to 0
         textNeutralResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusHealth.GetComponent<CanvasGroup>().alpha = 0;
+        textStatNeutral.GetComponent<CanvasGroup>().alpha = 0;
 
         // Enable stat increase text to transition in
         textNeutralResp.GetComponent<AlphaTransition>().canIncrease = true;
-        textPlusHealth.GetComponent<AlphaTransition>().canIncrease = true;
+        textStatNeutral.GetComponent<AlphaTransition>().canIncrease = true;
 
         // Set Bad text
         buttonGood.GetComponentInChildren<Text>().text = memory.GetComponent<Memory>().memoryResponses[2];
-        StartCoroutine(ButtonGoodText(buttonBad.GetComponentInChildren<Text>().text));
+        StartCoroutine(ButtonGoodText(buttonGood.GetComponentInChildren<Text>().text));
+
+        buttonGood.GetComponent<CanvasGroup>().alpha = 1;
     }
 
     // Bad text character by character
@@ -357,11 +380,11 @@ public class DialogueManager : MonoBehaviour
 
         // Reset alpha of text to 0
         textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusEDamage.GetComponent<CanvasGroup>().alpha = 0;
+        textStatGood.GetComponent<CanvasGroup>().alpha = 0;
 
         // Enable stat increase text to transition in
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = true;
-        textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = true;
+        textStatGood.GetComponent<AlphaTransition>().canIncrease = true;
     }
 
     // Button select upon on GOOD choice being selected
@@ -369,20 +392,20 @@ public class DialogueManager : MonoBehaviour
     {
         // DISABLE stat increase text from transition in
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatBad.GetComponent<AlphaTransition>().canIncrease = false;
 
         // Make the buttons disappear
-        choices.SetActive(false);
+        choices.GetComponent<CanvasGroup>().alpha = 0;
 
         chooseNeutral = false;
         chooseGood = false;
         chooseBad = true;
 
         // Increase player's bullet damage
-        gamemode.IncreaseDamage();
+        gm.TextStatBad();
 
         // Increase the player's arrogance
-        gamemode.arrogance++;
+        gm.arrogance++;
 
         // Close Dialogue box
         StartCoroutine("CloseDialogue");
@@ -396,20 +419,20 @@ public class DialogueManager : MonoBehaviour
     {
         // DISABLE stat increase text from transition in
         textNeutralResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusHealth.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatNeutral.GetComponent<AlphaTransition>().canIncrease = false;
 
         // Make the buttons disappear
-        choices.SetActive(false);
+        choices.GetComponent<CanvasGroup>().alpha = 0;
 
         chooseGood = false;
         chooseBad = false;
         chooseNeutral = true;
 
         // Increase player's health
-        gamemode.IncreaseHealth();
+        gm.TextStatNeutral();
 
         // Increase the player's ignorance
-        gamemode.ignorance++;
+        gm.ignorance++;
 
         // Close Dialogue box
         StartCoroutine("CloseDialogue");
@@ -423,20 +446,20 @@ public class DialogueManager : MonoBehaviour
     {
         // DISABLE stat increase text from transition in
         textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatGood.GetComponent<AlphaTransition>().canIncrease = false;
 
         // Make the buttons disappear
-        choices.SetActive(false);
+        choices.GetComponent<CanvasGroup>().alpha = 0;
 
         chooseBad = false;
         chooseNeutral = false;
         chooseGood = true;
 
         // Increase enemy's bullet damage
-        gamemode.IncreaseEnemyDamage();
+        gm.TextStatGood();
 
         // Increase the player's morality
-        gamemode.morality++;
+        gm.morality++;
 
         // Close Dialogue box
         StartCoroutine("CloseDialogue");
@@ -447,33 +470,42 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator OpenPlayerDialogue()
     {
+        buttonBad.GetComponent<Button>().interactable = false;
+        buttonNeutral.GetComponent<Button>().interactable = false;
+        buttonGood.GetComponent<Button>().interactable = false;
+
+        // Make the buttons invisible for next memory encounter
+        buttonBad.GetComponent<CanvasGroup>().alpha = 0;
+        buttonNeutral.GetComponent<CanvasGroup>().alpha = 0;
+        buttonGood.GetComponent<CanvasGroup>().alpha = 0;
+
         animatorP.SetBool("isOpenP", true);
 
         if (chooseBad)
         {
             // If the player chooses the an option, display appropriate text in their dialogue
-            pDialogueText.text = choiceText[0];
+            pDialogueText.GetComponent<Text>().text = choiceText[0];
 
             // Add specific stat to statIncrease based on choice
-            statIncrease.GetComponent<Text>().text += "\n+ Damage";
+            statIncrease.GetComponent<Text>().text += "\n" + textStatBad.GetComponent<Text>().text;
         }
 
         if (chooseNeutral)
         {
             // If the player chooses the an option, display appropriate text in their dialogue
-            pDialogueText.text = choiceText[1];
+            pDialogueText.GetComponent<Text>().text = choiceText[1];
 
             // Add specific stat to statIncrease based on choice
-            statIncrease.GetComponent<Text>().text += "\n+ Health";
+            statIncrease.GetComponent<Text>().text += "\n" + textStatNeutral.GetComponent<Text>().text;
         }
 
         if (chooseGood)
         {
             // If the player chooses the an option, display appropriate text in their dialogue
-            pDialogueText.text = choiceText[2];
+            pDialogueText.GetComponent<Text>().text = choiceText[2];
 
             // Add specific stat to statIncrease based on choice
-            statIncrease.GetComponent<Text>().text += "\n+ Enemy Power";
+            statIncrease.GetComponent<Text>().text += "\n" + textStatGood.GetComponent<Text>().text;
         }
 
         yield return new WaitForSeconds(waitTimeAlphaStart);
@@ -482,9 +514,9 @@ public class DialogueManager : MonoBehaviour
         statIncrease.GetComponent<AlphaTransition>().canIncrease = true;
 
         // Increase player's statistics
-        gamemode.IncreaseStatistics();
+        gm.IncreaseStatistics();
 
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
 
         // Reset stat increase text to default
         statIncrease.GetComponent<Text>().text = "+ Projectile Speed\n+ Reload Speed";
@@ -497,26 +529,26 @@ public class DialogueManager : MonoBehaviour
     {
         // Reset alpha of text to 0
         textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusDamage.GetComponent<CanvasGroup>().alpha = 0;
+        textStatBad.GetComponent<CanvasGroup>().alpha = 0;
         textNeutralResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusHealth.GetComponent<CanvasGroup>().alpha = 0;
+        textStatNeutral.GetComponent<CanvasGroup>().alpha = 0;
         textBadResp.GetComponent<CanvasGroup>().alpha = 0;
-        textPlusEDamage.GetComponent<CanvasGroup>().alpha = 0;
+        textStatGood.GetComponent<CanvasGroup>().alpha = 0;
 
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatBad.GetComponent<AlphaTransition>().canIncrease = false;
         textNeutralResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusHealth.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatNeutral.GetComponent<AlphaTransition>().canIncrease = false;
         textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
-        textPlusEDamage.GetComponent<AlphaTransition>().canIncrease = false;
+        textStatGood.GetComponent<AlphaTransition>().canIncrease = false;
         
 
         // Close the Dialogue box
         animator.SetBool("isOpen", false);
 
-        gamemode.playerSpeedCur = gamemode.playerSpeedDead;
+        gm.playerSpeedCur = gm.playerSpeedDead;
         yield return new WaitForSeconds(1f);
-        gamemode.playerSpeedCur = gamemode.playerSpeedDef;
+        gm.playerSpeedCur = gm.playerSpeedDef;
 
         dialogueTriggered = false;
         buttonTextSent = false;
