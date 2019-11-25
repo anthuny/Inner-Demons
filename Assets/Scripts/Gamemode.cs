@@ -248,6 +248,28 @@ public class Gamemode : MonoBehaviour
                 }
             }
         }
+
+        if (currentElement == 0)
+        {
+            isEarth = false;
+            isFire = false;
+            isWater = true;
+        }
+
+        if (currentElement == 1)
+        {
+            isEarth = false;
+            isWater = false;
+            isFire = true;
+        }
+
+        if (currentElement == 2)
+        {
+            isWater = false;
+            isFire = false;
+            isEarth = true;
+        }
+
     }
 
     public void LaunchGame()

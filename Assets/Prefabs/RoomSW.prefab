@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 8035340973008431443}
   - component: {fileID: 8035340973008431441}
   m_Layer: 9
-  m_Name: RoomSE
+  m_Name: RoomSW
   m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,7 +288,12 @@ MonoBehaviour:
   roomEnemyCount: 0
   beenEntered: 0
   spawnWait: 1
+  enemiesHaveSpawned: 0
   doorsClosed: 0
+  isBossRoom: 0
+  room: {fileID: 0}
+  canOpen: 0
+  beenCleared: 0
 --- !u!1 &8035340973176770496
 GameObject:
   m_ObjectHideFlags: 0
