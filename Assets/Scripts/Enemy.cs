@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -41,18 +42,20 @@ public class Enemy : MonoBehaviour
     private bool changedTag;
     public GameObject memoryRange;
 
+    //Animation
+    public Animator animator;
 
-    private Gamemode gamemode;
+    private Gamemode gm;
 
     void Start()
     {
-        gamemode = GameObject.Find("EGOGamemode").GetComponent<Gamemode>();
+        gm = GameObject.Find("EGOGamemode").GetComponent<Gamemode>();
 
         //Increase enemy count
-        gamemode.enemyCount++;
+        gm.enemyCount++;
 
         //Change name of enemy, including the enemy count
-        name = "Enemy " + gamemode.enemyCount;
+        name = "Enemy " + gm.enemyCount;
 
         sr = GetComponentInChildren<SpriteRenderer>();
         player = GameObject.Find("Player");
@@ -63,7 +66,7 @@ public class Enemy : MonoBehaviour
 
     void Reset()
     {
-        e_CurHealth = gamemode.e_MaxHealth;
+        e_CurHealth = gm.e_MaxHealth;
         e_HealthBar.fillAmount = 1f;
         // Current patrol point
         //currentPoint = 0;
@@ -101,10 +104,9 @@ public class Enemy : MonoBehaviour
     {
         Evade();
         LookAt();
-        Shoot();
+        StartCoroutine("Shoot");
         ElementManager();
         AllowBossDialogue();
-        BossBehaviour();
 
         Vector3 z;
         z = transform.position;
@@ -120,51 +122,46 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void BossBehaviour()
-    {
-
-    }
-
     void ElementManager()
     {
         if (isFire)
         {
-            sr.color = Color.red;
+            //sr.color = Color.red;
         }
 
         if (isWater)
         {
-            sr.color = Color.blue;
+            //sr.color = Color.blue;
         }
 
         if (isEarth)
         {
-            sr.color = Color.green;
+            //sr.color = Color.green;
         }
     }
 
     public void DecreaseHealth(float bulletDamage, string playersCurElement)
     {
-        if (e_CurHealth > gamemode.e_HealthDeath)
+        if (e_CurHealth > gm.e_HealthDeath)
         {
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Fire" && isEarth)
             {
-                e_CurHealth -= bulletDamage + gamemode.fireDamage;
+                e_CurHealth -= bulletDamage + gm.fireDamage;
                 e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Water" && isFire)
             {
-                e_CurHealth -= bulletDamage + gamemode.waterDamage;
+                e_CurHealth -= bulletDamage + gm.waterDamage;
                 e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Earth" && isWater)
             {
-                e_CurHealth -= bulletDamage + gamemode.earthDamage;
+                e_CurHealth -= bulletDamage + gm.earthDamage;
                 e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
@@ -212,10 +209,10 @@ public class Enemy : MonoBehaviour
         }
         
         // If this object dies
-        if (e_CurHealth <= gamemode.e_HealthDeath && !isBoss)
+        if (e_CurHealth <= gm.e_HealthDeath && !isBoss)
         {
             //Decrease enemy count
-            gamemode.enemyCount--;
+            gm.enemyCount--;
 
             //Decrease room enemy count
             room.GetComponent<Room>().roomEnemyCount--;
@@ -224,7 +221,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (e_CurHealth <= gamemode.e_HealthDeath && isBoss)
+        if (e_CurHealth <= gm.e_HealthDeath && isBoss)
         {
             bossDialogueReady = true;
             //Trigger dialogue system
@@ -235,23 +232,41 @@ public class Enemy : MonoBehaviour
     {
         if (player != null && !bossDialogueReady)
         {
-            transform.right = player.transform.position - transform.position;
+            // Set rotation of gun holder to aim at player position
+            // Rotate gun holder
+            gm.e_ShootDir = player.transform.position - transform.position;
+            gm.e_ShootDir.Normalize();
+            e_GunHolder.transform.right = gm.shootDir;
         }
+
+        if (player.transform.position.x > transform.position.x)
+        {
+            GetComponentInChildren<SpriteRenderer>().flipX = false;
+        }
+
+        else
+        {
+            GetComponentInChildren<SpriteRenderer>().flipX = true;
+        }
+
     }
 
-    void Shoot()
+    IEnumerator Shoot()
     {
         if (player == null)
         {
-            return;
+            yield return 0;
         }
 
         float distance = Vector2.Distance(transform.position, player.transform.position);
 
         //Is the player further away then e_ViewDis?
-        if (distance >= gamemode.e_ViewDis)
+        if (distance >= gm.e_ViewDis)
         {
             targetInViewRange = false;
+
+            // Play idle animation
+            animator.SetInteger("EnemyBrain", 0);
         }
         else
         {
@@ -274,30 +289,39 @@ public class Enemy : MonoBehaviour
             if (targetInShootRange)
             {
                 Instantiate(bullet, e_GunHolder.position, Quaternion.identity);
+
+                // Play shooting animation
+                animator.SetInteger("EnemyBrain", 2);
+
+                // Wait x seconds
+                yield return new WaitForSeconds(0.25f);
+
+                // Play idle animation
+                animator.SetInteger("EnemyBrain", 0);
             }
         }
 
         if (targetInViewRange)
         {
             //If not in shooting range, chase
-            if (distance > gamemode.e_BulletDist)
+            if (distance > gm.e_BulletDist)
             {
                 targetInShootRange = false;
 
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, gamemode.e_ChaseSpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, gm.e_ChaseSpeed * Time.deltaTime);
             }
         }
     }
 
     void Evade()
     {
-        if (timer <= gamemode.evadetimerMax)
+        if (timer <= gm.evadetimerMax)
         {
             alreadyChosen = true;
             timer += Time.deltaTime;
         }
 
-        if (timer >= gamemode.evadetimerMax)
+        if (timer >= gm.evadetimerMax)
         {
             timer = 0;
             alreadyChosen = false;
@@ -314,18 +338,18 @@ public class Enemy : MonoBehaviour
             float distance = Vector2.Distance(transform.position, player.transform.position);
 
             //If in shooting range, stop chasing and begin evading
-            if (distance <= gamemode.e_BulletDist)
+            if (distance <= gm.e_BulletDist)
             {
                 targetInShootRange = true;
 
                 if (random == 1)
                 {
-                    transform.Translate(Vector2.up * Time.deltaTime * gamemode.e_EvadeSpeed, Space.Self);
+                    transform.Translate(Vector2.up * Time.deltaTime * gm.e_EvadeSpeed, Space.Self);
                 }
 
                 if (random == 2)
                 {
-                    transform.Translate(Vector2.down * Time.deltaTime * gamemode.e_EvadeSpeed, Space.Self);
+                    transform.Translate(Vector2.down * Time.deltaTime * gm.e_EvadeSpeed, Space.Self);
                 }
             }
         }
@@ -333,12 +357,12 @@ public class Enemy : MonoBehaviour
 
     void ShotCooldown()
     {
-        if (e_ShotTimer <= gamemode.e_ShotCooldown)
+        if (e_ShotTimer <= gm.e_ShotCooldown)
         {
             e_ShotTimer += Time.deltaTime;
         }
 
-        if (e_ShotTimer >= gamemode.e_ShotCooldown)
+        if (e_ShotTimer >= gm.e_ShotCooldown)
         {
             e_HasShot = false;
             e_ShotTimer = 0;

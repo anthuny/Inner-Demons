@@ -88,6 +88,7 @@ public class Gamemode : MonoBehaviour
     public float evadetimerMax;
     public float bossDeathSpeed = 0;
     public float e_BulletScaleInc;
+    public Vector2 e_ShootDir;
 
     [Header("Enemy Ranged Attacking Statistics")]
     public float e_BulletDamage;

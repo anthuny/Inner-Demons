@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8476755611019554177
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8476755611019554178}
-  m_Layer: 9
-  m_Name: EGOEnemySpawn
-  m_TagString: SpawnPoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8476755611019554178
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8476755611019554177}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -335, y: -40, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8476755611201419882}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8476755611201419880
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +31,6 @@ Transform:
   m_Children:
   - {fileID: 8476755611453408414}
   - {fileID: 8476755612979256571}
-  - {fileID: 8476755611019554178}
   - {fileID: 8476755611706440557}
   - {fileID: 8476755611469440783}
   m_Father: {fileID: 0}
@@ -96,6 +65,12 @@ MonoBehaviour:
   roomEnemyCount: 0
   beenEntered: 0
   spawnWait: 1
+  enemiesHaveSpawned: 0
+  doorsClosed: 0
+  isBossRoom: 0
+  room: {fileID: 0}
+  canOpen: 0
+  beenCleared: 0
 --- !u!1 &8476755611453408413
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +135,7 @@ Transform:
   m_LocalScale: {x: 30.331188, y: 17.804619, z: 19.897}
   m_Children: []
   m_Father: {fileID: 8476755611201419882}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8476755611469440778
 SpriteRenderer:
@@ -286,7 +261,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8476755611201419882}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8476755612164122327
 GameObject:
