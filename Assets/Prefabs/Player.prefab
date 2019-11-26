@@ -345,8 +345,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 3785784146384260830, guid: ef0a80721cce6654e8bcb0bdacd9daff,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6dac74118a3318c429095ff5cb38ad12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -367,7 +366,7 @@ Animator:
   m_GameObject: {fileID: 4759861193707082328}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 28e67f9cfa2559e40bde20d2b82faa83, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6754538791b0ebb4a8b2534d15b5f396, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -575,7 +574,7 @@ PrefabInstance:
     - target: {fileID: 9133201526527734124, guid: d95da88540d2d6e44a0c4c40c581b24a,
         type: 3}
       propertyPath: filteringSettings.layerMask.m_Bits
-      value: 5943
+      value: 22327
       objectReference: {fileID: 0}
     - target: {fileID: 9133201526527734124, guid: d95da88540d2d6e44a0c4c40c581b24a,
         type: 3}
@@ -595,7 +594,7 @@ PrefabInstance:
     - target: {fileID: 9133201526527734124, guid: d95da88540d2d6e44a0c4c40c581b24a,
         type: 3}
       propertyPath: ContactFilter.layerMask.m_Bits
-      value: 5943
+      value: 22327
       objectReference: {fileID: 0}
     - target: {fileID: 1278962375649610277, guid: d95da88540d2d6e44a0c4c40c581b24a,
         type: 3}

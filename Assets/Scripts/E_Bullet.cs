@@ -18,6 +18,7 @@ public class E_Bullet : MonoBehaviour
     private Vector2 playerVel;
     private SpriteRenderer sr;
     private Gamemode gm;
+    private bool passThrough;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +76,16 @@ public class E_Bullet : MonoBehaviour
 
         //Increase the size of the bullet based on the damage of the enemy
         transform.localScale = new Vector2(1, 1) * gm.e_BulletDamage / gm.e_BulletScaleInc;
+
+        // If enemy could see target, allow it to pass through obstacles
+        if (gm.e_CanSeeTarget)
+        {
+            passThrough = true;
+        }
+        else
+        {
+            passThrough = false;
+        }
     }
 
     // Update is called once per frame
@@ -107,6 +118,14 @@ public class E_Bullet : MonoBehaviour
         {
             player.GetComponent<Player>().DecreaseHealth(gm.e_BulletDamage);
             Death();
+        }
+
+        if (!passThrough)
+        {
+            if (other.tag == "Wall")
+            {
+                Death();
+            }
         }
     }
     void Death()

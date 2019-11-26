@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1047441436631584110}
   m_Layer: 13
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -174,21 +174,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6535045470369452000}
     m_Modifications:
-    - target: {fileID: 1415142097922783396, guid: ed74de399734d414aa77cbc883b132e1,
-        type: 3}
-      propertyPath: m_Name
-      value: Light2D
-      objectReference: {fileID: 0}
-    - target: {fileID: 1415142097922783396, guid: ed74de399734d414aa77cbc883b132e1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1415142097922783396, guid: ed74de399734d414aa77cbc883b132e1,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 1415142097922783399, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -259,6 +244,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1415142097922783396, guid: ed74de399734d414aa77cbc883b132e1,
+        type: 3}
+      propertyPath: m_Name
+      value: Light2D
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415142097922783396, guid: ed74de399734d414aa77cbc883b132e1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415142097922783396, guid: ed74de399734d414aa77cbc883b132e1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: m_Enabled
@@ -314,11 +314,6 @@ PrefabInstance:
       propertyPath: SortingOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1415142097922783401, guid: ed74de399734d414aa77cbc883b132e1,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1415142097922783398, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: m_Enabled
@@ -328,6 +323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415142097922783401, guid: ed74de399734d414aa77cbc883b132e1,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed74de399734d414aa77cbc883b132e1, type: 3}

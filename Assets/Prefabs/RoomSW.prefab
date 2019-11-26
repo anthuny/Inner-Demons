@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 8035340973307626053}
   - component: {fileID: 8035340973307626052}
   - component: {fileID: 8035340973307626055}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Doors 1
   m_TagString: Doors
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 8035340973380536904}
   - component: {fileID: 8035340973380536907}
   - component: {fileID: 8035340973380536906}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1352,7 +1352,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1438,53 +1438,53 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 8035340973380536904}
     m_ColliderPaths:
-    - - X: 3699999942
+    - - X: 3699999971
         Y: -1000000000
-      - X: 3700000058
+      - X: 3700000029
         Y: -600000000
       - X: 4400000000
-        Y: -599999942
-      - X: 4399999942
+        Y: -599999971
+      - X: 4399999971
         Y: 700000000
       - X: 2500000000
-        Y: 699999942
-      - X: 2499999942
+        Y: 699999971
+      - X: 2499999971
         Y: 300000000
       - X: 2100000000
-        Y: 299999942
-      - X: 2100000058
+        Y: 299999971
+      - X: 2100000029
         Y: 200000000
-      - X: 2600000006
-        Y: 200000129
-      - X: 2600000058
+      - X: 2600000000
+        Y: 200000029
+      - X: 2600000029
         Y: 600000000
       - X: 4300000256
-        Y: 599999942
-      - X: 4300000198
+        Y: 599999971
+      - X: 4300000227
         Y: -500000000
       - X: 3600000000
-        Y: -500000058
-      - X: 3600000058
+        Y: -500000029
+      - X: 3600000029
         Y: -1000000000
-    - - X: 3299999942
+    - - X: 3299999971
         Y: -1000000000
-      - X: 3299999942
+      - X: 3299999971
         Y: -500000000
       - X: 2600000000
-        Y: -499999942
-      - X: 2599999942
+        Y: -499999971
+      - X: 2599999971
         Y: -100000000
       - X: 2100000000
-        Y: -100000058
-      - X: 2100000058
+        Y: -100000029
+      - X: 2100000029
         Y: -200000000
       - X: 2500000000
-        Y: -200000058
-      - X: 2500000058
+        Y: -200000029
+      - X: 2500000029
         Y: -600000000
       - X: 3200000000
-        Y: -600000058
-      - X: 3200000058
+        Y: -600000029
+      - X: 3200000029
         Y: -1000000000
   m_CompositePaths:
     m_Paths:
@@ -1494,21 +1494,21 @@ CompositeCollider2D:
       - {x: 440, y: 70}
       - {x: 250, y: 69.99999}
       - {x: 250, y: 30}
-      - {x: 210, y: 29.99999}
-      - {x: 210.00002, y: 20}
-      - {x: 260, y: 20.000017}
+      - {x: 210, y: 29.999994}
+      - {x: 210, y: 20}
+      - {x: 260, y: 20.000006}
       - {x: 260, y: 60}
       - {x: 430.00003, y: 59.999996}
       - {x: 430.00003, y: -50}
-      - {x: 360, y: -50.00001}
+      - {x: 360, y: -50.000008}
       - {x: 360, y: -100}
     - - {x: 330, y: -100}
       - {x: 330, y: -50}
       - {x: 260, y: -49.999992}
       - {x: 260, y: -10}
-      - {x: 210, y: -10.000009}
-      - {x: 210.00002, y: -20}
-      - {x: 250, y: -20.000008}
+      - {x: 210, y: -10.000006}
+      - {x: 210, y: -20}
+      - {x: 250, y: -20.000006}
       - {x: 250, y: -60}
       - {x: 320, y: -60.000008}
       - {x: 320, y: -100}
@@ -3636,7 +3636,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

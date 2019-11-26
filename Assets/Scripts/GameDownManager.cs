@@ -89,6 +89,7 @@ public class GameDownManager : MonoBehaviour
         youFaintedBut.gameObject.SetActive(false);
         restartBut.gameObject.SetActive(false);
         menuBut.gameObject.SetActive(false);
+        player = FindObjectOfType<Player>().gameObject;
 
         if (playerDied)
         {
@@ -96,7 +97,7 @@ public class GameDownManager : MonoBehaviour
             restartBut.gameObject.SetActive(true);
             menuBut.gameObject.SetActive(true);
 
-            player = FindObjectOfType<Player>().gameObject;
+
 
             gm.arrogance = 0;
             gm.ignorance = 0;

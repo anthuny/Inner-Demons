@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     public Animator animator;
-    private Vector2 myVelocity;
+    public Vector2 myVelocity;
 
     //Enemies
     public GameObject[] enemies;
@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
 
     //GameDownManager
     private GameDownManager gdm;
+
+    //aa
+    private bool leftPressed;
 
 
     private void Start()
@@ -72,6 +75,7 @@ public class Player : MonoBehaviour
         Movement();
         StartCoroutine("ShootAnimation");
         GodMode();
+        CanSeeTarget();
     }
     void GodMode()
     {
@@ -225,7 +229,7 @@ public class Player : MonoBehaviour
         if (!gm.usingPC)
         {
             hasShot = true;
-            GameObject go2 = Instantiate(bullet, gunHolder.position, Quaternion.identity);
+            GameObject go2 = Instantiate(bullet, gunHolder.position, gunHolder.transform.rotation);
             go2.GetComponent<Bullet>().weaponHolder = gunHolder;
             bullet.GetComponent<Bullet>().playerBullet = true;
         }
@@ -234,50 +238,77 @@ public class Player : MonoBehaviour
         if (gm.usingPC)
         {
             hasShot = true;
-            GameObject go = Instantiate(bullet, gunHolder.position, Quaternion.identity);
+            GameObject go = Instantiate(bullet, gunHolder.position, gunHolder.transform.rotation);
             go.GetComponent<Bullet>().weaponHolder = gunHolder;
             bullet.GetComponent<Bullet>().playerBullet = true;
         }
     }
 
-    IEnumerator ShootAnimation()
+    void CanSeeTarget()
     {
-        gm.nearestEnemy = null;
-
         float minDist = Mathf.Infinity;
 
         // Detect the nearest enemy's position
         foreach (Enemy e in FindObjectsOfType<Enemy>())
         {
             float dist = Vector3.Distance(e.transform.position, transform.position);
-            if (gm.autoAimDis > dist)
+
+            if (minDist > dist)
             {
-                if (minDist > dist)
-                {
-                    gm.nearestEnemy = e.transform;
-                    minDist = dist;
-                }
+                gm.nearestEnemy = e.transform;
+                minDist = dist;
             }
         }
 
-        if (gm.nearestEnemy != null)
+        // If there ever was a nearest enemy
+        if (gm.nearestEnemy)
         {
-            gm.autoAimOn = true;
+            Vector3 viewPos = Camera.main.WorldToViewportPoint(gm.nearestEnemy.transform.position);
 
-            // Set rotation of gun holder to aim at enemy position
-            // Rotate gun holder
-            gm.shootDir = gm.nearestEnemy.transform.position - transform.position;
-            gm.shootDir.Normalize();
-            gunHolder.transform.right = gm.shootDir;
+            // If nearest enemy is in range, and player can see them, allow auto aim to be on
+            if (viewPos.y >= -0.2 && viewPos.y <= 1.2f && viewPos.x >= -.1f && viewPos.x <= 1.1f && gm.p_CanSeeTarget)
+            {
+                gm.shootDir = gm.nearestEnemy.transform.position - transform.position;
+                gm.shootDir.Normalize();
+                gunHolder.transform.right = gm.shootDir;
+
+                gm.autoAimOn = true;
+            }
+
+            else
+            {
+                gm.autoAimOn = false;
+            }
         }
-        else
+
+        if (gm.nearestEnemy)
         {
-            gm.autoAimOn = false;
-        }
+            RaycastHit2D hitinfo = Physics2D.Linecast(transform.position, gm.nearestEnemy.transform.position);
 
+            // See if can see target
+            if (hitinfo)
+            {
+                if (hitinfo.transform.tag != "Enemy" && hitinfo.transform.tag != "Bullet" && hitinfo.transform.tag != "EBullet")
+                {
+                    //Debug.DrawLine(transform.position, gm.nearestEnemyOR.transform.position, Color.red, .1f);
+                    gm.p_CanSeeTarget = false;
+                }
+                else
+                {
+                    //Debug.DrawLine(transform.position, gm.nearestEnemyOR.transform.position, Color.green, .1f);
+                    gm.p_CanSeeTarget = true;
+                }
+            }
+        }    
+    }
+
+    IEnumerator ShootAnimation()
+    {
+        Debug.Log("here1");
         // if the player is NOT in a conversation, they can look around
         if (!FindObjectOfType<DialogueManager>().dialogueTriggered)
         {
+            Debug.Log("here2");
             if (animator.GetBool("attackingLeft") || (animator.GetBool("attackingRight")) || (animator.GetBool("attackingUp")) || (animator.GetBool("attackingDown")))
             {
                 // This is a temporary fix, Needs speed to increase depending on how small gm.shotSpeed is
@@ -307,264 +338,36 @@ public class Player : MonoBehaviour
 
             if (!hasShot && !dm.dialogueTriggered)
             {
+                Debug.Log("here3");
                 // If auto aim is on
-                if (gm.autoAimOn)
+                if (!gm.autoAimOn)
                 {
-                    // If the player is walking Up or auto aim detects an enemy Up
-                    if (gm.shootDir.y > 0 && gm.shootDir.x > -.9f && gm.shootDir.x < 0.9f)
+                    Debug.Log("here4");
+
+                    // If the player has NOT shot, and the dialogue is NOT triggered
+                    // If the player is touching the shoot area, OR 
+                    // the player is inputing arrow key movements
+                    if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
+                    || Input.GetKey(KeyCode.Space))
                     {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
+                        Debug.Log("here5");
+                        // Shoot Bullet
+                        Shoot();
 
-                            animator.SetBool("walkingUp", false);
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("attackingLeft", false);
-                            animator.SetBool("attackingRight", false);
-                            animator.SetBool("attackingDown", false);
-                            animator.SetBool("attackingUp", true);
+                        animator.SetInteger("playerBrain", 2);
 
-                            yield return new WaitForSeconds(0);
+                        yield return new WaitForSeconds(0);
 
-                            animator.SetBool("attackingUp", false);
-                        }
-                    }
+                        animator.SetInteger("playerBrain", 0);
 
-                    // If the player is walking Down or auto aim detects an enemy Down
-                    else if (gm.shootDir.y < 0 && gm.shootDir.x > -.9f && gm.shootDir.x < 0.9f)
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("walkingDown", false);
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("attackingLeft", false);
-                            animator.SetBool("attackingRight", false);
-                            animator.SetBool("attackingUp", false);
-                            animator.SetBool("attackingDown", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingDown", false);
-                        }
-                    }
-
-                    // If the player is walking Left or auto aim detects an enemy Left
-                    else if (gm.shootDir.x < 0 && gm.shootDir.y > -.9f && gm.shootDir.y < 0.9f)
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("walkingLeft", false);
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("attackingRight", false);
-                            animator.SetBool("attackingDown", false);
-                            animator.SetBool("attackingUp", false);
-                            animator.SetBool("attackingLeft", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingLeft", false);
-                        }
-                    }
-
-                    // If the player is walking Right or auto aim detects an enemy Right
-                    else if (gm.shootDir.x > 0 && gm.shootDir.y > -.9f && gm.shootDir.y < 0.9f)
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("walkingRight", false);
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("attackingDown", false);
-                            animator.SetBool("attackingUp", false);
-                            animator.SetBool("attackingLeft", false);
-                            animator.SetBool("attackingRight", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingRight", false);
-                        }
-                    }
-
-                    // if the player is not moving
-                    else if (animator.GetBool("isIdle"))
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("attackingLeft", false);
-                            animator.SetBool("attackingUp", false);
-                            animator.SetBool("attackingRight", false);
-                            animator.SetBool("isIdle", false);
-
-                            animator.SetBool("attackingDown", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingDown", false);
-                        }
-                    }
-                }
-
-                // If auto aim is OFF
-                else
-                {
-                    // If the player is walking Up or auto aim detects an enemy Up
-                    if (animator.GetBool("walkingUp"))
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("walkingUp", false);
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("attackingLeft", false);
-                            animator.SetBool("attackingRight", false);
-                            animator.SetBool("attackingDown", false);
-                            animator.SetBool("attackingUp", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingUp", false);
-                        }
-                    }
-
-                    // If the player is walking Down or auto aim detects an enemy Down
-                    else if (animator.GetBool("walkingDown"))
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("walkingDown", false);
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("attackingLeft", false);
-                            animator.SetBool("attackingRight", false);
-                            animator.SetBool("attackingUp", false);
-                            animator.SetBool("attackingDown", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingDown", false);
-                        }
-                    }
-
-                    // If the player is walking Left or auto aim detects an enemy Left
-                    else if (animator.GetBool("walkingLeft"))
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("walkingLeft", false);
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("attackingRight", false);
-                            animator.SetBool("attackingDown", false);
-                            animator.SetBool("attackingUp", false);
-                            animator.SetBool("attackingLeft", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingLeft", false);
-                        }
-                    }
-
-                    // If the player is walking Right or auto aim detects an enemy Right
-                    else if (animator.GetBool("walkingRight"))
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("walkingRight", false);
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("attackingDown", false);
-                            animator.SetBool("attackingUp", false);
-                            animator.SetBool("attackingLeft", false);
-                            animator.SetBool("attackingRight", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingRight", false);
-                        }
-                    }
-
-                    // if the player is not moving
-                    else if (animator.GetBool("isIdle"))
-                    {
-                        // If the player has NOT shot, and the dialogue is NOT triggered
-                        // If the player is touching the shoot area, OR 
-                        // the player is inputing arrow key movements
-                        if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                        || Input.GetKey(KeyCode.Space))
-                        {
-                            // Shoot Bullet
-                            Shoot();
-
-                            animator.SetBool("attackingLeft", false);
-                            animator.SetBool("attackingUp", false);
-                            animator.SetBool("attackingRight", false);
-                            animator.SetBool("isIdle", false);
-
-                            animator.SetBool("attackingDown", true);
-
-                            yield return new WaitForSeconds(0);
-
-                            animator.SetBool("attackingDown", false);
-                        }
                     }
                 }
             }
+
+            //gunHolder.transform.eulerAngles = new Vector3(gunHolder.eulerAngles.x, gunHolder.eulerAngles.y, Mathf.Atan2(gm.joystickMove.Horizontal, gm.joystickMove.Vertical) * Mathf.Rad2Deg);
+            //Vector3 rot = new Vector3(Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
+
+            gunHolder.transform.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(gm.joystickMove.Horizontal, gm.joystickMove.Vertical) * 180 / Mathf.PI); // this does the actual rotaion according to inputs
         }
     }
 
@@ -573,6 +376,8 @@ public class Player : MonoBehaviour
         // if the player is NOT in a conversation, they can move
         if (!FindObjectOfType<DialogueManager>().dialogueTriggered)
         {
+            gm.joystickHolder.SetActive(true);
+
             if (gm.usingPC)
             {
                 inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -612,41 +417,41 @@ public class Player : MonoBehaviour
             }
 
             // Rotate the gunHolder towards the direction the player is facing
-            
-            // If moving Up
-            if (!gm.autoAimOn && myVelocity.y > 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
-            {
-                // Rotate gun holder
-                gunHolder.localEulerAngles = new Vector3(0, 0, 90);
-            }
 
-            // If moving Down
-            else if (!gm.autoAimOn && myVelocity.y < 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
-            {
-                // Rotate gun holder
-                gunHolder.localEulerAngles = new Vector3(0, 0, -90);
-            }
+            //// If moving Up
+            //if (!gm.autoAimOn && myVelocity.y > 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
+            //{
+            //    // Rotate gun holder
+            //    gunHolder.localEulerAngles = new Vector3(0, 0, 90);
+            //}
 
-            // If moving Right
-            else if (!gm.autoAimOn && myVelocity.x > 0 && myVelocity.y > -0.9f && myVelocity.y < 0.9f)
-            {
-                // Rotate gun holder
-                gunHolder.localEulerAngles = new Vector3(0, 0, 0);
-            }
+            //// If moving Down
+            //else if (!gm.autoAimOn && myVelocity.y < 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
+            //{
+            //    // Rotate gun holder
+            //    gunHolder.localEulerAngles = new Vector3(0, 0, -90);
+            //}
 
-            // If moving Left
-            else if (!gm.autoAimOn && myVelocity.x < 0 && myVelocity.y > -0.9f && myVelocity.y < 0.9f)
-            {
-                // Rotate gun holder
-                gunHolder.localEulerAngles = new Vector3(0, 0, -180);
-            }
+            //// If moving Right
+            //else if (!gm.autoAimOn && myVelocity.x > 0 && myVelocity.y > -0.9f && myVelocity.y < 0.9f)
+            //{
+            //    // Rotate gun holder
+            //    gunHolder.localEulerAngles = new Vector3(0, 0, 0);
+            //}
 
-            // If not moving
-            else if (!gm.autoAimOn && myVelocity == Vector2.zero)
-            {
-                // Rotate gun holder
-                gunHolder.localEulerAngles = new Vector3(0, 0, -90);
-            }
+            //// If moving Left
+            //else if (!gm.autoAimOn && myVelocity.x < 0 && myVelocity.y > -0.9f && myVelocity.y < 0.9f)
+            //{
+            //    // Rotate gun holder
+            //    gunHolder.localEulerAngles = new Vector3(0, 0, -180);
+            //}
+
+            //// If not moving
+            //else if (!gm.autoAimOn && myVelocity == Vector2.zero)
+            //{
+            //    // Rotate gun holder
+            //    gunHolder.localEulerAngles = new Vector3(0, 0, -90);
+            //}
 
             // Disable movement and shoot joysticks if player is in dialogue
             if (FindObjectOfType<DialogueManager>().dialogueTriggered)
@@ -655,66 +460,38 @@ public class Player : MonoBehaviour
                 gamemode.joystickHolder.SetActive(false);
             }
         }
+        else
+        {
+            gm.joystickHolder.SetActive(false);
+        }
     }
 
     void MovementAnimation()
     {
         // Check if player is NOT moving, to play correct animation
-        if (rb.velocity == Vector2.zero)
+        if (myVelocity == Vector2.zero)
         {
-            animator.SetBool("walkingLeft", false);
-            animator.SetBool("walkingUp", false);
-            animator.SetBool("walkingDown", false);
-            animator.SetBool("walkingRight", false);
             if (!hasShot && !dm.dialogueTriggered)
             {
-                animator.SetBool("isIdle", true);
+                animator.SetInteger("playerBrain", 0);
             }
-            return;
         }
 
         // If player is moving Up play animation accordingly
-        else if (myVelocity.y > 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
+        else if (myVelocity != Vector2.zero)
         {
-            animator.SetBool("isIdle", false);
-            animator.SetBool("walkingRight", false);
-            animator.SetBool("walkingLeft", false);
-            animator.SetBool("walkingDown", false);
-            animator.SetBool("walkingUp", true);
-            return;
+            animator.SetInteger("playerBrain", 1);
         }
 
-        // If player is moving down play animation accordingly
-        else if (myVelocity.y < 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
+        // right
+        if (myVelocity.x > 0)
         {
-            animator.SetBool("isIdle", false);
-            animator.SetBool("walkingRight", false);
-            animator.SetBool("walkingLeft", false);
-            animator.SetBool("walkingUp", false);
-            animator.SetBool("walkingDown", true);
-            return;
+            GetComponentInChildren<SpriteRenderer>().flipX = false;
         }
-
-        // If player is moving right play animation accordingly
-        else if (myVelocity.x > 0 && myVelocity.y > -0.9f && myVelocity.y < 0.9f)
+        // left
+        if (myVelocity.x < 0)
         {
-            animator.SetBool("isIdle", false);
-            animator.SetBool("walkingLeft", false);
-            animator.SetBool("walkingUp", false);
-            animator.SetBool("walkingDown", false);
-            animator.SetBool("walkingRight", true);
-            return;
-        }
-
-        // If player is moving Left play animation accordingly
-        else if (myVelocity.x < 0 && myVelocity.y > -0.4f && myVelocity.y < 0.4f)
-        {
-            animator.SetBool("isIdle", false);
-            animator.SetBool("walkingRight", false);
-            animator.SetBool("walkingUp", false);
-            animator.SetBool("walkingDown", false);
-            animator.SetBool("walkingLeft", true);
-            return;
+            GetComponentInChildren<SpriteRenderer>().flipX = true;
         }
     }
  }  

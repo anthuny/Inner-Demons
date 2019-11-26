@@ -15,15 +15,18 @@ public class Bullet : MonoBehaviour
     private Vector3 forward;
     private Player playerScript;
     private GameObject player;
+    private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         gamemode = FindObjectOfType<Gamemode>();
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         enemy = GameObject.Find("Enemy 1");
 
-        forward = weaponHolder.transform.right;
+        //forward = playerScript.gunHolder.transform.localEulerAngles;
+        //Debug.Log(forward);
 
         playerPos = player.transform.position;
 
@@ -56,7 +59,8 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += forward * Time.deltaTime * gamemode.bulletSpeed;
+        transform.Translate(-Vector2.right * Time.deltaTime * gamemode.bulletSpeed);
+
 
         //If bullet distance goes too far
         float distance = Vector2.Distance(playerPos, transform.position);

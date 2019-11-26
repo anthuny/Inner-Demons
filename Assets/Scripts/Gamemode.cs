@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Pathfinding;
 
 public class Gamemode : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Gamemode : MonoBehaviour
     private Transform spawnPos;
     private GameDownManager gdm;
     private DialogueManager dm;
+    private AIDestinationSetter aid;
 
     [Header("Choices")]
     public int arrogance;
@@ -64,9 +66,10 @@ public class Gamemode : MonoBehaviour
     public float earthDamage;
     public bool autoAimOn;
     public Transform nearestEnemy;
+    public bool p_CanSeeTarget;
+    [HideInInspector]
     public Vector2 shootDir;
 
-    [Header("Player Attacking Statistics")]
     public float bulletSpeed;
     public float bulletSpeedDef;
     public float bulletDist;
@@ -90,11 +93,24 @@ public class Gamemode : MonoBehaviour
     public float e_BulletScaleInc;
     public Vector2 e_ShootDir;
 
-    [Header("Enemy Ranged Attacking Statistics")]
     public float e_BulletDamage;
     public float e_ShotCooldown;
     public float e_BulletSpeed;
     public float e_BulletDist;
+    public float e_rangeOffset;
+    public bool e_CanSeeTarget;
+
+    [Header("Enemy AI")]
+    public float nexWaypointDistance = 3f;
+    public float navUpdateTimer;
+
+    [HideInInspector]
+    public Path path;
+    [HideInInspector]
+    public int currentWaypoint = 0;
+
+    [HideInInspector]
+    public bool reachedEndOfPath = false;
 
     [Header("Memory")]
     public GameObject talkButton;
@@ -105,6 +121,7 @@ public class Gamemode : MonoBehaviour
         spawnPos = GameObject.Find("EGOSpawnPoint").transform;
         gdm = FindObjectOfType<GameDownManager>();
         dm = FindObjectOfType<DialogueManager>();
+        aid = FindObjectOfType<AIDestinationSetter>();
 
         playerSpeedCur = playerSpeedDef;
     }
@@ -114,6 +131,16 @@ public class Gamemode : MonoBehaviour
     {
         ElementManager();
         CalculateChoiceHigh();
+        SetEnemyTarget();
+    }
+
+    void SetEnemyTarget()
+    {
+        if (aid)
+        {
+            Debug.Log("here");
+            aid.target = player.transform;
+        }
     }
 
     public void CalculateChoiceHigh()
@@ -232,13 +259,13 @@ public class Gamemode : MonoBehaviour
                 // Check if the user touched the water button area
                 if (RectTransformUtility.RectangleContainsScreenPoint(waterButtonArea.GetComponent<RectTransform>(), touch.position))
                 {
-                    currentElement = 1;
+                    currentElement = 0;
                 }
 
                 // Check if the user touched the water button area
                 if (RectTransformUtility.RectangleContainsScreenPoint(fireButtonArea.GetComponent<RectTransform>(), touch.position))
                 {
-                    currentElement = 0;
+                    currentElement = 1;
                 }
 
                 // Check if the user touched the water button area

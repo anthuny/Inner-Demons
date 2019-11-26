@@ -520,8 +520,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1468054769684797856}
   - component: {fileID: 6552139943265748156}
-  - component: {fileID: 8693137476184924405}
   - component: {fileID: 69293741866475660}
+  - component: {fileID: 8693137476184924405}
+  - component: {fileID: 8360680068543845888}
   - component: {fileID: 3264501871972628256}
   m_Layer: 0
   m_Name: Enemy Ranged
@@ -562,6 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5288220c0752e5c4f9c3219709ea82e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seeker: {fileID: 0}
   bullet: {fileID: 4038859663916889700, guid: 78cb3e5b8fd42ec4789b86ec4f8e6ede, type: 3}
   e_GunHolder: {fileID: 1468054769482580342}
   e_HealthBar: {fileID: 1909089665}
@@ -575,6 +577,27 @@ MonoBehaviour:
   bossDialogueReady: 0
   memoryRange: {fileID: 3740115777570664027}
   animator: {fileID: 4936272865253497292}
+--- !u!50 &69293741866475660
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468054769684797858}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 42
+  m_LinearDrag: 10
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &8693137476184924405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,27 +624,34 @@ MonoBehaviour:
   - Avoid
   - Agree
   interacted: 0
---- !u!50 &69293741866475660
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &8360680068543845888
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468054769684797858}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 45
-  m_LinearDrag: 10
-  m_AngularDrag: 10
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!58 &3264501871972628256
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using Pathfinding;
 
 public class Enemy : MonoBehaviour
 {
+
+    //AI
+    private Rigidbody2D rb;
+    [HideInInspector]
+    public Seeker seeker;
+
     //Bullet
     private bool e_HasShot;
     private float e_ShotTimer = 0f;
@@ -50,6 +57,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         gm = GameObject.Find("EGOGamemode").GetComponent<Gamemode>();
+        rb = GetComponent<Rigidbody2D>();
 
         //Increase enemy count
         gm.enemyCount++;
@@ -61,9 +69,69 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<Player>();
 
+
+        seeker = GetComponent<Seeker>();
+
+        InvokeRepeating("UpdatePath", 0f, gm.navUpdateTimer);
+
         Reset();
     }
 
+    void UpdatePath()
+    {
+        if (seeker.IsDone())
+        {
+            seeker.StartPath(rb.position, gm.player.transform.position, OnPathComplete);
+        }
+    }
+
+    void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            gm.path = p;
+            gm.currentWaypoint = 0;
+        }
+    }
+
+    void Move()
+    {
+        if (gm.path == null)
+        {
+            return;
+        }
+
+        if (gm.currentWaypoint >= gm.path.vectorPath.Count)
+        {
+            gm.reachedEndOfPath = true;
+            return;
+        }
+        else
+        {
+            gm.reachedEndOfPath = false;
+        }
+
+        Vector2 direction = ((Vector2)gm.path.vectorPath[gm.currentWaypoint] - rb.position).normalized;
+        Vector2 force = direction * gm.e_MoveSpeed * Time.deltaTime;
+
+        // Move towards player
+        if (!targetInShootRange)
+        {
+            rb.AddForce(force);
+        }
+
+        if (!gm.e_CanSeeTarget)
+        {
+            rb.AddForce(force);
+        }
+
+        float distance = Vector2.Distance(rb.position, gm.path.vectorPath[gm.currentWaypoint]);
+
+        if (distance < gm.nexWaypointDistance)
+        {
+            gm.currentWaypoint++;
+        }
+    }
     void Reset()
     {
         e_CurHealth = gm.e_MaxHealth;
@@ -102,7 +170,6 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
-        Evade();
         LookAt();
         StartCoroutine("Shoot");
         ElementManager();
@@ -113,6 +180,11 @@ public class Enemy : MonoBehaviour
         z.z = 0f;
     }
 
+    private void FixedUpdate()
+    {
+        Move();
+        Evade();
+    }
     void AllowBossDialogue()
     {
         //Check if this object is a boss, and if it's tag hasn't already been changed
@@ -249,6 +321,22 @@ public class Enemy : MonoBehaviour
             GetComponentInChildren<SpriteRenderer>().flipX = true;
         }
 
+        RaycastHit2D hitinfo = Physics2D.Linecast(transform.position, player.transform.position);
+
+        // See if can see target
+        if (hitinfo)
+        {
+            if (hitinfo.transform.tag != "Player" && hitinfo.transform.tag != "EBullet")
+            {
+                Debug.DrawLine(transform.position, gm.player.transform.position, Color.red, .1f);
+                gm.e_CanSeeTarget = false;
+            }
+            else
+            {
+                Debug.DrawLine(transform.position, gm.player.transform.position, Color.green, .1f);
+                gm.e_CanSeeTarget = true;
+            }
+        }
     }
 
     IEnumerator Shoot()
@@ -285,8 +373,8 @@ public class Enemy : MonoBehaviour
         {
             e_HasShot = true;
 
-            //If in shooting range, shoot
-            if (targetInShootRange)
+            // If in shooting range and can see target, shoot
+            if (targetInShootRange && gm.e_CanSeeTarget)
             {
                 Instantiate(bullet, e_GunHolder.position, Quaternion.identity);
 
@@ -298,17 +386,6 @@ public class Enemy : MonoBehaviour
 
                 // Play idle animation
                 animator.SetInteger("EnemyBrain", 0);
-            }
-        }
-
-        if (targetInViewRange)
-        {
-            //If not in shooting range, chase
-            if (distance > gm.e_BulletDist)
-            {
-                targetInShootRange = false;
-
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, gm.e_ChaseSpeed * Time.deltaTime);
             }
         }
     }
@@ -330,27 +407,48 @@ public class Enemy : MonoBehaviour
         if (!alreadyChosen)
         {
             alreadyChosen = true;
-            random = Random.Range(1, 3);
+            random = Random.Range(1, 7);
         }
 
         if (player != null)
         {
             float distance = Vector2.Distance(transform.position, player.transform.position);
 
-            //If in shooting range, stop chasing and begin evading
-            if (distance <= gm.e_BulletDist)
+            // If in shooting range, stop chasing and begin evading
+            // and if it can see target
+            if (distance <= gm.e_BulletDist + gm.e_rangeOffset && gm.e_CanSeeTarget)
             {
                 targetInShootRange = true;
 
-                if (random == 1)
+                // Evade Left
+                if (random == 1 || random == 6)
                 {
-                    transform.Translate(Vector2.up * Time.deltaTime * gm.e_EvadeSpeed, Space.Self);
+                    rb.AddRelativeForce(e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
+                    //transform.Translate(Vector2.up * Time.deltaTime * gm.e_EvadeSpeed, Space.Self);
                 }
 
-                if (random == 2)
+                // Evade Right
+                if (random == 2 || random == 5)
                 {
-                    transform.Translate(Vector2.down * Time.deltaTime * gm.e_EvadeSpeed, Space.Self);
+                    rb.AddRelativeForce(-e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
+                    //transform.Translate(Vector2.down * Time.deltaTime * gm.e_EvadeSpeed, Space.Self);
                 }
+
+                // Evade forwards
+                if (random == 3)
+                {
+                    rb.AddRelativeForce(-e_GunHolder.transform.right * gm.e_EvadeSpeed * Time.deltaTime);
+                }
+
+                // Evade Backwards
+                if (random == 4)
+                {
+                    rb.AddRelativeForce(e_GunHolder.transform.right * gm.e_EvadeSpeed * Time.deltaTime);
+                }
+            }
+            else
+            {
+                targetInShootRange = false;
             }
         }
     }
@@ -370,52 +468,3 @@ public class Enemy : MonoBehaviour
     }
 
 }
-
-////        if (player != null)
-//        {
-//            float distance = Vector2.Distance(transform.position, player.transform.position);
-
-//            //Is the player further away then e_ViewDis?
-//            if (distance >= e_ViewDis)
-//            {
-//                targetInViewRange = false;
-//            }
-//            else
-//            {
-//                targetInViewRange = true;
-//            }
-
-//            if (!targetInViewRange)
-//            {
-//                Vector2 destination = patrolPoints[currentPoint].position;
-//transform.right = player.transform.position - (patrolPoints[currentPoint].position);
-
-//                transform.position = Vector2.MoveTowards(transform.position, destination, e_MoveSpeed* Time.deltaTime);
-
-//                // Compare how far we are to the destination.
-//                float distanceToDestination = Vector3.Distance(transform.position, destination);
-//                if (distanceToDestination< 0.2f) // 0.2 is tolerance value.
-//                {
-//                    // So, we have reached the destination.
-
-//                    // Set the next waypoint.
-
-//                    if (isMovingForward)
-//                        currentPoint++;
-//                    else // we are moving backward
-//                        currentPoint--;
-
-//                    if (currentPoint >= patrolPoints.Length)
-//                    {// We have reached the last waypoint, now go backward.
-//                        isMovingForward = false;
-//                        currentPoint = patrolPoints.Length - 2;
-//                    }
-
-//                    if (currentPoint< 0)
-//                    {// We have reached the first waypoint, now go forward.
-//                        isMovingForward = true;
-//                        currentPoint = 1;
-//                    }
-//                }
-//            }
-//        }

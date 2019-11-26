@@ -183,7 +183,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8035340972578908246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -190, y: 0, z: 0}
+  m_LocalPosition: {x: -190, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8035340973008431440}
@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 8035340972740441140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -259.38, y: 5.75, z: 0}
-  m_LocalScale: {x: 33.75861, y: 22.334114, z: 19.897}
+  m_LocalScale: {x: 33.08344, y: 21.887432, z: 19.49906}
   m_Children: []
   m_Father: {fileID: 8035340973008431440}
   m_RootOrder: 4
@@ -375,7 +375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8035340972963675835}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -335, y: -40, z: 0}
+  m_LocalPosition: {x: -260, y: 35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8035340973008431440}
@@ -499,7 +499,7 @@ GameObject:
   - component: {fileID: 8035340973307626053}
   - component: {fileID: 8035340973307626052}
   - component: {fileID: 8035340973307626055}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Doors 1
   m_TagString: Doors
   m_Icon: {fileID: 0}
@@ -781,9 +781,9 @@ GameObject:
   - component: {fileID: 8035340973380536904}
   - component: {fileID: 8035340973380536907}
   - component: {fileID: 8035340973380536906}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
