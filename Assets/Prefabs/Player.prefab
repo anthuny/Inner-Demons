@@ -262,7 +262,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.49873638, y: 2.03331}
+  m_Offset: {x: -0.46512365, y: -0.89099026}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -273,7 +273,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.504656, y: 12.745983}
+  m_Size: {x: 8.824025, y: 14.829969}
   m_EdgeRadius: 0
 --- !u!1 &4759861193707082328
 GameObject:
@@ -430,6 +430,7 @@ MonoBehaviour:
   hasShot: 0
   p_HealthBar: {fileID: 0}
   animator: {fileID: 1061047114}
+  myVelocity: {x: 0, y: 0}
   enemies: []
   doors: {fileID: 0}
   room: {fileID: 0}
@@ -471,7 +472,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.64486694, y: -2.8663826}
+  m_Offset: {x: -0.44319224, y: -6.227644}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -482,7 +483,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.809509, y: 6.1473618}
+  m_Size: {x: 8.733904, y: 6.819618}
   m_EdgeRadius: 0
 --- !u!1001 &1133187035
 PrefabInstance:
@@ -556,6 +557,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1278962375649610277, guid: d95da88540d2d6e44a0c4c40c581b24a,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9133201526527734124, guid: d95da88540d2d6e44a0c4c40c581b24a,
         type: 3}
       propertyPath: Range
@@ -595,11 +601,6 @@ PrefabInstance:
         type: 3}
       propertyPath: ContactFilter.layerMask.m_Bits
       value: 22327
-      objectReference: {fileID: 0}
-    - target: {fileID: 1278962375649610277, guid: d95da88540d2d6e44a0c4c40c581b24a,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d95da88540d2d6e44a0c4c40c581b24a, type: 3}

@@ -16,9 +16,12 @@ public class Bullet : MonoBehaviour
     private Player playerScript;
     private GameObject player;
     private Rigidbody2D rb;
+    private Gamemode gm;
+    private bool passThrough;
     // Start is called before the first frame update
     void Start()
     {
+        gm = FindObjectOfType<Gamemode>();
         rb = GetComponent<Rigidbody2D>();
         gamemode = FindObjectOfType<Gamemode>();
         player = GameObject.Find("Player");
@@ -54,13 +57,22 @@ public class Bullet : MonoBehaviour
 
         //Increase the size of the bullet based on the damage of the player
         transform.localScale = new Vector2(5, 5) * gamemode.bulletDamage / 15;
+
+        // If enemy could see target, allow it to pass through obstacles
+        if (gm.p_CanSeeTarget)
+        {
+            passThrough = true;
+        }
+        else
+        {
+            passThrough = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-Vector2.right * Time.deltaTime * gamemode.bulletSpeed);
-
+        transform.Translate(Vector2.right * Time.deltaTime * gamemode.bulletSpeed);
 
         //If bullet distance goes too far
         float distance = Vector2.Distance(playerPos, transform.position);
@@ -79,10 +91,14 @@ public class Bullet : MonoBehaviour
             Death();
         }
 
-        if (other.tag == "Wall")
+        if (!passThrough)
         {
-            Death();
+            if (other.tag == "Wall")
+            {
+                Death();
+            }
         }
+
     }
 
     void Death()

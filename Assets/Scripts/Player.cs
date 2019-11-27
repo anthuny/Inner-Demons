@@ -263,10 +263,28 @@ public class Player : MonoBehaviour
         // If there ever was a nearest enemy
         if (gm.nearestEnemy)
         {
+            RaycastHit2D hitinfo = Physics2D.Linecast(transform.position, gm.nearestEnemy.transform.position, (1 << 15) | (1 << 14));
+
+            // If cannot see target
+            if (hitinfo.transform.tag != "Enemy")
+            {
+                //Debug.DrawLine(transform.position, gm.nearestEnemy.transform.position, Color.red, .1f);
+                //Debug.Log("Can't see target, Hitting: " + hitinfo.transform.name);
+                gm.p_CanSeeTarget = false;
+            }
+
+            //If CAN see target
+            else
+            {
+                //Debug.DrawLine(transform.position, gm.nearestEnemy.transform.position, Color.green, .1f);
+                //Debug.Log("CAN see target, Hitting: " + hitinfo.transform.name);
+                gm.p_CanSeeTarget = true;
+            }
+
             Vector3 viewPos = Camera.main.WorldToViewportPoint(gm.nearestEnemy.transform.position);
 
             // If nearest enemy is in range, and player can see them, allow auto aim to be on
-            if (viewPos.y >= -0.2 && viewPos.y <= 1.2f && viewPos.x >= -.1f && viewPos.x <= 1.1f && gm.p_CanSeeTarget)
+            if (viewPos.y >= -0.2f && viewPos.y <= 1.2f && viewPos.x >= -0.2f && viewPos.x <= 1.2f && gm.p_CanSeeTarget)
             {
                 gm.shootDir = gm.nearestEnemy.transform.position - transform.position;
                 gm.shootDir.Normalize();
@@ -281,45 +299,19 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (gm.nearestEnemy)
+        else
         {
-            RaycastHit2D hitinfo = Physics2D.Linecast(transform.position, gm.nearestEnemy.transform.position);
+            gm.autoAimOn = false;
+        }
 
-            // See if can see target
-            if (hitinfo)
-            {
-                if (hitinfo.transform.tag != "Enemy" && hitinfo.transform.tag != "Bullet" && hitinfo.transform.tag != "EBullet")
-                {
-                    //Debug.DrawLine(transform.position, gm.nearestEnemyOR.transform.position, Color.red, .1f);
-                    gm.p_CanSeeTarget = false;
-                }
-                else
-                {
-                    //Debug.DrawLine(transform.position, gm.nearestEnemyOR.transform.position, Color.green, .1f);
-                    gm.p_CanSeeTarget = true;
-                }
-            }
-        }    
+
     }
 
     IEnumerator ShootAnimation()
     {
-        Debug.Log("here1");
         // if the player is NOT in a conversation, they can look around
         if (!FindObjectOfType<DialogueManager>().dialogueTriggered)
         {
-            Debug.Log("here2");
-            if (animator.GetBool("attackingLeft") || (animator.GetBool("attackingRight")) || (animator.GetBool("attackingUp")) || (animator.GetBool("attackingDown")))
-            {
-                // This is a temporary fix, Needs speed to increase depending on how small gm.shotSpeed is
-                animator.speed = 1;
-            }
-
-            if (!animator.GetBool("attackingLeft") && (!animator.GetBool("attackingRight")) && (!animator.GetBool("attackingUp")) && (!animator.GetBool("attackingDown")))
-            {
-                animator.speed = 1;
-            }
-
             // If there is just one touch on screen, set touch to that one
             if (Input.touchCount == 1)
             {
@@ -338,36 +330,59 @@ public class Player : MonoBehaviour
 
             if (!hasShot && !dm.dialogueTriggered)
             {
-                Debug.Log("here3");
-                // If auto aim is on
-                if (!gm.autoAimOn)
+                // If the player has NOT shot, and the dialogue is NOT triggered
+                // If the player is touching the shoot area, OR 
+                // the player is inputing arrow key movements
+                if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
+                || Input.GetKey(KeyCode.Space))
                 {
-                    Debug.Log("here4");
-
-                    // If the player has NOT shot, and the dialogue is NOT triggered
-                    // If the player is touching the shoot area, OR 
-                    // the player is inputing arrow key movements
-                    if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
-                    || Input.GetKey(KeyCode.Space))
+                    // If auto aim is OFF
+                    if (!gm.autoAimOn)
                     {
-                        Debug.Log("here5");
+                        if (!gm.usingPC)
+                        {
+                            gunHolder.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(gm.joystickMove.Vertical, gm.joystickMove.Horizontal) * 180 / Mathf.PI);
+                        }
+
+                        if (gm.usingPC)
+                        {
+                            gunHolder.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(myVelocity.y, myVelocity.x) * 180 / Mathf.PI);
+                        }
+
                         // Shoot Bullet
                         Shoot();
 
+                        // Play shoot animation
+                        animator.SetInteger("playerBrain", 2);
+                    }
+                    
+                    // If auto aim is ON
+                    if (gm.autoAimOn)
+                    {
+                        // Shoot Bullet
+                        Shoot();
+
+                        // Play shoot animation
                         animator.SetInteger("playerBrain", 2);
 
+                        // If nearest enemy exists
+                        if (gm.nearestEnemy)
+                        {
+                            // Rotate player to correct direction
+                            if (gm.nearestEnemy.position.x >= transform.position.x)
+                            {
+                                GetComponentInChildren<SpriteRenderer>().flipX = false;
+                            }
+                            else
+                            {
+                                GetComponentInChildren<SpriteRenderer>().flipX = true;
+                            }
+                        }
                         yield return new WaitForSeconds(0);
-
-                        animator.SetInteger("playerBrain", 0);
-
                     }
                 }
             }
 
-            //gunHolder.transform.eulerAngles = new Vector3(gunHolder.eulerAngles.x, gunHolder.eulerAngles.y, Mathf.Atan2(gm.joystickMove.Horizontal, gm.joystickMove.Vertical) * Mathf.Rad2Deg);
-            //Vector3 rot = new Vector3(Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
-
-            gunHolder.transform.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(gm.joystickMove.Horizontal, gm.joystickMove.Vertical) * 180 / Mathf.PI); // this does the actual rotaion according to inputs
         }
     }
 
@@ -416,43 +431,6 @@ public class Player : MonoBehaviour
                 }
             }
 
-            // Rotate the gunHolder towards the direction the player is facing
-
-            //// If moving Up
-            //if (!gm.autoAimOn && myVelocity.y > 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
-            //{
-            //    // Rotate gun holder
-            //    gunHolder.localEulerAngles = new Vector3(0, 0, 90);
-            //}
-
-            //// If moving Down
-            //else if (!gm.autoAimOn && myVelocity.y < 0 && myVelocity.x > -0.9f && myVelocity.x < 0.9f)
-            //{
-            //    // Rotate gun holder
-            //    gunHolder.localEulerAngles = new Vector3(0, 0, -90);
-            //}
-
-            //// If moving Right
-            //else if (!gm.autoAimOn && myVelocity.x > 0 && myVelocity.y > -0.9f && myVelocity.y < 0.9f)
-            //{
-            //    // Rotate gun holder
-            //    gunHolder.localEulerAngles = new Vector3(0, 0, 0);
-            //}
-
-            //// If moving Left
-            //else if (!gm.autoAimOn && myVelocity.x < 0 && myVelocity.y > -0.9f && myVelocity.y < 0.9f)
-            //{
-            //    // Rotate gun holder
-            //    gunHolder.localEulerAngles = new Vector3(0, 0, -180);
-            //}
-
-            //// If not moving
-            //else if (!gm.autoAimOn && myVelocity == Vector2.zero)
-            //{
-            //    // Rotate gun holder
-            //    gunHolder.localEulerAngles = new Vector3(0, 0, -90);
-            //}
-
             // Disable movement and shoot joysticks if player is in dialogue
             if (FindObjectOfType<DialogueManager>().dialogueTriggered)
             {
@@ -484,12 +462,12 @@ public class Player : MonoBehaviour
         }
 
         // right
-        if (myVelocity.x > 0)
+        if (myVelocity.x > 0 && !gm.autoAimOn)
         {
             GetComponentInChildren<SpriteRenderer>().flipX = false;
         }
         // left
-        if (myVelocity.x < 0)
+        if (myVelocity.x < 0 && !gm.autoAimOn)
         {
             GetComponentInChildren<SpriteRenderer>().flipX = true;
         }

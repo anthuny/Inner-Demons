@@ -13,7 +13,7 @@ public class GameDownManager : MonoBehaviour
     private DialogueManager dm;
     public bool playerDied;
     private Player playerScript;
-    private GameObject player;
+    public GameObject player;
     public GameObject[] memories;
     public bool gamePaused;
 
@@ -29,6 +29,7 @@ public class GameDownManager : MonoBehaviour
 
     private void Start()
     {
+
         // Have the pause menu buttons invisible
         pausedBut.gameObject.SetActive(false);
         continueBut.gameObject.SetActive(false);
@@ -86,18 +87,11 @@ public class GameDownManager : MonoBehaviour
     {
         PauseGame();
 
-        youFaintedBut.gameObject.SetActive(false);
-        restartBut.gameObject.SetActive(false);
-        menuBut.gameObject.SetActive(false);
-        player = FindObjectOfType<Player>().gameObject;
-
         if (playerDied)
         {
             youFaintedBut.gameObject.SetActive(true);
             restartBut.gameObject.SetActive(true);
             menuBut.gameObject.SetActive(true);
-
-
 
             gm.arrogance = 0;
             gm.ignorance = 0;
@@ -110,11 +104,19 @@ public class GameDownManager : MonoBehaviour
                 memory.SetActive(true);
             }
         }
+
+        player = FindObjectOfType<Player>().gameObject;
+
+
     }
 
     public void RestartButton()
     {
-        playerDied = true;
+        playerDied = false;
+
+        youFaintedBut.gameObject.SetActive(false);
+        restartBut.gameObject.SetActive(false);
+        menuBut.gameObject.SetActive(false);
 
         if (!FindObjectOfType<Player>())
         {

@@ -17,6 +17,7 @@ TagManager:
   - RoomEnter
   - EBullet
   - Bullet
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Choices
   - Bullet
   - Obstacle
-  - 
+  - Enemy
   - 
   - 
   - 

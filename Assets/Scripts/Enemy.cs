@@ -321,21 +321,21 @@ public class Enemy : MonoBehaviour
             GetComponentInChildren<SpriteRenderer>().flipX = true;
         }
 
-        RaycastHit2D hitinfo = Physics2D.Linecast(transform.position, player.transform.position);
+        RaycastHit2D hitinfo = Physics2D.Linecast(transform.position, player.transform.position, (1 << 11) | (1 << 14));
 
         // See if can see target
-        if (hitinfo)
+        if (hitinfo.transform.tag != "Player")
         {
-            if (hitinfo.transform.tag != "Player" && hitinfo.transform.tag != "EBullet")
-            {
-                Debug.DrawLine(transform.position, gm.player.transform.position, Color.red, .1f);
-                gm.e_CanSeeTarget = false;
-            }
-            else
-            {
-                Debug.DrawLine(transform.position, gm.player.transform.position, Color.green, .1f);
-                gm.e_CanSeeTarget = true;
-            }
+            //Debug.DrawLine(transform.position, gm.player.transform.position, Color.red, .1f);
+            //Debug.Log("NOT hitting player, hitting: " + hitinfo.transform.tag);
+            gm.e_CanSeeTarget = false;
+        }
+
+        else
+        {
+            //Debug.DrawLine(transform.position, gm.player.transform.position, Color.green, .1f);
+            //Debug.Log("Hitting player, hitting: " + hitinfo.transform.tag);
+            gm.e_CanSeeTarget = true;
         }
     }
 
@@ -416,7 +416,7 @@ public class Enemy : MonoBehaviour
 
             // If in shooting range, stop chasing and begin evading
             // and if it can see target
-            if (distance <= gm.e_BulletDist + gm.e_rangeOffset && gm.e_CanSeeTarget)
+            if (distance <= gm.e_BulletDist - gm.e_rangeOffset && gm.e_CanSeeTarget)
             {
                 targetInShootRange = true;
 
@@ -424,14 +424,12 @@ public class Enemy : MonoBehaviour
                 if (random == 1 || random == 6)
                 {
                     rb.AddRelativeForce(e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
-                    //transform.Translate(Vector2.up * Time.deltaTime * gm.e_EvadeSpeed, Space.Self);
                 }
 
                 // Evade Right
                 if (random == 2 || random == 5)
                 {
                     rb.AddRelativeForce(-e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
-                    //transform.Translate(Vector2.down * Time.deltaTime * gm.e_EvadeSpeed, Space.Self);
                 }
 
                 // Evade forwards
