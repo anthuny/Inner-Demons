@@ -1,6 +1,7 @@
 ﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class Room : MonoBehaviour
 {
@@ -15,15 +16,19 @@ public class Room : MonoBehaviour
     public bool doorsClosed;
     public bool isBossRoom;
     private GameDownManager gdm;
+    private Gamemode gm;
     private bool doneOnce;
     private bool playerDied;
     public Room room;
     public bool canOpen;
     public bool beenCleared;
+    private ScreenShake ss;
 
     private void Start()
     {
         gdm = FindObjectOfType<GameDownManager>();
+        gm = FindObjectOfType<Gamemode>();
+        ss = FindObjectOfType<ScreenShake>();
 
         // Doing this to get a reference to the room 
         // only this script is on. NOT all rooms
@@ -103,6 +108,21 @@ public class Room : MonoBehaviour
             {
                 for (int i = 0; i < doors.Length; i++)
                 {
+                    //Screen shake
+                    ScreenShakeInfo Info = new ScreenShakeInfo();
+                    Info.shakeMag = gm.shakeMagDClose;
+                    Info.shakeRou = gm.shakeRouDClose;
+                    Info.shakeFadeIDur = gm.shakeFadeIDurDClose;
+                    Info.shakeFadeODur = gm.shakeFadeODurDClose;
+                    Info.shakePosInfluence = gm.shakePosInfluenceDClose;
+                    Info.shakeRotInfluence = gm.shakeRotInfluenceDClose;
+
+                    ss.StartShaking(Info, 0.25f, 3);
+
+                    //depth shake
+                    gm.depthShaking = true;
+                    gm.CameraDepthShake();
+
                     room.canOpen = false;
                     room.doorsClosed = true;
                     doors[i].SetActive(true);

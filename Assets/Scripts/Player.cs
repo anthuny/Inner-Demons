@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    private Gamemode gamemode;
-
     //Bullet
     public GameObject bullet;
     public Transform gunHolder;
@@ -44,13 +42,17 @@ public class Player : MonoBehaviour
     //aa
     private bool leftPressed;
 
+    //SCreen shake
+    private ScreenShake ss;
+
+
 
     private void Start()
     {
         gdm = FindObjectOfType<GameDownManager>();
         gm = FindObjectOfType<Gamemode>();
         dm = FindObjectOfType<DialogueManager>();
-        gamemode = FindObjectOfType<Gamemode>();
+        ss = FindObjectOfType<ScreenShake>();
         name = "Player";
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -62,7 +64,6 @@ public class Player : MonoBehaviour
     {
         myVelocity = rb.velocity;
         myVelocity.Normalize();
-
     }
     void FixedUpdate()
     {
@@ -82,27 +83,27 @@ public class Player : MonoBehaviour
         // If the player presses 'G' their stats are increased
         if (Input.GetKeyDown("g"))
         {
-            gamemode.p_healthDeath = -10000;
-            gamemode.bulletSpeed += 20;
-            gamemode.playerSpeedCur += 2.5f;
-            gamemode.shotCooldown -= .1f;
+            gm.p_healthDeath = -10000;
+            gm.bulletSpeed += 20;
+            gm.playerSpeedCur += 2.5f;
+            gm.shotCooldown -= .1f;
         }
 
         if (Input.GetKeyDown("h"))
         {
-            gamemode.p_healthDeath = -10000f;
+            gm.p_healthDeath = -10000f;
         }
     }
 
     public void DecreaseHealth(float bulletDamage)
     {
-        if (gamemode.p_curHealth > gamemode.p_healthDeath)
+        if (gm.p_curHealth > gm.p_healthDeath)
         {
-            gamemode.p_curHealth -= bulletDamage;
+            gm.p_curHealth -= bulletDamage;
             p_HealthBar.fillAmount -= bulletDamage / 100;
         }
 
-        if (gamemode.p_curHealth <= gamemode.p_healthDeath)
+        if (gm.p_curHealth <= gm.p_healthDeath)
         {
             gdm.playerDied = true;
             Destroy(gameObject);
@@ -112,13 +113,13 @@ public class Player : MonoBehaviour
     void ShotCooldown()
     {
         //Shot on cooldown
-        if (shotTimer <= gamemode.shotCooldown)
+        if (shotTimer <= gm.shotCooldown)
         {
             hasShot = true;
             shotTimer += Time.deltaTime;
         }
 
-        if (shotTimer >= gamemode.shotCooldown)
+        if (shotTimer >= gm.shotCooldown)
         {
             hasShot = false;
             shotTimer = 0;
@@ -242,6 +243,17 @@ public class Player : MonoBehaviour
             go.GetComponent<Bullet>().weaponHolder = gunHolder;
             bullet.GetComponent<Bullet>().playerBullet = true;
         }
+
+        //Screen shake
+        ScreenShakeInfo Info = new ScreenShakeInfo();
+        Info.shakeMag = gm.shakeMagShoot;
+        Info.shakeRou = gm.shakeRouShoot;
+        Info.shakeFadeIDur = gm.shakeFadeIDurShoot;
+        Info.shakeFadeODur = gm.shakeFadeODurShoot;
+        Info.shakePosInfluence = gm.shakePosInfluenceShoot;
+        Info.shakeRotInfluence = gm.shakeRotInfluenceShoot;
+
+        ss.StartShaking(Info, .1f, 1);
     }
 
     void CanSeeTarget()
@@ -396,7 +408,7 @@ public class Player : MonoBehaviour
             if (gm.usingPC)
             {
                 inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-                rb.velocity = inputVector * gamemode.playerSpeedCur;
+                rb.velocity = inputVector * gm.playerSpeedCur;
 
                 if (rb.velocity == new Vector2(0, 0))
                 {
@@ -411,9 +423,9 @@ public class Player : MonoBehaviour
             if (!gm.usingPC)
             {
                 // disable movement and shoot joysticks if player is in dialogue
-                gamemode.joystickHolder.SetActive(true);
+                gm.joystickHolder.SetActive(true);
 
-                if (gamemode.joystickMove.Horizontal == 0 && gamemode.joystickMove.Vertical == 0)
+                if (gm.joystickMove.Horizontal == 0 && gm.joystickMove.Vertical == 0)
                 {
                     playerStill = true;
                 }
@@ -423,11 +435,11 @@ public class Player : MonoBehaviour
                     playerStill = false;
                 }
 
-                if (gamemode.joystickMove.Horizontal >= gamemode.joystickMove.DeadZone || gamemode.joystickMove.Horizontal <= gamemode.joystickMove.DeadZone
-                    || gamemode.joystickMove.Vertical >= gamemode.joystickMove.DeadZone || gamemode.joystickMove.Vertical <= gamemode.joystickMove.DeadZone)
+                if (gm.joystickMove.Horizontal >= gm.joystickMove.DeadZone || gm.joystickMove.Horizontal <= gm.joystickMove.DeadZone
+                    || gm.joystickMove.Vertical >= gm.joystickMove.DeadZone || gm.joystickMove.Vertical <= gm.joystickMove.DeadZone)
                 {
-                    inputVector = new Vector2(gamemode.joystickMove.Horizontal, gamemode.joystickMove.Vertical);
-                    rb.velocity = inputVector * gamemode.playerSpeedCur;
+                    inputVector = new Vector2(gm.joystickMove.Horizontal, gm.joystickMove.Vertical);
+                    rb.velocity = inputVector * gm.playerSpeedCur;
                 }
             }
 
@@ -435,7 +447,7 @@ public class Player : MonoBehaviour
             if (FindObjectOfType<DialogueManager>().dialogueTriggered)
             {
                 rb.velocity = new Vector2(0, 0);
-                gamemode.joystickHolder.SetActive(false);
+                gm.joystickHolder.SetActive(false);
             }
         }
         else

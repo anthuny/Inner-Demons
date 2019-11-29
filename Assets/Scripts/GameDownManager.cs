@@ -166,7 +166,7 @@ public class GameDownManager : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        else
+        else if (!gm.isFrozen)
         {
             pausedBut.gameObject.SetActive(false);
             continueBut.gameObject.SetActive(false);

@@ -23,10 +23,47 @@ public class Gamemode : MonoBehaviour
     public float chooseReloadSpeedInc;
     public Transform playerSpawnPoint;
     public GameObject player;
+    private GameObject cam;
     private Transform spawnPos;
     private GameDownManager gdm;
     private DialogueManager dm;
     private AIDestinationSetter aid;
+
+    [Header("Camera Shake - Player Shoot")]
+    public float shakeMagShoot;
+    public float shakeRouShoot;
+    public float shakeFadeIDurShoot;
+    public float shakeFadeODurShoot;
+    public Vector3 shakePosInfluenceShoot;
+    public Vector3 shakeRotInfluenceShoot;
+
+    [Header("Camera Shake - Hit")]
+    public float shakeMagHit;
+    public float shakeRouHit;
+    public float shakeFadeIDurHit;
+    public float shakeFadeODurHit;
+    public Vector3 shakePosInfluenceHit;
+    public Vector3 shakeRotInfluenceHit;
+
+    [Header("Camera Shake - Door Close")]
+    public float shakeMagDClose;
+    public float shakeRouDClose;
+    public float shakeFadeIDurDClose;
+    public float shakeFadeODurDClose;
+    public Vector3 shakePosInfluenceDClose;
+    public Vector3 shakeRotInfluenceDClose;
+    [HideInInspector]
+    public bool depthShaking;
+    public float depthCamDefAmount;
+    public float depthDecAmount;
+    public float depthDecSpeed;
+    private bool retracting;
+
+    [Header("Screen Freeze")]
+    public float freezeDur;
+    public float curFreezeDur = 0;
+    public bool isFrozen;
+    private bool doneOnce;
 
     [Header("Choices")]
     public int arrogance;
@@ -36,8 +73,6 @@ public class Gamemode : MonoBehaviour
     public bool ignoranceHighest;
     public bool moralityHighest;
     public int maxChoice;
-
-    [Header("Element Handler")]
 
     [Header("Touch Inputs / Joysticks")]
     public GameObject joystickHolder;
@@ -115,9 +150,12 @@ public class Gamemode : MonoBehaviour
     [Header("Memory")]
     public GameObject talkButton;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
+        cam = GameObject.Find("Main Camera");
         spawnPos = GameObject.Find("EGOSpawnPoint").transform;
         gdm = FindObjectOfType<GameDownManager>();
         dm = FindObjectOfType<DialogueManager>();
@@ -132,6 +170,30 @@ public class Gamemode : MonoBehaviour
         ElementManager();
         CalculateChoiceHigh();
         SetEnemyTarget();
+        CameraDepthShake();
+
+
+        if (isFrozen && !doneOnce)
+        {
+            doneOnce = true;
+            StartCoroutine(DoFreeze());
+        }
+    }
+
+    public void Freeze()
+    {
+        isFrozen = true;
+    }
+
+    IEnumerator DoFreeze()
+    {
+        Time.timeScale = 0f;
+
+        yield return new WaitForSecondsRealtime(freezeDur);
+
+        Time.timeScale = 1f;
+        isFrozen = false;
+        doneOnce = false;
     }
 
     void SetEnemyTarget()
@@ -179,6 +241,41 @@ public class Gamemode : MonoBehaviour
             moralityHighest = true;
             arroganceHighest = false;
             ignoranceHighest = false;
+        }
+    }
+
+    public void CameraDepthShake()
+    {
+        if (depthShaking)
+        {
+            //decrease the size of the camera
+            cam.GetComponent<Camera>().orthographicSize -= 0.1f * depthDecSpeed;
+
+            if (cam.GetComponent<Camera>().orthographicSize <= depthDecAmount)
+            {
+                depthShaking = false;
+                retracting = true;
+            }
+        }
+
+        if (!depthShaking && retracting)
+        {
+            if (cam.GetComponent<Camera>().orthographicSize <= depthDecAmount)
+            {
+                //increase the size of the camera if it's under lowest point
+                cam.GetComponent<Camera>().orthographicSize += 0.1f * depthDecSpeed;
+            }
+
+            if (cam.GetComponent<Camera>().orthographicSize > depthDecAmount && cam.GetComponent<Camera>().orthographicSize <= depthCamDefAmount)
+            {
+                //increase the size of the camera if it's above
+                cam.GetComponent<Camera>().orthographicSize += 0.1f * depthDecSpeed;
+            }
+
+            else
+            {
+                retracting = false;
+            }
         }
     }
 

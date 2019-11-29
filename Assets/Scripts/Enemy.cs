@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 using Pathfinding;
+using EZCameraShake;
 
 public class Enemy : MonoBehaviour
 {
@@ -53,11 +54,13 @@ public class Enemy : MonoBehaviour
     public Animator animator;
 
     private Gamemode gm;
+    private ScreenShake ss;
 
     void Start()
     {
         gm = GameObject.Find("EGOGamemode").GetComponent<Gamemode>();
         rb = GetComponent<Rigidbody2D>();
+        ss = FindObjectOfType<ScreenShake>();
 
         //Increase enemy count
         gm.enemyCount++;
@@ -216,6 +219,20 @@ public class Enemy : MonoBehaviour
     {
         if (e_CurHealth > gm.e_HealthDeath)
         {
+            //Screen shake
+            ScreenShakeInfo Info = new ScreenShakeInfo();
+            Info.shakeMag = gm.shakeMagHit;
+            Info.shakeRou = gm.shakeRouHit;
+            Info.shakeFadeIDur = gm.shakeFadeIDurHit;
+            Info.shakeFadeODur = gm.shakeFadeODurHit;
+            Info.shakePosInfluence = gm.shakePosInfluenceHit;
+            Info.shakeRotInfluence = gm.shakeRotInfluenceHit;
+
+            ss.StartShaking(Info, .1f, 2);
+
+            //Freeze the game for a split second
+            gm.Freeze();
+
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Fire" && isEarth)
             {
