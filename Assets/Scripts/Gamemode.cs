@@ -65,6 +65,12 @@ public class Gamemode : MonoBehaviour
     public bool isFrozen;
     private bool doneOnce;
 
+    [Header("Bullets")]
+    public float incScaleRate;
+    public float maxScaleX;
+    public float maxScaleY;
+    public GameObject bulletDeathParticle;
+
     [Header("Choices")]
     public int arrogance;
     public int ignorance;

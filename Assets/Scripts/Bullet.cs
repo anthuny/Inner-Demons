@@ -18,6 +18,10 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private Gamemode gm;
     private bool passThrough;
+    private Animator animator;
+    private bool incSize = true;
+    private float x = .1f;
+    private float y = .1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,8 @@ public class Bullet : MonoBehaviour
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         enemy = GameObject.Find("Enemy 1");
 
+        animator = GetComponentInChildren<Animator>();
+
         //forward = playerScript.gunHolder.transform.localEulerAngles;
         //Debug.Log(forward);
 
@@ -35,31 +41,11 @@ public class Bullet : MonoBehaviour
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
-        // Check what element the enemy that spawned this bullet is
-        // And set this bullet to the same element
-        if (gamemode.isFire)
-        {
-            sr.color = Color.red;
-            currentElement = "Fire";
-        }
-
-        if (gamemode.isWater)
-        {
-            sr.color = Color.blue;
-            currentElement = "Water";
-        }
-
-        if (gamemode.isEarth)
-        {
-            sr.color = Color.green;
-            currentElement = "Earth";
-        }
-
-        //Increase the size of the bullet based on the damage of the player
-        transform.localScale = new Vector2(5, 5) * gamemode.bulletDamage / 15;
+        //Set correct element visually.
+        SetElement();
 
         // If enemy could see target, allow it to pass through obstacles
-        if (gm.p_CanSeeTarget)
+        if (gm.p_CanSeeTarget && gm.nearestEnemy)
         {
             passThrough = true;
         }
@@ -69,9 +55,41 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    void SetElement()
+    {
+        // Check what element the enemy that spawned this bullet is
+        // And set this bullet to the same element
+        if (gamemode.isFire)
+        {
+            //Change visual colour
+            animator.SetInteger("curElement", gm.currentElement);
+
+            currentElement = "Fire";
+        }
+
+        if (gamemode.isWater)
+        {
+            //Change visual colour
+            animator.SetInteger("curElement", gm.currentElement);
+
+            currentElement = "Water";
+        }
+
+        if (gamemode.isEarth)
+        {
+            //Change visual colour
+            animator.SetInteger("curElement", gm.currentElement);
+
+            currentElement = "Earth";
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        // Increase the projectile's size
+        IncreaseSize();
+
+        // Move the projectile forwards
         transform.Translate(Vector2.right * Time.deltaTime * gamemode.bulletSpeed);
 
         //If bullet distance goes too far
@@ -81,6 +99,24 @@ public class Bullet : MonoBehaviour
             Death();
         }
 
+    }
+
+    void IncreaseSize()
+    {
+        if (incSize)
+        {
+            transform.localScale = new Vector2(x, y);
+
+            // Increase the scale of the projectile
+            x += .1f * Time.deltaTime * gm.incScaleRate;
+            y += .1f * Time.deltaTime * gm.incScaleRate;
+
+            // If projectile size has reached it's max scale, stop increasing size.
+            if (x >= gm.maxScaleX + gm.bulletDamage / 5 || y >= gm.maxScaleY + gm.bulletDamage / 2)
+            {
+                incSize = false;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -93,16 +129,39 @@ public class Bullet : MonoBehaviour
 
         if (!passThrough)
         {
-            if (other.tag == "Wall")
+            if (other.tag == "Wall" || other.tag == "Doors" || other.tag == "Obstacle")
             {
                 Death();
             }
         }
-
     }
 
     void Death()
     {
+        //Spawn particle effect
+        Instantiate(gm.bulletDeathParticle, transform.position, Quaternion.identity);
+
+        ParticleSystem ps = gm.bulletDeathParticle.GetComponent<ParticleSystem>();
+
+        ParticleSystem.MainModule ma = ps.main;
+
+        if (currentElement == "Fire")
+        {
+            ma.startColor = new ParticleSystem.MinMaxGradient(new Color32(255, 59, 59, 255));
+        }
+
+        if (currentElement == "Water")
+        {
+            ma.startColor = new ParticleSystem.MinMaxGradient(new Color32(76, 189, 255, 255));
+        }
+
+        if (currentElement == "Earth")
+        {
+            ma.startColor = new ParticleSystem.MinMaxGradient(new Color32(66, 255, 85, 255));
+        }
+
+
+        // Destroy projetile
         Destroy(gameObject);
     }
 }

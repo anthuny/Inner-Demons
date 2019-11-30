@@ -157,6 +157,8 @@ public class DialogueManager : MonoBehaviour
         gm.talkButton.GetComponentInChildren<CanvasGroup>().alpha = 1;
         gm.talkButton.GetComponentInChildren<AlphaTransition>().canDecrease = true;
 
+        memory.GetComponent<Animator>().SetInteger("memBrain", 1);
+
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -554,6 +556,14 @@ public class DialogueManager : MonoBehaviour
         buttonTextSent = false;
 
         // Turn the memory off
+
+        // Play memory death animation
+        memory.GetComponent<Animator>().SetInteger("memBrain", 2);
+
+        // Wait for current playing animation to finish
+        yield return new WaitForSeconds(1f);
+
+        // Set the memory to invisible to player
         memory.gameObject.SetActive(false);
 
         memory.GetComponent<Memory>().interacted = false;

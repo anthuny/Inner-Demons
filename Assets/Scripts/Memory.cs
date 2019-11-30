@@ -21,6 +21,12 @@ public class Memory : MonoBehaviour
     private GameObject dialogueToSelect;
 
     private Gamemode gm;
+
+    private void Start()
+    {
+        // Play idle animation
+        GetComponent<Animator>().SetInteger("memBrain", 0);
+    }
     private void OnEnable()
     {
         gm = FindObjectOfType<Gamemode>();
