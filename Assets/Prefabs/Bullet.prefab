@@ -213,7 +213,7 @@ PrefabInstance:
     - target: {fileID: 1415142097922783399, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 1415142097922783399, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
@@ -288,12 +288,12 @@ PrefabInstance:
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: position.x
-      value: -10.484321
+      value: -10.523152
       objectReference: {fileID: 0}
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: position.y
-      value: 11.158782
+      value: 13.058385
       objectReference: {fileID: 0}
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
@@ -303,17 +303,17 @@ PrefabInstance:
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: Range
-      value: 50
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: Intensity
-      value: 0.4
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: filteringSettings.layerMask.m_Bits
-      value: 8704
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
@@ -323,7 +323,7 @@ PrefabInstance:
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}
       propertyPath: ContactFilter.layerMask.m_Bits
-      value: 8704
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8981294600508507104, guid: ed74de399734d414aa77cbc883b132e1,
         type: 3}

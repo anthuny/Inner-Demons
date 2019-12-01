@@ -19,6 +19,10 @@ public class E_Bullet : MonoBehaviour
     private SpriteRenderer sr;
     private Gamemode gm;
     private bool passThrough;
+    private Animator animator;
+    private bool incSize = true;
+    private float x = .1f;
+    private float y = .1f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,61 +34,64 @@ public class E_Bullet : MonoBehaviour
         playerPos = player.transform.position;      
         playerVel = playerRb.velocity;
         gm = FindObjectOfType<Gamemode>();
-
-        // Exists so each spawned bullet has a reference to the enemy that spawned it.
-        // Allows multiple ranged enemies to be attacking at a time
-        GameObject[] enemies;
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector2 position = transform.position;
-        foreach (GameObject go in enemies)
-        {
-            Vector2 diff = new Vector2(go.transform.position.x, go.transform.position.y) - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = go;
-                distance = curDistance;
-            }
-        }
-
-        enemy = closest;
-        enemyScript = closest.GetComponent<Enemy>();
-
-        enemyPos = enemy.transform.position;
+        animator = GetComponentInChildren<Animator>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
-        // Check what element the enemy that spawned this bullet is
-        // And set this bullet to the same element
-        if (enemy.GetComponent<Enemy>().isFire)
-        {
-            sr.color = Color.red;
-        }
-
-        if (enemy.GetComponent<Enemy>().isWater)
-        {
-            sr.color = Color.blue;
-        }
-
-        if (enemy.GetComponent<Enemy>().isEarth)
-        {
-            sr.color = Color.green;
-        }
+        SetElement();
 
 
         //Increase the size of the bullet based on the damage of the enemy
         transform.localScale = new Vector2(1, 1) * gm.e_BulletDamage / gm.e_BulletScaleInc;
 
         // If enemy could see target, allow it to pass through obstacles
-        if (gm.e_CanSeeTarget)
+        if (enemy.GetComponent<Enemy>().e_CanSeeTarget)
         {
             passThrough = true;
         }
         else
         {
             passThrough = false;
+        }
+
+        //Aim bot (make sure this happens at least once before look at target (this also happens in update)
+        aimPos = playerPos + playerVel / 2;
+        dir = aimPos - startingPos;
+        dir.Normalize();
+        Vector2 pos;
+        pos.x = transform.position.x;
+        pos.y = transform.position.y;
+
+        pos.x += dir.x * gm.e_BulletSpeed * Time.deltaTime;
+        pos.y += dir.y * gm.e_BulletSpeed * Time.deltaTime;
+
+        transform.position = pos;
+
+        //Always look at player
+        Vector2 diff2 = dir;
+        diff2.Normalize();
+
+        float rot_z = Mathf.Atan2(diff2.y, diff2.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 90);
+    }
+
+    void SetElement()
+    {
+        // Check what element the enemy that spawned this bullet is
+        // And set this bullet to the same element
+        if (enemy.GetComponent<Enemy>().isFire)
+        {
+            animator.SetInteger("curElement", 1);
+        }
+
+        else if (enemy.GetComponent<Enemy>().isWater)
+        {
+            animator.SetInteger("curElement", 0);
+        }
+
+        else if (enemy.GetComponent<Enemy>().isEarth)
+        {
+            animator.SetInteger("curElement", 2);
         }
     }
 
@@ -104,14 +111,38 @@ public class E_Bullet : MonoBehaviour
 
         transform.position = pos;
 
+        if (enemy)
+        {
+            enemyPos = enemy.transform.position;
+        }
+
         //If bullet distance goes too far
         float distance = Vector3.Distance(enemyPos, transform.position);
         if (gm.e_BulletDist <= distance)
         {
             Death();
         }
+
+        IncreaseSize();
     }
 
+    void IncreaseSize()
+    {
+        if (incSize)
+        {
+            transform.localScale = new Vector2(x, y);
+
+            // Increase the scale of the projectile
+            x += .1f * Time.deltaTime * gm.p_IncScaleRate;
+            y += .1f * Time.deltaTime * gm.p_IncScaleRate;
+
+            // If projectile size has reached it's max scale, stop increasing size.
+            if (x >= gm.e_MaxScaleX + gm.e_BulletDamage / 5 || y >= gm.e_MaxScaleY + gm.e_BulletDamage / 5)
+            {
+                incSize = false;
+            }
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "PlayerHitbox")

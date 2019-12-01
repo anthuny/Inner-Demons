@@ -19,6 +19,10 @@ public class Player : MonoBehaviour
     public Animator animator;
     public Vector2 myVelocity;
 
+    //bullet holder
+    private Transform gunHolderLeft;
+    private Transform gunHolderRight;
+
     //Enemies
     public GameObject[] enemies;
 
@@ -42,13 +46,15 @@ public class Player : MonoBehaviour
     //aa
     private bool leftPressed;
 
-    //SCreen shake
+    //Screen shake
     private ScreenShake ss;
 
 
 
     private void Start()
     {
+        gunHolderLeft = GameObject.Find("Weapon Holder Left").transform;
+        gunHolderRight = GameObject.Find("Weapon Holder Right").transform;
         gdm = FindObjectOfType<GameDownManager>();
         gm = FindObjectOfType<Gamemode>();
         dm = FindObjectOfType<DialogueManager>();
@@ -226,23 +232,10 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
-        // If using mobile
-        if (!gm.usingPC)
-        {
-            hasShot = true;
-            GameObject go2 = Instantiate(bullet, gunHolder.position, gunHolder.transform.rotation);
-            go2.GetComponent<Bullet>().weaponHolder = gunHolder;
-            bullet.GetComponent<Bullet>().playerBullet = true;
-        }
-
-        // If using PC
-        if (gm.usingPC)
-        {
-            hasShot = true;
-            GameObject go = Instantiate(bullet, gunHolder.position, gunHolder.transform.rotation);
-            go.GetComponent<Bullet>().weaponHolder = gunHolder;
-            bullet.GetComponent<Bullet>().playerBullet = true;
-        }
+        hasShot = true;
+        GameObject go2 = Instantiate(bullet, gunHolder.position, gunHolder.transform.rotation);
+        go2.GetComponent<Bullet>().weaponHolder = gunHolder;
+        bullet.GetComponent<Bullet>().playerBullet = true;
 
         //Screen shake
         ScreenShakeInfo Info = new ScreenShakeInfo();
@@ -284,7 +277,6 @@ public class Player : MonoBehaviour
                 //Debug.Log("Can't see target, Hitting: " + hitinfo.transform.name);
                 gm.p_CanSeeTarget = false;
             }
-
             //If CAN see target
             else
             {
@@ -300,6 +292,8 @@ public class Player : MonoBehaviour
             {
                 gm.shootDir = gm.nearestEnemy.transform.position - transform.position;
                 gm.shootDir.Normalize();
+                gunHolderLeft.transform.right = gm.shootDir;
+                gunHolderRight.transform.right = gm.shootDir;
                 gunHolder.transform.right = gm.shootDir;
 
                 gm.autoAimOn = true;
@@ -351,14 +345,18 @@ public class Player : MonoBehaviour
                     // If auto aim is OFF
                     if (!gm.autoAimOn)
                     {
-                        if (!gm.usingPC)
+                        if (!gm.usingPC && !playerStill)
                         {
                             gunHolder.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(gm.joystickMove.Vertical, gm.joystickMove.Horizontal) * 180 / Mathf.PI);
+                            //gunHolderLeft.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(gm.joystickMove.Vertical, gm.joystickMove.Horizontal) * 180 / Mathf.PI);
+                            //gunHolderRight.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(gm.joystickMove.Vertical, gm.joystickMove.Horizontal) * 180 / Mathf.PI);
                         }
 
-                        if (gm.usingPC)
+                        if (gm.usingPC && !playerStill)
                         {
                             gunHolder.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(myVelocity.y, myVelocity.x) * 180 / Mathf.PI);
+                            //gunHolderLeft.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(myVelocity.y, myVelocity.x) * 180 / Mathf.PI);
+                            //gunHolderRight.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(myVelocity.y, myVelocity.x) * 180 / Mathf.PI);
                         }
 
                         // Shoot Bullet
@@ -383,11 +381,19 @@ public class Player : MonoBehaviour
                             // Rotate player to correct direction
                             if (gm.nearestEnemy.position.x >= transform.position.x)
                             {
+                                // Make the sprite face RIGHT
                                 GetComponentInChildren<SpriteRenderer>().flipX = false;
+
+                                // Move the gun holder to the RIGHT side of the player's sprite
+                                gunHolder.transform.position = gunHolderRight.transform.position;
                             }
                             else
                             {
+                                // Make the sprite face LEFT
                                 GetComponentInChildren<SpriteRenderer>().flipX = true;
+
+                                // Move the gun holder to the LEFT side of the player's sprite
+                                gunHolder.transform.position = gunHolderLeft.transform.position;
                             }
                         }
                         yield return new WaitForSeconds(0);
@@ -410,7 +416,7 @@ public class Player : MonoBehaviour
                 inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
                 rb.velocity = inputVector * gm.playerSpeedCur;
 
-                if (rb.velocity == new Vector2(0, 0))
+                if (myVelocity == new Vector2(0, 0))
                 {
                     playerStill = true;
                 }
@@ -467,7 +473,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        // If player is moving Up play animation accordingly
+        // If player is moving play animation accordingly
         else if (myVelocity != Vector2.zero)
         {
             animator.SetInteger("playerBrain", 1);
@@ -476,12 +482,20 @@ public class Player : MonoBehaviour
         // right
         if (myVelocity.x > 0 && !gm.autoAimOn)
         {
+            // Make the sprite face RIGHT
             GetComponentInChildren<SpriteRenderer>().flipX = false;
+
+            // Move the gun holder to the RIGHT side of the player's sprite
+            gunHolder.transform.position = gunHolderRight.transform.position;
         }
         // left
-        if (myVelocity.x < 0 && !gm.autoAimOn)
+        else if (myVelocity.x < 0 && !gm.autoAimOn)
         {
+            // Make the sprite face LEFT
             GetComponentInChildren<SpriteRenderer>().flipX = true;
+
+            // Move the gun holder to the LEFFT side of the player's sprite
+            gunHolder.transform.position = gunHolderLeft.transform.position;
         }
     }
  }  

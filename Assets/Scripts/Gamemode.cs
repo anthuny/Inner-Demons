@@ -10,9 +10,6 @@ public class Gamemode : MonoBehaviour
     [Header("Current Platform")]
     public bool usingPC;
 
-    [Header("Developer Mode")]
-    public bool devMode;
-
     [Header("General")]
     public GameObject playerPrefab;
     public int enemyCount = 0;
@@ -65,11 +62,25 @@ public class Gamemode : MonoBehaviour
     public bool isFrozen;
     private bool doneOnce;
 
+    [Header("Camera")]
+    public float camSmoothTime = 0.2f;
+
     [Header("Bullets")]
+    public float p_IncScaleRate;
+    public float p_MaxScaleX;
+    public float p_MaxScaleY;
+    public float e_IncScaleRate;
+    public float e_MaxScaleX;
+    public float e_MaxScaleY;
+    public GameObject bulletDeathParticle;
+
+    [Header("Enemy Element Background")]
     public float incScaleRate;
     public float maxScaleX;
     public float maxScaleY;
-    public GameObject bulletDeathParticle;
+    public float minScaleX;
+    public float minScaleY;
+    public bool gettingBigger;
 
     [Header("Choices")]
     public int arrogance;
@@ -123,13 +134,14 @@ public class Gamemode : MonoBehaviour
 
     [Header("Enemy Ranged Statistics")]
     public float e_MoveSpeed;
-    public float e_ChaseSpeed;
     public float e_EvadeSpeed;
+    public float e_EvadeSpeedDef;
     public float e_MaxHealth = 100;
 
     public float e_HealthDeath = 0;
     public float e_ViewDis;
-    public float evadetimerMax;
+    public float evadeTimerCur;
+    public float evadeTimerDef;
     public float bossDeathSpeed = 0;
     public float e_BulletScaleInc;
     public Vector2 e_ShootDir;
@@ -139,24 +151,14 @@ public class Gamemode : MonoBehaviour
     public float e_BulletSpeed;
     public float e_BulletDist;
     public float e_rangeOffset;
-    public bool e_CanSeeTarget;
 
     [Header("Enemy AI")]
-    public float nexWaypointDistance = 3f;
-    public float navUpdateTimer;
-
-    [HideInInspector]
-    public Path path;
-    [HideInInspector]
-    public int currentWaypoint = 0;
-
-    [HideInInspector]
-    public bool reachedEndOfPath = false;
+    public float enemyTooCloseDis = 5f;
+    public float enemyOverlapSpeed;
+    public float enemyOverlapEvadeTimer = 1.25f;
 
     [Header("Memory")]
     public GameObject talkButton;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -168,6 +170,7 @@ public class Gamemode : MonoBehaviour
         aid = FindObjectOfType<AIDestinationSetter>();
 
         playerSpeedCur = playerSpeedDef;
+        evadeTimerCur = evadeTimerDef;
     }
 
     // Update is called once per frame
@@ -206,7 +209,6 @@ public class Gamemode : MonoBehaviour
     {
         if (aid)
         {
-            Debug.Log("here");
             aid.target = player.transform;
         }
     }

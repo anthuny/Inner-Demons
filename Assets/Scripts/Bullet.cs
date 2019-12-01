@@ -108,11 +108,11 @@ public class Bullet : MonoBehaviour
             transform.localScale = new Vector2(x, y);
 
             // Increase the scale of the projectile
-            x += .1f * Time.deltaTime * gm.incScaleRate;
-            y += .1f * Time.deltaTime * gm.incScaleRate;
+            x += .1f * Time.deltaTime * gm.p_IncScaleRate;
+            y += .1f * Time.deltaTime * gm.p_IncScaleRate;
 
             // If projectile size has reached it's max scale, stop increasing size.
-            if (x >= gm.maxScaleX + gm.bulletDamage / 5 || y >= gm.maxScaleY + gm.bulletDamage / 2)
+            if (x >= gm.p_MaxScaleX + gm.bulletDamage / 5 || y >= gm.p_MaxScaleY + gm.bulletDamage / 5)
             {
                 incSize = false;
             }
@@ -145,17 +145,17 @@ public class Bullet : MonoBehaviour
 
         ParticleSystem.MainModule ma = ps.main;
 
-        if (currentElement == "Fire")
+        if (gm.currentElement == 1)
         {
             ma.startColor = new ParticleSystem.MinMaxGradient(new Color32(255, 59, 59, 255));
         }
 
-        if (currentElement == "Water")
+        if (gm.currentElement == 0)
         {
             ma.startColor = new ParticleSystem.MinMaxGradient(new Color32(76, 189, 255, 255));
         }
 
-        if (currentElement == "Earth")
+        if (gm.currentElement == 2)
         {
             ma.startColor = new ParticleSystem.MinMaxGradient(new Color32(66, 255, 85, 255));
         }

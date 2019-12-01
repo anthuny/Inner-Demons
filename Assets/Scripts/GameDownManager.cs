@@ -106,8 +106,6 @@ public class GameDownManager : MonoBehaviour
         }
 
         player = FindObjectOfType<Player>().gameObject;
-
-
     }
 
     public void RestartButton()

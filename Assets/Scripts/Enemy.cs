@@ -13,6 +13,23 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     [HideInInspector]
     public Seeker seeker;
+    public bool e_CanSeeTarget;
+    public GameObject nearestEnemy;
+    public bool tooCloseEnemy;
+    public float dist2;
+    public float nexWaypointDistance = 3f;
+    public float navUpdateTimer = 0.25f;
+    [HideInInspector]
+    public Path path;
+    [HideInInspector]
+    public int currentWaypoint = 0;
+
+    [HideInInspector]
+    public bool reachedEndOfPath = false;
+
+
+    //Element bg
+    public bool gettingBigger = true;
 
     //Bullet
     private bool e_HasShot;
@@ -52,9 +69,16 @@ public class Enemy : MonoBehaviour
 
     //Animation
     public Animator animator;
+    public Animator elementBGAnimator;
+    public GameObject BGElement;
+
 
     private Gamemode gm;
     private ScreenShake ss;
+
+    //element bg
+    private float x = .1f;
+    private float y = .1f;
 
     void Start()
     {
@@ -75,7 +99,7 @@ public class Enemy : MonoBehaviour
 
         seeker = GetComponent<Seeker>();
 
-        InvokeRepeating("UpdatePath", 0f, gm.navUpdateTimer);
+        InvokeRepeating("UpdatePath", 0f, navUpdateTimer);
 
         Reset();
     }
@@ -84,7 +108,7 @@ public class Enemy : MonoBehaviour
     {
         if (seeker.IsDone())
         {
-            seeker.StartPath(rb.position, gm.player.transform.position, OnPathComplete);
+            seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
         }
     }
 
@@ -92,51 +116,16 @@ public class Enemy : MonoBehaviour
     {
         if (!p.error)
         {
-            gm.path = p;
-            gm.currentWaypoint = 0;
+            path = p;
+            currentWaypoint = 0;
         }
     }
 
-    void Move()
-    {
-        if (gm.path == null)
-        {
-            return;
-        }
-
-        if (gm.currentWaypoint >= gm.path.vectorPath.Count)
-        {
-            gm.reachedEndOfPath = true;
-            return;
-        }
-        else
-        {
-            gm.reachedEndOfPath = false;
-        }
-
-        Vector2 direction = ((Vector2)gm.path.vectorPath[gm.currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * gm.e_MoveSpeed * Time.deltaTime;
-
-        // Move towards player
-        if (!targetInShootRange)
-        {
-            rb.AddForce(force);
-        }
-
-        if (!gm.e_CanSeeTarget)
-        {
-            rb.AddForce(force);
-        }
-
-        float distance = Vector2.Distance(rb.position, gm.path.vectorPath[gm.currentWaypoint]);
-
-        if (distance < gm.nexWaypointDistance)
-        {
-            gm.currentWaypoint++;
-        }
-    }
     void Reset()
     {
+        // Set evade speed to default value
+        gm.e_EvadeSpeed = gm.e_EvadeSpeedDef;
+
         e_CurHealth = gm.e_MaxHealth;
         e_HealthBar.fillAmount = 1f;
         // Current patrol point
@@ -188,6 +177,41 @@ public class Enemy : MonoBehaviour
         Move();
         Evade();
     }
+
+    void Move()
+    {
+        if (path == null)
+        {
+            return;
+        }
+
+        if (currentWaypoint >= path.vectorPath.Count)
+        {
+            reachedEndOfPath = true;
+            return;
+        }
+        else
+        {
+            reachedEndOfPath = false;
+        }
+
+        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        Vector2 force = direction * gm.e_MoveSpeed * Time.deltaTime;
+
+        // Move towards player
+        if (!targetInShootRange || !e_CanSeeTarget)
+        {
+            rb.AddForce(force);
+        }
+
+        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+
+        if (distance < nexWaypointDistance)
+        {
+            currentWaypoint++;
+        }
+    }
+
     void AllowBossDialogue()
     {
         //Check if this object is a boss, and if it's tag hasn't already been changed
@@ -201,18 +225,47 @@ public class Enemy : MonoBehaviour
     {
         if (isFire)
         {
-            //sr.color = Color.red;
+            elementBGAnimator.SetInteger("curElement", 1);
         }
 
         if (isWater)
         {
-            //sr.color = Color.blue;
+            elementBGAnimator.SetInteger("curElement", 0);
         }
 
         if (isEarth)
         {
-            //sr.color = Color.green;
+            elementBGAnimator.SetInteger("curElement", 2);
         }
+
+        BGElement.transform.localScale = new Vector2(x, y);
+
+        if (gettingBigger)
+        {
+            // Increase the scale of the background
+            x += .1f * Time.deltaTime * gm.incScaleRate;
+            y += .1f * Time.deltaTime * gm.incScaleRate;
+
+            // If projectile size has reached it's max scale, stop increasing size.
+            if (x >= gm.maxScaleX || y >= gm.maxScaleY)
+            {
+                gettingBigger = false;
+            }
+        }
+
+        if (!gettingBigger)
+        {
+            // Decrease the scale of the background
+            x -= .1f * Time.deltaTime * gm.incScaleRate;
+            y -= .1f * Time.deltaTime * gm.incScaleRate;
+
+            // If projectile size has reached it's lowest scale, stop increasing size.
+            if (x <= gm.minScaleX || y <= gm.minScaleY)
+            {
+                gettingBigger = true;
+            }
+        }
+
     }
 
     public void DecreaseHealth(float bulletDamage, string playersCurElement)
@@ -306,6 +359,11 @@ public class Enemy : MonoBehaviour
             //Decrease room enemy count
             room.GetComponent<Room>().roomEnemyCount--;
 
+            Debug.Log("removed");
+            FindObjectOfType<SmartCamera>().targets.Remove(gm.nearestEnemy.transform);
+            FindObjectOfType<SmartCamera>().beenAdded = false;
+
+
             //Kill enemy
             Destroy(gameObject);
         }
@@ -345,14 +403,14 @@ public class Enemy : MonoBehaviour
         {
             //Debug.DrawLine(transform.position, gm.player.transform.position, Color.red, .1f);
             //Debug.Log("NOT hitting player, hitting: " + hitinfo.transform.tag);
-            gm.e_CanSeeTarget = false;
+            e_CanSeeTarget = false;
         }
 
         else
         {
             //Debug.DrawLine(transform.position, gm.player.transform.position, Color.green, .1f);
             //Debug.Log("Hitting player, hitting: " + hitinfo.transform.tag);
-            gm.e_CanSeeTarget = true;
+            e_CanSeeTarget = true;
         }
     }
 
@@ -391,9 +449,10 @@ public class Enemy : MonoBehaviour
             e_HasShot = true;
 
             // If in shooting range and can see target, shoot
-            if (targetInShootRange && gm.e_CanSeeTarget)
+            if (targetInShootRange && e_CanSeeTarget)
             {
-                Instantiate(bullet, e_GunHolder.position, Quaternion.identity);
+                GameObject go = Instantiate(bullet, e_GunHolder.position, Quaternion.identity);
+                go.GetComponent<E_Bullet>().enemy = gameObject;
 
                 // Play shooting animation
                 animator.SetInteger("EnemyBrain", 2);
@@ -409,13 +468,13 @@ public class Enemy : MonoBehaviour
 
     void Evade()
     {
-        if (timer <= gm.evadetimerMax)
+        if (timer <= gm.evadeTimerCur)
         {
             alreadyChosen = true;
             timer += Time.deltaTime;
         }
 
-        if (timer >= gm.evadetimerMax)
+        if (timer >= gm.evadeTimerCur)
         {
             timer = 0;
             alreadyChosen = false;
@@ -433,32 +492,92 @@ public class Enemy : MonoBehaviour
 
             // If in shooting range, stop chasing and begin evading
             // and if it can see target
-            if (distance <= gm.e_BulletDist - gm.e_rangeOffset && gm.e_CanSeeTarget)
+            if (distance <= gm.e_BulletDist - gm.e_rangeOffset && e_CanSeeTarget || tooCloseEnemy)
             {
+                if (!tooCloseEnemy)
+                {
+                    gm.evadeTimerCur = gm.evadeTimerDef;
+                }
+
                 targetInShootRange = true;
 
+                // Play run animation
+                animator.SetInteger("EnemyBrain", 1);
+
                 // Evade Left
-                if (random == 1 || random == 6)
+                if (random == 1 || random == 6 && !tooCloseEnemy)
                 {
                     rb.AddRelativeForce(e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
                 }
 
+                // go left, the opposite of what the close enemy is now doing
+                if (random == 1 || random == 6 && tooCloseEnemy)
+                {
+                    gm.evadeTimerCur = gm.enemyOverlapEvadeTimer;
+
+                    // Send close enemy right
+                    if (nearestEnemy)
+                    {
+                        nearestEnemy.GetComponent<Enemy>().random = 2;
+                        rb.AddRelativeForce(e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
+                    }
+                }
+
                 // Evade Right
-                if (random == 2 || random == 5)
+                if (random == 2 || random == 5 && !tooCloseEnemy)
                 {
                     rb.AddRelativeForce(-e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
                 }
 
+                // go right, the opposite of what the close enemy is now doing
+                if (random == 2 || random == 5 && tooCloseEnemy)
+                {
+                    gm.evadeTimerCur = gm.enemyOverlapEvadeTimer;
+
+                    if (nearestEnemy)
+                    {
+                        // Send close enemy left
+                        nearestEnemy.GetComponent<Enemy>().random = 1;
+                        rb.AddRelativeForce(-e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
+                    }
+                }
+
                 // Evade forwards
-                if (random == 3)
+                if (random == 3 && !tooCloseEnemy)
                 {
                     rb.AddRelativeForce(-e_GunHolder.transform.right * gm.e_EvadeSpeed * Time.deltaTime);
                 }
 
+                // go forwards, the opposite of what the close enemy is now doing
+                if (random == 3 && tooCloseEnemy)
+                {
+                    gm.evadeTimerCur = gm.enemyOverlapEvadeTimer;
+
+                    if (nearestEnemy)
+                    {
+                        // Send close enemy backwards
+                        nearestEnemy.GetComponent<Enemy>().random = 4;
+                        rb.AddRelativeForce(-e_GunHolder.transform.right * gm.e_EvadeSpeed * Time.deltaTime);
+                    }
+                }
+
                 // Evade Backwards
-                if (random == 4)
+                if (random == 4 && !tooCloseEnemy)
                 {
                     rb.AddRelativeForce(e_GunHolder.transform.right * gm.e_EvadeSpeed * Time.deltaTime);
+                }
+
+                // go backwards, the opposite of what the close enemy is now doing
+                if (random == 4 && tooCloseEnemy)
+                {
+                    gm.evadeTimerCur = gm.enemyOverlapEvadeTimer;
+
+                    if (nearestEnemy)
+                    {
+                        // Send close enemy forwards
+                        nearestEnemy.GetComponent<Enemy>().random = 3;
+                        rb.AddRelativeForce(e_GunHolder.transform.right * gm.e_EvadeSpeed * Time.deltaTime);
+                    }
                 }
             }
             else
@@ -483,3 +602,124 @@ public class Enemy : MonoBehaviour
     }
 
 }
+//void Move()
+//{
+//    if enemy is not in shoot range and enemy cannot see player
+//    if (!targetInShootRange || !e_CanSeeTarget)
+//    {
+//        float minDist = Mathf.Infinity;
+
+//        Check if there is an enemy very close to this enemy
+//        foreach (Enemy e in FindObjectsOfType<Enemy>())
+//        {
+//            Don't include this enemy in the foreach
+//            if (e != this.gameObject.GetComponent<Enemy>())
+//            {
+//                float dist = Vector2.Distance(e.transform.position, transform.position);
+
+//                if (minDist > dist)
+//                {
+//                    nearestEnemy = e.transform.gameObject;
+//                    minDist = dist;
+//                }
+//            }
+//        }
+
+//        If there is a close enemy, check...
+//        if (nearestEnemy)
+//        {
+//            float dist2 = Vector2.Distance(nearestEnemy.transform.position, transform.position);
+
+//            If the other enemy is too close
+//            if (dist2 < gm.enemyTooCloseDis)
+//            {
+//                tooCloseEnemy = true;
+//            }
+//            else
+//            {
+//                tooCloseEnemy = false;
+//            }
+
+//            If there is an enemy, but it's not too close
+//            if (!tooCloseEnemy)
+//            {
+//                Set collider to normal size, so enemies cannot walk ontop of eachother
+//                GetComponent<CircleCollider2D>().radius = 7;
+//                gm.e_EvadeSpeed = gm.e_EvadeSpeedDef;
+
+//                if (path == null)
+//                {
+//                    return;
+//                }
+
+//                if (currentWaypoint >= path.vectorPath.Count)
+//                {
+//                    reachedEndOfPath = true;
+//                    return;
+//                }
+//                else
+//                {
+//                    reachedEndOfPath = false;
+//                }
+
+//                Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+//                Vector2 force = direction * gm.e_MoveSpeed * Time.deltaTime;
+
+//                Move the enemy towards player
+//                rb.AddForce(force);
+
+//                Play run animation
+//                animator.SetInteger("EnemyBrain", 1);
+
+//                float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+
+//                if (distance < nexWaypointDistance)
+//                {
+//                    currentWaypoint++;
+//                }
+//            }
+
+//            if (tooCloseEnemy)
+//            {
+//                Set colldier radius to very small, so enemies CAN walk ontop of eachother
+//                GetComponent<CircleCollider2D>().radius = 7;
+//                gm.e_EvadeSpeed = gm.enemyOverlapSpeed / 2;
+//            }
+//        }
+
+//        if there is NO close enemy(only one enemy)
+//        else
+//        {
+//            if (path == null)
+//            {
+//                return;
+//            }
+
+//            if (currentWaypoint >= path.vectorPath.Count)
+//            {
+//                reachedEndOfPath = true;
+//                return;
+//            }
+//            else
+//            {
+//                reachedEndOfPath = false;
+//            }
+
+//            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+//            Vector2 force = direction * gm.e_MoveSpeed * Time.deltaTime;
+
+//            Move the enemy towards player
+//            rb.AddForce(force);
+
+//            Play run animation
+//            animator.SetInteger("EnemyBrain", 1);
+
+//            float distance2 = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+
+//            if (distance2 < nexWaypointDistance)
+//            {
+//                currentWaypoint++;
+//            }
+//        }
+//    }
+//}
