@@ -111,6 +111,7 @@ public class Player : MonoBehaviour
         // Kill the player 
         if (gm.p_curHealth <= gm.p_healthDeath)
         {
+            FindObjectOfType<SmartCamera>().targets.Remove(gm.player.transform);
             gdm.playerDied = true;
             Destroy(gameObject);
         }
@@ -232,6 +233,7 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
+        Debug.Log("Shooting");
         hasShot = true;
         GameObject go2 = Instantiate(bullet, gunHolder.position, gunHolder.transform.rotation);
         go2.GetComponent<Bullet>().weaponHolder = gunHolder;

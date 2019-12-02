@@ -26,8 +26,16 @@ public class SmartCamera : MonoBehaviour
 
         if (gm.nearestEnemy && !beenAdded)
         {
-            beenAdded = true;   
-            targets.Add(gm.nearestEnemy.transform);
+            if (targets.Count < 2)
+            {
+                beenAdded = true;
+                targets.Add(gm.nearestEnemy.transform);
+            }
+        }
+
+        if (targets.Count > 1 && !gm.player)
+        {
+
         }
     }
 

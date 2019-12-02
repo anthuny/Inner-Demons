@@ -490,7 +490,6 @@ MonoBehaviour:
   bullet: {fileID: 4038859663916889700, guid: c445db4b14bb4b84489845b392531811, type: 3}
   gunHolder: {fileID: 2365348021251494293}
   hasShot: 0
-  p_HealthBar: {fileID: 0}
   animator: {fileID: 1061047114}
   myVelocity: {x: 0, y: 0}
   enemies: []
