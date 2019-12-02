@@ -127,7 +127,7 @@ public class Enemy : MonoBehaviour
         gm.e_EvadeSpeed = gm.e_EvadeSpeedDef;
 
         e_CurHealth = gm.e_MaxHealth;
-        e_HealthBar.fillAmount = 1f;
+
         // Current patrol point
         //currentPoint = 0;
 
@@ -290,67 +290,58 @@ public class Enemy : MonoBehaviour
             if (playersCurElement == "Fire" && isEarth)
             {
                 e_CurHealth -= bulletDamage + gm.fireDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Water" && isFire)
             {
                 e_CurHealth -= bulletDamage + gm.waterDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Earth" && isWater)
             {
                 e_CurHealth -= bulletDamage + gm.earthDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Fire" && isWater)
             {
                 e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Fire" && isFire)
             {
                 e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Water" && isEarth)
             {
                 e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Water" && isWater)
             {
                 e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Earth" && isFire)
             {
                 e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
 
             // If there is no element counter, do regular damage
             if (playersCurElement == "Earth" && isEarth)
             {
                 e_CurHealth -= bulletDamage;
-                e_HealthBar.fillAmount = e_CurHealth / 100;
             }
         }
         
-        // If this object dies
+        // If this object dies, and is not a boss
         if (e_CurHealth <= gm.e_HealthDeath && !isBoss)
         {
             //Decrease enemy count
@@ -359,7 +350,6 @@ public class Enemy : MonoBehaviour
             //Decrease room enemy count
             room.GetComponent<Room>().roomEnemyCount--;
 
-            Debug.Log("removed");
             FindObjectOfType<SmartCamera>().targets.Remove(gm.nearestEnemy.transform);
             FindObjectOfType<SmartCamera>().beenAdded = false;
 
@@ -368,6 +358,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // if the boss dies
         if (e_CurHealth <= gm.e_HealthDeath && isBoss)
         {
             bossDialogueReady = true;

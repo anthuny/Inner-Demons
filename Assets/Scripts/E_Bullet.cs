@@ -133,8 +133,8 @@ public class E_Bullet : MonoBehaviour
             transform.localScale = new Vector2(x, y);
 
             // Increase the scale of the projectile
-            x += .1f * Time.deltaTime * gm.p_IncScaleRate;
-            y += .1f * Time.deltaTime * gm.p_IncScaleRate;
+            x += .1f * Time.deltaTime * gm.e_IncScaleRate;
+            y += .1f * Time.deltaTime * gm.e_IncScaleRate;
 
             // If projectile size has reached it's max scale, stop increasing size.
             if (x >= gm.e_MaxScaleX + gm.e_BulletDamage / 5 || y >= gm.e_MaxScaleY + gm.e_BulletDamage / 5)

@@ -54,10 +54,6 @@ public class GameDownManager : MonoBehaviour
         gm.player = go;
         player = go;
 
-        playerScript = player.GetComponent<Player>();
-        playerScript.p_HealthBar = GameObject.Find("Health").GetComponent<Image>();
-
-
         //gm.joystickHolder = GameObject.Find("EGOPlayerController");
         //gm.joystickMove = FindObjectOfType<FloatingJoystick>();
         //gm.shootArea = GameObject.Find("Shoot Area Button");
@@ -74,7 +70,6 @@ public class GameDownManager : MonoBehaviour
         gm.shotCooldown = gm.shotCooldownDef;
 
         gm.p_curHealth = gm.p_maxHealth;
-        playerScript.p_HealthBar.fillAmount = 1f;
         gm.isFire = true;
 
 
@@ -124,7 +119,6 @@ public class GameDownManager : MonoBehaviour
         }
 
         playerScript = player.GetComponent<Player>();
-        playerScript.p_HealthBar = GameObject.Find("Health").GetComponent<Image>();
 
         gm.joystickHolder = GameObject.Find("EGOPlayerController");
         gm.joystickMove = FindObjectOfType<FloatingJoystick>();
@@ -141,7 +135,6 @@ public class GameDownManager : MonoBehaviour
         gm.shotCooldown = gm.shotCooldownDef;
 
         gm.p_curHealth = gm.p_maxHealth;
-        playerScript.p_HealthBar.fillAmount = 1f;
         gm.isFire = true;
 
         gm.talkButton = GameObject.Find("Talk Button");

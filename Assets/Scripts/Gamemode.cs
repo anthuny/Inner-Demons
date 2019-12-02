@@ -10,6 +10,11 @@ public class Gamemode : MonoBehaviour
     [Header("Current Platform")]
     public bool usingPC;
 
+    [Header("Player Health UI")]
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
+
     [Header("General")]
     public GameObject playerPrefab;
     public int enemyCount = 0;
@@ -106,7 +111,7 @@ public class Gamemode : MonoBehaviour
     public float playerSpeedCur;
     public float playerSpeedDef;
     public float playerSpeedDead = 0;
-    public float p_maxHealth = 100;
+    public float p_maxHealth = 5;
     public float p_curHealth;
     public float p_healthDeath = 0;
     public bool isFire;
@@ -180,15 +185,45 @@ public class Gamemode : MonoBehaviour
         CalculateChoiceHigh();
         SetEnemyTarget();
         CameraDepthShake();
-
+        HealthManager();
 
         if (isFrozen && !doneOnce)
         {
             doneOnce = true;
             StartCoroutine(DoFreeze());
         }
+
+
     }
 
+    void HealthManager()
+    {
+        if (p_curHealth > p_maxHealth)
+        {
+            p_curHealth = p_maxHealth;
+        }
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < p_curHealth)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+
+            if (i < p_maxHealth)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
+    }
     public void Freeze()
     {
         isFrozen = true;

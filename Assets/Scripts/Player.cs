@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
 
     //Player
     private Vector3 inputVector;
-    public Image p_HealthBar;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     public Animator animator;
@@ -103,12 +102,13 @@ public class Player : MonoBehaviour
 
     public void DecreaseHealth(float bulletDamage)
     {
+        // Decrease player's health if they shouldn't be dead already
         if (gm.p_curHealth > gm.p_healthDeath)
         {
             gm.p_curHealth -= bulletDamage;
-            p_HealthBar.fillAmount -= bulletDamage / 100;
         }
 
+        // Kill the player 
         if (gm.p_curHealth <= gm.p_healthDeath)
         {
             gdm.playerDied = true;
