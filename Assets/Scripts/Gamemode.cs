@@ -67,6 +67,11 @@ public class Gamemode : MonoBehaviour
     public bool isFrozen;
     private bool doneOnce;
 
+    [Header("Element UI")]
+    public Animator earthUIanim;
+    public Animator waterUIanim;
+    public Animator fireUIanim;
+
     [Header("Camera")]
     public float camSmoothTime = 0.2f;
 
@@ -186,14 +191,49 @@ public class Gamemode : MonoBehaviour
         SetEnemyTarget();
         CameraDepthShake();
         HealthManager();
+        ElementUIAesthetic();
 
         if (isFrozen && !doneOnce)
         {
             doneOnce = true;
             StartCoroutine(DoFreeze());
         }
+    }
 
+    void ElementUIAesthetic()
+    {
+        // If the player has shot, make the button darker
+        if (player.GetComponent<Player>().hasShot)
+        {
+            shootArea.GetComponent<Image>().color = new Color32(160, 160, 160, 160);
+        }
+        
+        // If the player HAS NOT shot, make the button regular colour
+        else
+        {
+            shootArea.GetComponent<Image>().color = new Color32(255, 255, 255, 160);
+        }
 
+        if (isFire)
+        {
+            fireUIanim.enabled = true;
+            waterUIanim.enabled = false;
+            earthUIanim.enabled = false;
+        }
+
+        if (isWater)
+        {
+            waterUIanim.enabled = true;
+            fireUIanim.enabled = false;
+            earthUIanim.enabled = false;
+        }
+
+        if (isEarth)
+        {
+            earthUIanim.enabled = true;
+            waterUIanim.enabled = false;
+            fireUIanim.enabled = false;
+        }
     }
 
     void HealthManager()
@@ -321,8 +361,6 @@ public class Gamemode : MonoBehaviour
             }
         }
     }
-
-    // Increase Statistics
     public void IncreaseStatistics()
     {
         // Increase projectile speed
