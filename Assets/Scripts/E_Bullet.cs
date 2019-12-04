@@ -23,6 +23,7 @@ public class E_Bullet : MonoBehaviour
     private bool incSize = true;
     private float x = .1f;
     private float y = .1f;
+    private Vector2 diff;
 
     // Start is called before the first frame update
     void Start()
@@ -31,48 +32,15 @@ public class E_Bullet : MonoBehaviour
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         playerRb = player.GetComponent<Rigidbody2D>();
-        playerPos = player.transform.position;      
+        playerPos = player.transform.position;
         playerVel = playerRb.velocity;
         gm = FindObjectOfType<Gamemode>();
         animator = GetComponentInChildren<Animator>();
-
         sr = GetComponentInChildren<SpriteRenderer>();
 
         SetElement();
-
-
-        //Increase the size of the bullet based on the damage of the enemy
-        transform.localScale = new Vector2(1, 1) * gm.e_BulletDamage / gm.e_BulletScaleInc;
-
-        // If enemy could see target, allow it to pass through obstacles
-        if (enemy.GetComponent<Enemy>().e_CanSeeTarget)
-        {
-            passThrough = true;
-        }
-        else
-        {
-            passThrough = false;
-        }
-
-        //Aim bot (make sure this happens at least once before look at target (this also happens in update)
-        aimPos = playerPos + playerVel / 2;
-        dir = aimPos - startingPos;
-        dir.Normalize();
-        Vector2 pos;
-        pos.x = transform.position.x;
-        pos.y = transform.position.y;
-
-        pos.x += dir.x * gm.e_BulletSpeed * Time.deltaTime;
-        pos.y += dir.y * gm.e_BulletSpeed * Time.deltaTime;
-
-        transform.position = pos;
-
-        //Always look at player
-        Vector2 diff2 = dir;
-        diff2.Normalize();
-
-        float rot_z = Mathf.Atan2(diff2.y, diff2.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 90);
+        IncreaseSize();
+        AimBotStart();
     }
 
     void SetElement()
@@ -95,10 +63,19 @@ public class E_Bullet : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
+
     void Update()
     {
-        //Aim bot
+        AimBot();
+        DistanceCheck();
+        IncreaseSize();
+    }
+
+    // Exists so that the rotation is only set once.
+    void AimBotStart()
+    {
+        //Aim bot (make sure this happens at least once before look at target (this also happens in update)
         aimPos = playerPos + playerVel / 2;
         dir = aimPos - startingPos;
         dir.Normalize();
@@ -111,21 +88,43 @@ public class E_Bullet : MonoBehaviour
 
         transform.position = pos;
 
+        //Always look at player
+        Vector2 diff = dir;
+        diff.Normalize();
+
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 90);
+    }
+    void AimBot()
+    {
+        //Aim bot 
+        aimPos = playerPos + playerVel / 2;
+        dir = aimPos - startingPos;
+        dir.Normalize();
+        Vector2 pos;
+        pos.x = transform.position.x;
+        pos.y = transform.position.y;
+
+        pos.x += dir.x * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
+        pos.y += dir.y * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
+
+        transform.position = pos;
+    }
+
+    void DistanceCheck()
+    {
         if (enemy)
         {
             enemyPos = enemy.transform.position;
         }
 
-        //If bullet distance goes too far
+        //If bullet distance goes too far, kill it
         float distance = Vector3.Distance(enemyPos, transform.position);
-        if (gm.e_BulletDist <= distance)
+        if ((gm.e_BulletDist * gm.bossBulletDistCur) <= distance)
         {
             Death();
         }
-
-        IncreaseSize();
     }
-
     void IncreaseSize()
     {
         if (incSize)
@@ -133,21 +132,25 @@ public class E_Bullet : MonoBehaviour
             transform.localScale = new Vector2(x, y);
 
             // Increase the scale of the projectile
-            x += .1f * Time.deltaTime * gm.e_IncScaleRate;
-            y += .1f * Time.deltaTime * gm.e_IncScaleRate;
+            x += (0.1f * Time.deltaTime * gm.e_IncScaleRate) * gm.bossBulletIncScaleRateCur;
+            y += (0.1f * Time.deltaTime * gm.e_IncScaleRate) * gm.bossBulletIncScaleRateCur;
+
+            //Increase the size of the light
+            GetComponentInChildren<HardLight2D>().Range += 0.75f * gm.bossBulletIncScaleRateCur;
 
             // If projectile size has reached it's max scale, stop increasing size.
-            if (x >= gm.e_MaxScaleX + gm.e_BulletDamage / 5 || y >= gm.e_MaxScaleY + gm.e_BulletDamage / 5)
+            if (x >= (gm.e_MaxScaleX + gm.e_BulletDamage) * (gm.bossBulletDamageCur * 2) || y >= (gm.e_MaxScaleY * gm.e_BulletDamage) * (gm.bossBulletDamageCur * 2))
             {
                 incSize = false;
             }
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "PlayerHitbox")
         {
-            player.GetComponent<Player>().DecreaseHealth(gm.e_BulletDamage);
+            player.GetComponent<Player>().DecreaseHealth(gm.e_BulletDamage * gm.bossBulletDamageCur);
             Death();
         }
 

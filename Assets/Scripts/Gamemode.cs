@@ -75,7 +75,7 @@ public class Gamemode : MonoBehaviour
     [Header("Camera")]
     public float camSmoothTime = 0.2f;
 
-    [Header("Bullets")]
+    [Header("Regular Bullets")]
     public float p_IncScaleRate;
     public float p_MaxScaleX;
     public float p_MaxScaleY;
@@ -83,6 +83,9 @@ public class Gamemode : MonoBehaviour
     public float e_MaxScaleX;
     public float e_MaxScaleY;
     public GameObject bulletDeathParticle;
+
+    [Header("Boss Bullets")]
+    public float e_BossIncScaleRate;
 
     [Header("Player Element Background")]
     private Animator playerEleBGAnimC;
@@ -147,23 +150,44 @@ public class Gamemode : MonoBehaviour
 
     [Header("Enemy Ranged Statistics")]
     public float e_MoveSpeed;
+    public float e_MoveSpeedDef;
     public float e_EvadeSpeed;
     public float e_EvadeSpeedDef;
     public float e_MaxHealth = 100;
+    public float e_MaxHealthDef;
 
     public float e_HealthDeath = 0;
     public float e_ViewDis;
     public float evadeTimerCur;
     public float evadeTimerDef;
+
     public float bossDeathSpeed = 0;
+
     public float e_BulletScaleInc;
     public Vector2 e_ShootDir;
 
     public float e_BulletDamage;
+    public float e_BulletDamageDef;
     public float e_ShotCooldown;
     public float e_BulletSpeed;
     public float e_BulletDist;
     public float e_rangeOffset;
+
+    // All boss statistics are numbers as percentages. 1 = 100% of regular value
+    [Header("Boss Statistics")]
+    public float bossBulletIncScaleRateCur;
+    public float bossBulletIncScaleRateDef;
+    public float bossBulletDamageCur;
+    public float bossBulletDamageDef;
+    public float bossBulletSpeedCur;
+    public float bossbulletSpeedDef;
+    public float bossBulletDistCur;
+    public float bossBulletDistDef;
+    public float bossScaleCur;
+    public float bossScaleDef;
+    public float bossSpeedCur;
+    public float bossSpeedDef;
+    public float bossMaxHealth;
 
     [Header("Enemy AI")]
     public float enemyTooCloseDis = 5f;
@@ -182,8 +206,7 @@ public class Gamemode : MonoBehaviour
         dm = FindObjectOfType<DialogueManager>();
         aid = FindObjectOfType<AIDestinationSetter>();
 
-        playerSpeedCur = playerSpeedDef;
-        evadeTimerCur = evadeTimerDef;
+        Reset();
     }
 
     // Update is called once per frame
@@ -203,6 +226,24 @@ public class Gamemode : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        playerSpeedCur = playerSpeedDef;
+        evadeTimerCur = evadeTimerDef;
+
+        e_MoveSpeed = e_MoveSpeedDef;
+        e_BulletDamage = e_BulletDamageDef;
+        e_MaxHealth = e_MaxHealthDef;
+        e_EvadeSpeed = e_EvadeSpeedDef;
+
+        bossBulletIncScaleRateCur = bossBulletIncScaleRateDef;
+        bossBulletDamageCur = bossBulletDamageDef;
+        bossBulletSpeedCur = bossbulletSpeedDef;
+        bossBulletDistCur = bossBulletDistDef;
+        bossScaleCur = bossScaleDef;
+        bossSpeedCur = bossSpeedDef;
+    }
+
     void ElementUIAesthetic()
     {
         // If the player has shot, make the button darker
@@ -212,13 +253,12 @@ public class Gamemode : MonoBehaviour
             {
                 shootArea.GetComponent<Image>().color = new Color32(160, 160, 160, 160);
             }
-        }
 
-        
-        // If the player HAS NOT shot, make the button regular colour
-        else
-        {
-            shootArea.GetComponent<Image>().color = new Color32(255, 255, 255, 160);
+            // If the player HAS NOT shot, make the button regular colour
+            else
+            {
+                shootArea.GetComponent<Image>().color = new Color32(255, 255, 255, 160);
+            }
         }
 
         if (isFire)

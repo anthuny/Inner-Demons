@@ -8,7 +8,7 @@ using EZCameraShake;
 
 public class Enemy : MonoBehaviour
 {
-
+    public GameObject obj;
     //AI
     private Rigidbody2D rb;
     [HideInInspector]
@@ -72,13 +72,17 @@ public class Enemy : MonoBehaviour
     public Animator elementBGAnimator;
     public GameObject BGElement;
 
-
     private Gamemode gm;
     private ScreenShake ss;
 
     //element bg
     private float x = .1f;
     private float y = .1f;
+
+    public bool isDead;
+    public Sprite playerSprite;
+    private float x1;
+    private float y1;
 
     void Start()
     {
@@ -101,7 +105,35 @@ public class Enemy : MonoBehaviour
 
         InvokeRepeating("UpdatePath", 0f, navUpdateTimer);
 
+
+
+        // This must be placed after all the values are set
+        // If the enemy is a boss, ensure their statistics are not boss amounts
+        if (!GetComponent<Enemy>().isBoss)
+        {
+            //gm.bossBulletScaleIncCur = 1;
+            gm.bossBulletIncScaleRateCur = 1;
+            gm.bossBulletDamageCur = 1;
+            gm.bossBulletSpeedCur = 1;
+            gm.bossBulletDistCur = 1;
+            gm.bossScaleCur = 1;
+            gm.bossSpeedCur = 1;
+            gm.bossMaxHealth = 1;
+        }
+
+        // Set health of enemy
+        gm.e_MaxHealth *= gm.bossMaxHealth;
+
         Reset();
+        SetSize();
+    }
+
+    void SetSize()
+    {
+        x1 = (1 * gm.bossScaleCur);
+        y1 = (1 * gm.bossScaleCur);
+
+        transform.localScale = new Vector2(x1, y1);
     }
 
     void UpdatePath()
@@ -196,7 +228,8 @@ public class Enemy : MonoBehaviour
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * gm.e_MoveSpeed * Time.deltaTime;
+
+        Vector2 force = direction * (gm.e_MoveSpeed * gm.bossSpeedCur) * Time.deltaTime;
 
         // Move towards player
         if (!targetInShootRange || !e_CanSeeTarget)
@@ -270,6 +303,7 @@ public class Enemy : MonoBehaviour
 
     public void DecreaseHealth(float bulletDamage, string playersCurElement)
     {
+        // Decrease enemy health if it wont die from damage
         if (e_CurHealth > gm.e_HealthDeath)
         {
             //Screen shake
@@ -357,8 +391,16 @@ public class Enemy : MonoBehaviour
         // if the boss dies
         if (e_CurHealth <= gm.e_HealthDeath && isBoss)
         {
-            bossDialogueReady = true;
             //Trigger dialogue system
+            bossDialogueReady = true;
+
+            isDead = true;
+
+            // Stop the animation of the enemy
+            animator.enabled = false;
+            elementBGAnimator.enabled = false;
+            BGElement.GetComponent<SpriteRenderer>().sprite = null;
+
         }
     }
 
@@ -438,6 +480,7 @@ public class Enemy : MonoBehaviour
             // If in shooting range and can see target, shoot
             if (targetInShootRange && e_CanSeeTarget)
             {
+                //Instantiate(obj, gm.player.transform.position, Quaternion.identity);
                 GameObject go = Instantiate(bullet, e_GunHolder.position, Quaternion.identity);
                 go.GetComponent<E_Bullet>().enemy = gameObject;
 
@@ -455,6 +498,11 @@ public class Enemy : MonoBehaviour
 
     void Evade()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (timer <= gm.evadeTimerCur)
         {
             alreadyChosen = true;
@@ -479,7 +527,7 @@ public class Enemy : MonoBehaviour
 
             // If in shooting range, stop chasing and begin evading
             // and if it can see target
-            if (distance <= gm.e_BulletDist - gm.e_rangeOffset && e_CanSeeTarget || tooCloseEnemy)
+            if (distance <= (gm.e_BulletDist * gm.bossBulletDistCur) - gm.e_rangeOffset && e_CanSeeTarget || tooCloseEnemy)
             {
                 if (!tooCloseEnemy)
                 {
@@ -494,7 +542,7 @@ public class Enemy : MonoBehaviour
                 // Evade Left
                 if (random == 1 || random == 6 && !tooCloseEnemy)
                 {
-                    rb.AddRelativeForce(e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
+                    rb.AddRelativeForce(e_GunHolder.transform.up * (gm.e_EvadeSpeed * gm.bossSpeedCur) * Time.deltaTime);
                 }
 
                 // go left, the opposite of what the close enemy is now doing
@@ -513,7 +561,7 @@ public class Enemy : MonoBehaviour
                 // Evade Right
                 if (random == 2 || random == 5 && !tooCloseEnemy)
                 {
-                    rb.AddRelativeForce(-e_GunHolder.transform.up * gm.e_EvadeSpeed * Time.deltaTime);
+                    rb.AddRelativeForce(-e_GunHolder.transform.up * (gm.e_EvadeSpeed * gm.bossSpeedCur) * Time.deltaTime);
                 }
 
                 // go right, the opposite of what the close enemy is now doing
@@ -532,7 +580,7 @@ public class Enemy : MonoBehaviour
                 // Evade forwards
                 if (random == 3 && !tooCloseEnemy)
                 {
-                    rb.AddRelativeForce(-e_GunHolder.transform.right * gm.e_EvadeSpeed * Time.deltaTime);
+                    rb.AddRelativeForce(-e_GunHolder.transform.right * (gm.e_EvadeSpeed * gm.bossSpeedCur) * Time.deltaTime);
                 }
 
                 // go forwards, the opposite of what the close enemy is now doing
@@ -551,7 +599,7 @@ public class Enemy : MonoBehaviour
                 // Evade Backwards
                 if (random == 4 && !tooCloseEnemy)
                 {
-                    rb.AddRelativeForce(e_GunHolder.transform.right * gm.e_EvadeSpeed * Time.deltaTime);
+                    rb.AddRelativeForce(e_GunHolder.transform.right * (gm.e_EvadeSpeed * gm.bossSpeedCur) * Time.deltaTime);
                 }
 
                 // go backwards, the opposite of what the close enemy is now doing

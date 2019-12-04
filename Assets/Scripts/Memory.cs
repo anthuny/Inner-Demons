@@ -24,8 +24,7 @@ public class Memory : MonoBehaviour
 
     private void Start()
     {
-        // Play idle animation
-        GetComponent<Animator>().SetInteger("memBrain", 0);
+ 
     }
     private void OnEnable()
     {

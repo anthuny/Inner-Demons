@@ -60,6 +60,8 @@ public class Player : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
 
         gdm.playerDied = false;
+        dm.choices.SetActive(false);
+        gm.Reset();
     }
 
     private void Update()
@@ -88,7 +90,7 @@ public class Player : MonoBehaviour
             gm.p_healthDeath = -10000;
             gm.bulletSpeed += 20;
             gm.playerSpeedCur += 2.5f;
-            gm.shotCooldown -= .1f;
+            gm.shotCooldown -= .3f;
         }
 
         if (Input.GetKeyDown("h"))
