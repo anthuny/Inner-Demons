@@ -84,6 +84,9 @@ public class Gamemode : MonoBehaviour
     public float e_MaxScaleY;
     public GameObject bulletDeathParticle;
 
+    [Header("Player Element Background")]
+    private Animator playerEleBGAnimC;
+
     [Header("Enemy Element Background")]
     public float incScaleRate;
     public float maxScaleX;
@@ -203,10 +206,14 @@ public class Gamemode : MonoBehaviour
     void ElementUIAesthetic()
     {
         // If the player has shot, make the button darker
-        if (player.GetComponent<Player>().hasShot)
+        if (player)
         {
-            shootArea.GetComponent<Image>().color = new Color32(160, 160, 160, 160);
+            if (player.GetComponent<Player>().hasShot)
+            {
+                shootArea.GetComponent<Image>().color = new Color32(160, 160, 160, 160);
+            }
         }
+
         
         // If the player HAS NOT shot, make the button regular colour
         else
@@ -471,10 +478,16 @@ public class Gamemode : MonoBehaviour
         if (currentElement == 2)
         {
             isWater = false;
-            isFire = false;
+            isFire = false; 
             isEarth = true;
         }
 
+        if (player)
+        {
+            playerEleBGAnimC = GameObject.Find("Element BG").GetComponent<Animator>();
+
+            playerEleBGAnimC.SetInteger("curElement", currentElement);
+        }   
     }
 
     public void LaunchGame()

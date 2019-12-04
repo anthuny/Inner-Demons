@@ -350,12 +350,6 @@ public class Enemy : MonoBehaviour
             //Decrease room enemy count
             room.GetComponent<Room>().roomEnemyCount--;
 
-            if (FindObjectOfType<SmartCamera>().targets.Count > 1)
-            {
-                FindObjectOfType<SmartCamera>().targets.Remove(gm.nearestEnemy.transform);
-                FindObjectOfType<SmartCamera>().beenAdded = false;
-            }
-
             //Kill enemy
             Destroy(gameObject);
         }

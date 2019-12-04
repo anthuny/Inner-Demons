@@ -147,6 +147,7 @@ public class DialogueManager : MonoBehaviour
     public void TriggerDialogue()
     {
         choices.GetComponent<CanvasGroup>().alpha = 1;
+        choices.SetActive(true);
         talkPressed = true;
 
         // Get reference to the memory's sentences, and send them to the dialogue manager
@@ -457,7 +458,7 @@ public class DialogueManager : MonoBehaviour
         chooseNeutral = false;
         chooseGood = true;
 
-        // Increase enemy's bullet damage
+           // Increase enemy's bullet damage
         gm.TextStatGood();
 
         // Increase the player's morality
@@ -475,6 +476,7 @@ public class DialogueManager : MonoBehaviour
         buttonBad.GetComponent<Button>().interactable = false;
         buttonNeutral.GetComponent<Button>().interactable = false;
         buttonGood.GetComponent<Button>().interactable = false;
+        choices.SetActive(false);
 
         // Make the buttons invisible for next memory encounter
         buttonBad.GetComponent<CanvasGroup>().alpha = 0;

@@ -4,68 +4,41 @@ using UnityEngine;
 
 public class SmartCamera : MonoBehaviour
 {
-    public List<Transform> targets;
-
     public Vector3 offset;
 
     private Gamemode gm;
-    public bool beenAdded;
 
     private Vector3 velocity;
+    private Vector3 newPosition;
+    private Vector3 distanceAdded;
 
     private void Start()
     {
         gm = FindObjectOfType<Gamemode>();
     }
-    private void Update()
-    {
-        if (gm.player)
-        {
-            targets[0] = gm.player.transform;
-        }
-
-        if (gm.nearestEnemy && !beenAdded)
-        {
-            if (targets.Count < 2)
-            {
-                beenAdded = true;
-                targets.Add(gm.nearestEnemy.transform);
-            }
-        }
-
-        if (targets.Count > 1 && !gm.player)
-        {
-
-        }
-    }
 
     private void LateUpdate()
     {
-        if (targets.Count == 0)
-        {
-            return;
-        }
-
-        Vector3 centerPoint = GetCenterPoint();
-
-        Vector3 newPosition = centerPoint + offset;
+        newPosition = distanceAdded + offset;
 
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, gm.camSmoothTime);
+
+        GetCenterPoint();
     }
 
-    Vector3 GetCenterPoint()
+    void GetCenterPoint()
     {
-        if (targets.Count == 1)
+        // If player exists, and there is NOT and enemy
+        if (gm.player && !gm.nearestEnemy)
         {
-            return targets[0].position;
+            distanceAdded = gm.player.transform.position;
         }
 
-        var bounds = new Bounds(targets[0].position, Vector3.zero);
-        for (int i = 0; i < targets.Count; i++)
+        // If player exists, and there IS an enemy 
+        if (gm.player && gm.nearestEnemy)
         {
-            bounds.Encapsulate(targets[i].position);
+            distanceAdded = gm.player.transform.position + gm.nearestEnemy.transform.position;
+            distanceAdded /= 2;
         }
-
-        return bounds.center;
     }
 }
