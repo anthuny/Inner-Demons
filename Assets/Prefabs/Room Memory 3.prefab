@@ -1187,6 +1187,7 @@ GameObject:
   - component: {fileID: 9174608857625137933}
   - component: {fileID: 9174608857625137934}
   - component: {fileID: 9174608857625137935}
+  - component: {fileID: 358363787}
   m_Layer: 9
   m_Name: Hitbox
   m_TagString: RoomCollider
@@ -1203,7 +1204,7 @@ Transform:
   m_GameObject: {fileID: 9174608857625137929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -260, y: 6.58, z: 0}
-  m_LocalScale: {x: 30.331188, y: 17.804619, z: 19.897}
+  m_LocalScale: {x: 34.092255, y: 22.614, z: 22.364227}
   m_Children: []
   m_Father: {fileID: 9174608857358192237}
   m_RootOrder: 1
@@ -1304,6 +1305,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 5.12}
   m_EdgeRadius: 0
+--- !u!114 &358363787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9174608857625137929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b5d232ae1d7074eaa9d277ff04ba18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9174608858505417424
 GameObject:
   m_ObjectHideFlags: 0
@@ -4346,12 +4359,16 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 1b7124461f1b41941bce8a1dc20237a5, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 3
     m_Data: {fileID: 6069686093187096410, guid: d6d709de08f530e4eb34500997dec29f,
       type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 3
     m_Data:
@@ -4376,8 +4393,8 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: 0, y: -6, z: 0}
-  m_Size: {x: 40, y: 13, z: 1}
+  m_Origin: {x: -3, y: -6, z: 0}
+  m_Size: {x: 43, y: 13, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -4484,23 +4501,23 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 9174608859197039994}
     m_ColliderPaths:
-    - - X: 2203333347
+    - - X: 2203332912
         Y: -103333336
-      - X: 2203333347
+      - X: 2203332912
         Y: 203333344
       - X: 2150000128
-        Y: 203333315
-      - X: 2150000136
-        Y: -96666678
-      - X: 2156666636
+        Y: 203332880
+      - X: 2150000256
+        Y: -96666768
+      - X: 2156666816
         Y: -103333336
   m_CompositePaths:
     m_Paths:
-    - - {x: 220.33334, y: -10.333334}
-      - {x: 220.33334, y: 20.333334}
-      - {x: 215.00002, y: 20.333328}
-      - {x: 215.00002, y: -9.666669}
-      - {x: 215.66667, y: -10.333334}
+    - - {x: 220.33328, y: -10.333334}
+      - {x: 220.33328, y: 20.333334}
+      - {x: 215.00002, y: 20.333284}
+      - {x: 215.00005, y: -9.666677}
+      - {x: 215.66669, y: -10.333334}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
 --- !u!19719996 &9174608859197039994

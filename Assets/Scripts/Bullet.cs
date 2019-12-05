@@ -147,7 +147,7 @@ public class Bullet : MonoBehaviour
 
         if (gm.currentElement == 1)
         {
-            ma.startColor = new ParticleSystem.MinMaxGradient(new Color32(255, 59, 59, 255));
+            ma.startColor = new ParticleSystem.MinMaxGradient(new Color32(255, 130, 0, 255));
         }
 
         if (gm.currentElement == 0)

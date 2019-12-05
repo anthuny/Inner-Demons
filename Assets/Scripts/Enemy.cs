@@ -80,15 +80,32 @@ public class Enemy : MonoBehaviour
     private float y = .1f;
 
     public bool isDead;
-    public Sprite playerSprite;
     private float x1;
     private float y1;
 
+    //Boss health bar
+    private Image bossHealthBar;
+    private Image bossHealthBarDep;
+    private float t;
+
+    public GameObject EGOBossHealth;
+    private bool bossLostHealth;
+    private float tempHealth;
+    private RoomManager rm;
+    private float time;
+    private float switchTime;
+    private bool goingToSwitch;
+    private bool alreadySwitched;
+    public bool enraged;
+
+    public int e_CurrentElement;
+
     void Start()
     {
-        gm = GameObject.Find("EGOGamemode").GetComponent<Gamemode>();
+        gm = FindObjectOfType<Gamemode>();
         rb = GetComponent<Rigidbody2D>();
         ss = FindObjectOfType<ScreenShake>();
+        rm = FindObjectOfType<RoomManager>();
 
         //Increase enemy count
         gm.enemyCount++;
@@ -105,8 +122,6 @@ public class Enemy : MonoBehaviour
 
         InvokeRepeating("UpdatePath", 0f, navUpdateTimer);
 
-
-
         // This must be placed after all the values are set
         // If the enemy is a boss, ensure their statistics are not boss amounts
         if (!GetComponent<Enemy>().isBoss)
@@ -118,14 +133,85 @@ public class Enemy : MonoBehaviour
             gm.bossBulletDistCur = 1;
             gm.bossScaleCur = 1;
             gm.bossSpeedCur = 1;
-            gm.bossMaxHealth = 1;
+            gm.bossMaxHealthCur = 1;
+            gm.bossShotCooldownCur = 1;
+            gm.bossBulletSizeInfCur = 1;
+            gm.BossAimBot = 1;
         }
 
+        else
+        {
+            gm.bossBulletIncScaleRateCur = gm.bossBulletIncScaleRateDef;
+            gm.bossBulletDamageCur = gm.bossBulletDamageDef;
+            gm.bossBulletSpeedCur = gm.bossbulletSpeedDef;
+            gm.bossBulletDistCur = gm.bossBulletDistDef;
+            gm.bossScaleCur = gm.bossScaleDef;
+            gm.bossSpeedCur = gm.bossSpeedDef;
+            gm.bossMaxHealthCur = gm.bossMaxHealthDef;
+            gm.bossShotCooldownCur = gm.bossShotCooldownDef;
+            gm.bossBulletSizeInfCur = gm.bossBulletSizeInfDef;
+        }
+        gm.bossEnragedBulletSizeInfCur = 1;
+
         // Set health of enemy
-        gm.e_MaxHealth *= gm.bossMaxHealth;
+        gm.e_MaxHealth *= gm.bossMaxHealthCur;
+
+        GetSwitchTimer();
 
         Reset();
         SetSize();
+    }
+    void Update()
+    {
+        LookAt();
+        StartCoroutine("Shoot");
+        ElementManager();
+        AllowBossDialogue();
+        UpdateBossHealthBarDep();
+        ElementSwitching();
+        Enraged();
+
+
+        Vector3 z;
+        z = transform.position;
+        z.z = 0f;
+    }
+
+    IEnumerator UpdateHealthBar()
+    {
+        if (isBoss && rm.bossHealth.activeSelf)
+        {
+            bossHealthBar = GameObject.Find("Boss Health").GetComponent<Image>();
+            bossHealthBarDep = GameObject.Find("Boss Health Dep").GetComponent<Image>();
+
+            tempHealth = bossHealthBar.fillAmount;
+
+            bossHealthBar.fillAmount = (e_CurHealth / gm.e_MaxHealth);
+        }
+
+        yield return new WaitForSeconds(0);
+
+        bossLostHealth = true;
+    }
+
+    void UpdateBossHealthBarDep()
+    {
+        if (!bossLostHealth && rm.bossHealth.activeSelf)
+        {
+            t = 0;
+        }
+        if (bossLostHealth && rm.bossHealth.activeSelf)
+        {
+            t += gm.depSpeedCur * Time.deltaTime;
+            bossHealthBarDep.fillAmount = Mathf.Lerp(tempHealth, (e_CurHealth / gm.e_MaxHealth), t);
+
+            if (t >= 1)
+            {
+                bossLostHealth = false;
+                t = 0;
+            }
+        }
+
     }
 
     void SetSize()
@@ -134,6 +220,32 @@ public class Enemy : MonoBehaviour
         y1 = (1 * gm.bossScaleCur);
 
         transform.localScale = new Vector2(x1, y1);
+    }
+
+    void Enraged()
+    {      
+        if (!isBoss)
+        {
+            return;
+        }
+        // Increase stats at 50% health
+        if (e_CurHealth <= gm.e_MaxHealth / 2 && !enraged)
+        {
+            enraged = true;
+            gm.switchTimeMin /= 2;
+            gm.switchTimeMax /= 2;
+            gm.bossEnragedBulletSizeInfCur *= 1.75f;
+            gm.bossBulletIncScaleRateCur *= 2;
+            gm.bossBulletSpeedCur *= 1.1f;
+            gm.bossShotCooldownCur *= 2f;
+            gm.BossAimBot = 2;
+
+            // Increase size at 50% health
+            transform.localScale = new Vector2(x1 * gm.bossEnragedSizeCur, y1 * gm.bossEnragedSizeCur);
+
+            // Play Audio
+            FindObjectOfType<AudioManager>().Play("BossEnrage");
+        }
     }
 
     void UpdatePath()
@@ -159,49 +271,12 @@ public class Enemy : MonoBehaviour
         gm.e_EvadeSpeed = gm.e_EvadeSpeedDef;
 
         e_CurHealth = gm.e_MaxHealth;
-
-        // Current patrol point
-        //currentPoint = 0;
-
-        // Randomly choose an element for the enemy to be
-        float randNum;
-        randNum = Random.Range(1, 4);
-
-        // If random number is 1, enemy is fire
-        if (randNum == 1)
-        {
-            isEarth = false;
-            isWater = false;
-            isFire = true;
-        }
-
-        // If random number is 2, enemy is water
-        if (randNum == 2)
-        {
-            isEarth = false;
-            isFire = false;
-            isWater = true;
-        }
-
-        // If random number is 3, enemy is earth
-        if (randNum == 3)
-        {
-            isWater = false;
-            isFire = false;
-            isEarth = true;
-        }
-
     }
-    void Update()
-    {
-        LookAt();
-        StartCoroutine("Shoot");
-        ElementManager();
-        AllowBossDialogue();
 
-        Vector3 z;
-        z = transform.position;
-        z.z = 0f;
+    public void ChooseElement(int elementNum)
+    {
+        gm = FindObjectOfType<Gamemode>();
+        e_CurrentElement = elementNum;
     }
 
     private void FixedUpdate()
@@ -256,19 +331,39 @@ public class Enemy : MonoBehaviour
 
     void ElementManager()
     {
-        if (isFire)
+        if (e_CurrentElement == 1)
         {
+            isEarth = false;
+            isWater = false;
+            isFire = true;
             elementBGAnimator.SetInteger("curElement", 1);
         }
 
-        if (isWater)
+        if (e_CurrentElement == 0)
         {
+            isEarth = false;
+            isFire = false;
+            isWater = true;
             elementBGAnimator.SetInteger("curElement", 0);
         }
 
-        if (isEarth)
+        if (e_CurrentElement == 2)
         {
+            isFire = false;
+            isWater = false;
+            isEarth = true;
             elementBGAnimator.SetInteger("curElement", 2);
+        }
+
+        // Ensure the curent element stays between the only possible element numbers (0, 1, 2)
+        if (e_CurrentElement >= 3)
+        {
+            e_CurrentElement = 0;
+        }
+
+        if (e_CurrentElement <= -1)
+        {
+            e_CurrentElement = 2;
         }
 
         BGElement.transform.localScale = new Vector2(x, y);
@@ -301,6 +396,65 @@ public class Enemy : MonoBehaviour
 
     }
 
+    void GetSwitchTimer()
+    {
+        //Set the value of how long it will take for the boss to switch element
+        switchTime = Random.Range(gm.switchTimeMin, gm.switchTimeMax);
+        //Debug.Log("Switch Time looping through. Got = " + switchTime);
+    }
+    void ElementSwitching()
+    {
+        if (!isBoss || isDead)
+        {
+            return;
+        }
+
+        time += Time.deltaTime;
+
+        // Change enemy's element after time has gone over max time
+        if (time >= switchTime)
+        {
+            //Debug.Log("Switch Time Chosen = " + switchTime);
+            ResetEleSwitchTimer();
+
+            float r = Random.Range(0, 2);
+
+            // Randomly choose between cycling upwards or downwards for element choice
+            if (r == 0)
+            {
+                IncElementCount();
+            }
+            else if (r == 1)
+            {
+                DecElementCount();
+            }
+
+            GetSwitchTimer();
+        }
+      
+    }
+
+    void ResetEleSwitchTimer()
+    {
+        time = 0;
+    }
+
+    void IncElementCount()
+    {
+        e_CurrentElement++;
+
+        // Play audio
+        FindObjectOfType<AudioManager>().Play("BossElementSwitch");
+    }
+
+    void DecElementCount()
+    {
+        e_CurrentElement--;
+
+        // Play audio
+        FindObjectOfType<AudioManager>().Play("BossElementSwitch");
+    }
+
     public void DecreaseHealth(float bulletDamage, string playersCurElement)
     {
         // Decrease enemy health if it wont die from damage
@@ -324,18 +478,27 @@ public class Enemy : MonoBehaviour
             if (playersCurElement == "Fire" && isEarth)
             {
                 e_CurHealth -= bulletDamage + gm.fireDamage;
+
+                // Play crit projectile audio
+                FindObjectOfType<AudioManager>().Play("ProjectileHitCrit");
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Water" && isFire)
             {
                 e_CurHealth -= bulletDamage + gm.waterDamage;
+
+                // Play crit projectile audio
+                FindObjectOfType<AudioManager>().Play("ProjectileHitCrit");
             }
 
             // If player countered the enemy with their hit, take bonus damage
             if (playersCurElement == "Earth" && isWater)
             {
                 e_CurHealth -= bulletDamage + gm.earthDamage;
+
+                // Play crit projectile audio
+                FindObjectOfType<AudioManager>().Play("ProjectileHitCrit");
             }
 
             // If there is no element counter, do regular damage
@@ -373,11 +536,17 @@ public class Enemy : MonoBehaviour
             {
                 e_CurHealth -= bulletDamage;
             }
+
+            // Play audio
+            FindObjectOfType<AudioManager>().Play("ProjectileHit");
         }
-        
+
         // If this object dies, and is not a boss
         if (e_CurHealth <= gm.e_HealthDeath && !isBoss)
         {
+            //Play Death Audio
+            FindObjectOfType<AudioManager>().Play("EnemyDeath");
+
             //Decrease enemy count
             gm.enemyCount--;
 
@@ -389,19 +558,32 @@ public class Enemy : MonoBehaviour
         }
 
         // if the boss dies
-        if (e_CurHealth <= gm.e_HealthDeath && isBoss)
+        if (e_CurHealth <= gm.e_HealthDeath && isBoss && !isDead)
         {
+            //Play Death Audio
+            FindObjectOfType<AudioManager>().Play("BossDeath");
+
             //Trigger dialogue system
             bossDialogueReady = true;
 
             isDead = true;
 
-            // Stop the animation of the enemy
-            animator.enabled = false;
+            // set the animation to idle
+            animator.SetInteger("EnemyBrain", 0);
+
+            // set the rb of the enemy to kinematic. prevents it 
+            // being able to be pushed around by player
+            rb.bodyType = RigidbodyType2D.Static;
+
+            // turn off the element background
             elementBGAnimator.enabled = false;
             BGElement.GetComponent<SpriteRenderer>().sprite = null;
 
+            rm.bossHealth.SetActive(false);
+
         }
+
+        StartCoroutine("UpdateHealthBar");
     }
 
     void LookAt()
@@ -480,7 +662,29 @@ public class Enemy : MonoBehaviour
             // If in shooting range and can see target, shoot
             if (targetInShootRange && e_CanSeeTarget)
             {
-                //Instantiate(obj, gm.player.transform.position, Quaternion.identity);
+                // If is boss, but not enraged, play correct projectile throw sfx
+                if (isBoss && !enraged)
+                {
+                    // Play audio
+                    FindObjectOfType<AudioManager>().Play("BossProjectileThrow1");
+                    
+                }
+
+                // If is boss, and enraged, play correct projectile throw sfx
+                else if (isBoss && enraged)
+                {
+                    // Play audio
+                    FindObjectOfType<AudioManager>().Play("BossProjectileThrow2");
+                }
+
+                // If NOT boss
+                else if (!isBoss)
+                {
+                    // Play audio
+                    FindObjectOfType<AudioManager>().Play("ProjectileThrow");
+                }
+
+                // Instantiate(obj, gm.player.transform.position, Quaternion.identity);
                 GameObject go = Instantiate(bullet, e_GunHolder.position, Quaternion.identity);
                 go.GetComponent<E_Bullet>().enemy = gameObject;
 
@@ -495,7 +699,6 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-
     void Evade()
     {
         if (isDead)
@@ -624,12 +827,12 @@ public class Enemy : MonoBehaviour
 
     void ShotCooldown()
     {
-        if (e_ShotTimer <= gm.e_ShotCooldown)
+        if (e_ShotTimer <= (gm.e_ShotCooldown * gm.bossShotCooldownCur))
         {
             e_ShotTimer += Time.deltaTime;
         }
 
-        if (e_ShotTimer >= gm.e_ShotCooldown)
+        if (e_ShotTimer >= (gm.e_ShotCooldown * gm.bossShotCooldownCur))
         {
             e_HasShot = false;
             e_ShotTimer = 0;

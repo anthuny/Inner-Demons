@@ -72,16 +72,13 @@ public class DialogueManager : MonoBehaviour
 
         gm = FindObjectOfType<Gamemode>();
 
-        if (player)
-        {
-            talkButton = gm.talkButton.GetComponentInChildren<Button>();
-            talkButton.interactable = false;
-            playerScript = GameObject.Find("Player").GetComponent<Player>();
+        talkButton = gm.talkButton.GetComponent<Button>();
+        talkButton.interactable = false;
+        playerScript = FindObjectOfType<Player>();
 
-            buttonBad.GetComponent<Button>().interactable = false;
-            buttonNeutral.GetComponent<Button>().interactable = false;
-            buttonGood.GetComponent<Button>().interactable = false;
-        }
+        buttonBad.GetComponent<Button>().interactable = false;
+        buttonNeutral.GetComponent<Button>().interactable = false;
+        buttonGood.GetComponent<Button>().interactable = false;
     }
 
     private void LateUpdate()
@@ -111,11 +108,11 @@ public class DialogueManager : MonoBehaviour
         {
             buttonTriggered = false;
             player.memory.GetComponent<Memory>().interacted = false;
-            gm.talkButton.GetComponentInChildren<Button>().interactable = false;
+            talkButton.interactable = false;
 
-            gm.talkButton.GetComponentInChildren<AlphaTransition>().canIncrease = false;
-            gm.talkButton.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            gm.talkButton.GetComponentInChildren<AlphaTransition>().canDecrease = true;
+            gm.talkButton.GetComponent<AlphaTransition>().canIncrease = false;
+            gm.talkButton.GetComponent<CanvasGroup>().alpha = 1;
+            gm.talkButton.GetComponent<AlphaTransition>().canDecrease = true;
             talkPressed = false;
         }
     }
@@ -133,9 +130,10 @@ public class DialogueManager : MonoBehaviour
             // and if the player has hit the memory's hitbox
             if (player.memory.GetComponent<Memory>().interacted && player.playerStill && !talkPressed && inRange)
             {
-                gm.talkButton.GetComponentInChildren<Button>().interactable = true;
-                gm.talkButton.GetComponentInChildren<AlphaTransition>().canDecrease = false;
-                gm.talkButton.GetComponentInChildren<AlphaTransition>().canIncrease = true;
+                Debug.Log("turning talk button on");
+                gm.talkButton.GetComponent<Button>().interactable = true;
+                gm.talkButton.GetComponent<AlphaTransition>().canDecrease = false;
+                gm.talkButton.GetComponent<AlphaTransition>().canIncrease = true;
 
                 // Allows the talk button to disable if player walks out of range
                 buttonTriggered = true;
@@ -143,9 +141,20 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+
     // Function the talk button does when pressed
     public void TriggerDialogue()
     {
+        StartCoroutine(TriggerDialogueBut());
+
+        // Play Button Click SFX
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+    }
+
+    IEnumerator TriggerDialogueBut()
+    {
+        yield return new WaitForSeconds(0.5f);
+
         choices.GetComponent<CanvasGroup>().alpha = 1;
         choices.SetActive(true);
         talkPressed = true;
@@ -153,13 +162,15 @@ public class DialogueManager : MonoBehaviour
         // Get reference to the memory's sentences, and send them to the dialogue manager
         StartDialogue(player.memory.GetComponent<Memory>().dialogue);
 
-        gm.talkButton.GetComponentInChildren<Button>().interactable = false;
-        gm.talkButton.GetComponentInChildren<AlphaTransition>().canIncrease = false;
-        gm.talkButton.GetComponentInChildren<CanvasGroup>().alpha = 1;
-        gm.talkButton.GetComponentInChildren<AlphaTransition>().canDecrease = true;
+        gm.talkButton.GetComponent<Button>().interactable = false;
+        gm.talkButton.GetComponent<AlphaTransition>().canIncrease = false;
+        gm.talkButton.GetComponent<CanvasGroup>().alpha = 1;
+        gm.talkButton.GetComponent<AlphaTransition>().canDecrease = true;
 
-        memory.GetComponent<Animator>().SetInteger("memBrain", 1);
-
+        if (memory.gameObject.tag == "Memory")
+        {
+            memory.GetComponent<Animator>().SetInteger("memBrain", 1);
+        }
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -223,6 +234,10 @@ public class DialogueManager : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 DisplayNextSentence();
+
+                // Play Button Click SFX
+                FindObjectOfType<AudioManager>().Play("ButtonClick");
+
             }
         }
 
@@ -269,12 +284,18 @@ public class DialogueManager : MonoBehaviour
     // Types each character in a sentence one by one
     IEnumerator TypeSentence(string sentence)
     {
+        // Play text SFX
+        FindObjectOfType<AudioManager>().Play("Text");
+
         dialogueText.GetComponent<Text>().text = "";
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.GetComponent<Text>().text += letter;
             yield return new WaitForSeconds(charTimeGap);
         }
+
+        // Play text SFX
+        FindObjectOfType<AudioManager>().StopPlaying("Text");
     }
 
     void EndDialogue()
@@ -323,11 +344,17 @@ public class DialogueManager : MonoBehaviour
         buttonNeutral.GetComponentInChildren<Text>().text = "";
         buttonGood.GetComponentInChildren<Text>().text = "";
 
+        // Play text SFX
+        FindObjectOfType<AudioManager>().Play("Text");
+
         foreach (char letter in sentence.ToCharArray())
         {
             buttonBad.GetComponentInChildren<Text>().text += letter;
             yield return new WaitForSeconds(charTimeGap);
         }
+
+        // stop text SFX
+        FindObjectOfType<AudioManager>().StopPlaying("Text");
 
         // Reset alpha of text to 0
         textBadResp.GetComponent<CanvasGroup>().alpha = 0;
@@ -349,11 +376,17 @@ public class DialogueManager : MonoBehaviour
     {
         buttonNeutral.GetComponentInChildren<Text>().text = "";
 
+        // Play text SFX
+        FindObjectOfType<AudioManager>().Play("Text");
+
         foreach (char letter in sentence.ToCharArray())
         {
             buttonNeutral.GetComponentInChildren<Text>().text += letter;
             yield return new WaitForSeconds(charTimeGap);
         }
+
+        // Stop text SFX
+        FindObjectOfType<AudioManager>().StopPlaying("Text");
 
         // Reset alpha of text to 0
         textNeutralResp.GetComponent<CanvasGroup>().alpha = 0;
@@ -375,11 +408,17 @@ public class DialogueManager : MonoBehaviour
     {
         buttonGood.GetComponentInChildren<Text>().text = "";
 
+        // Play text SFX
+        FindObjectOfType<AudioManager>().Play("Text");
+
         foreach (char letter in sentence.ToCharArray())
         {
             buttonGood.GetComponentInChildren<Text>().text += letter;
             yield return new WaitForSeconds(charTimeGap);
         }
+
+        // Stop text SFX
+        FindObjectOfType<AudioManager>().StopPlaying("Text");
 
         // Reset alpha of text to 0
         textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
@@ -393,6 +432,9 @@ public class DialogueManager : MonoBehaviour
     // Button select upon on GOOD choice being selected
     public void ChooseBad()
     {
+        // Play Button Click SFX
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+
         // DISABLE stat increase text from transition in
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = false;
         textStatBad.GetComponent<AlphaTransition>().canIncrease = false;
@@ -420,6 +462,9 @@ public class DialogueManager : MonoBehaviour
     // Button select upon on NEUTRAL choice being selected
     public void ChooseNeutral()
     {
+        // Play Button Click SFX
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+
         // DISABLE stat increase text from transition in
         textNeutralResp.GetComponent<AlphaTransition>().canIncrease = false;
         textStatNeutral.GetComponent<AlphaTransition>().canIncrease = false;
@@ -447,6 +492,9 @@ public class DialogueManager : MonoBehaviour
     // Button select upon on BAD choice being selected
     public void ChooseGood()
     {
+        // Play Button Click SFX
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+
         // DISABLE stat increase text from transition in
         textBadResp.GetComponent<AlphaTransition>().canIncrease = false;
         textStatGood.GetComponent<AlphaTransition>().canIncrease = false;
@@ -560,7 +608,10 @@ public class DialogueManager : MonoBehaviour
         // Turn the memory off
 
         // Play memory death animation
-        memory.GetComponent<Animator>().SetInteger("memBrain", 2);
+        if (memory.gameObject.tag == "Memory")
+        {
+            memory.GetComponent<Animator>().SetInteger("memBrain", 2);
+        }
 
         // Wait for current playing animation to finish
         yield return new WaitForSeconds(1f);

@@ -150,6 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usingPC: 0
+  hearts: []
+  fullHeart: {fileID: 0}
+  emptyHeart: {fileID: 0}
   playerPrefab: {fileID: 0}
   enemyCount: 0
   chooseDamageInc: 0
@@ -159,6 +162,49 @@ MonoBehaviour:
   chooseReloadSpeedInc: 0
   playerSpawnPoint: {fileID: 0}
   player: {fileID: 0}
+  shakeMagShoot: 0
+  shakeRouShoot: 0
+  shakeFadeIDurShoot: 0
+  shakeFadeODurShoot: 0
+  shakePosInfluenceShoot: {x: 0, y: 0, z: 0}
+  shakeRotInfluenceShoot: {x: 0, y: 0, z: 0}
+  shakeMagHit: 0
+  shakeRouHit: 0
+  shakeFadeIDurHit: 0
+  shakeFadeODurHit: 0
+  shakePosInfluenceHit: {x: 0, y: 0, z: 0}
+  shakeRotInfluenceHit: {x: 0, y: 0, z: 0}
+  shakeMagDClose: 0
+  shakeRouDClose: 0
+  shakeFadeIDurDClose: 0
+  shakeFadeODurDClose: 0
+  shakePosInfluenceDClose: {x: 0, y: 0, z: 0}
+  shakeRotInfluenceDClose: {x: 0, y: 0, z: 0}
+  depthShaking: 0
+  depthCamDefAmount: 0
+  depthDecAmount: 0
+  depthDecSpeed: 0
+  freezeDur: 0
+  curFreezeDur: 0
+  isFrozen: 0
+  earthUIanim: {fileID: 0}
+  waterUIanim: {fileID: 0}
+  fireUIanim: {fileID: 0}
+  camSmoothTime: 0.2
+  p_IncScaleRate: 0
+  p_MaxScaleX: 0
+  p_MaxScaleY: 0
+  e_IncScaleRate: 0
+  e_MaxScaleX: 0
+  e_MaxScaleY: 0
+  bulletDeathParticle: {fileID: 0}
+  e_BossIncScaleRate: 0
+  incScaleRate: 0
+  maxScaleX: 0
+  maxScaleY: 0
+  minScaleX: 0
+  minScaleY: 0
+  gettingBigger: 0
   arrogance: 0
   ignorance: 0
   morality: 0
@@ -188,6 +234,7 @@ MonoBehaviour:
   earthDamage: 0
   autoAimOn: 0
   nearestEnemy: {fileID: 0}
+  p_CanSeeTarget: 0
   shootDir: {x: 0, y: 0}
   bulletSpeed: 0
   bulletSpeedDef: 0
@@ -199,17 +246,54 @@ MonoBehaviour:
   shotCooldownDef: 0
   autoAimDis: 0
   e_MoveSpeed: 0
-  e_ChaseSpeed: 0
+  e_MoveSpeedDef: 0
   e_EvadeSpeed: 0
+  e_EvadeSpeedDef: 0
   e_MaxHealth: 100
+  e_MaxHealthDef: 0
   e_HealthDeath: 0
   e_ViewDis: 0
-  evadetimerMax: 0
+  evadeTimerCur: 0
+  evadeTimerDef: 0
   bossDeathSpeed: 0
+  e_BulletScaleInc: 0
+  e_ShootDir: {x: 0, y: 0}
   e_BulletDamage: 0
+  e_BulletDamageDef: 0
   e_ShotCooldown: 0
   e_BulletSpeed: 0
   e_BulletDist: 0
+  e_rangeOffset: 0
+  e_bulletSize: 0
+  bossBulletIncScaleRateCur: 0
+  bossBulletIncScaleRateDef: 0
+  bossBulletDamageCur: 0
+  bossBulletDamageDef: 0
+  bossBulletSpeedCur: 0
+  bossbulletSpeedDef: 0
+  bossBulletDistCur: 0
+  bossBulletDistDef: 0
+  bossScaleCur: 0
+  bossScaleDef: 0
+  bossSpeedCur: 0
+  bossSpeedDef: 0
+  bossMaxHealthCur: 0
+  bossMaxHealthDef: 0
+  bossShotCooldownCur: 0
+  bossShotCooldownDef: 0
+  depSpeedCur: 0
+  switchTimeMin: 0
+  switchTimeMax: 0
+  bossBulletSizeInfCur: 0
+  bossBulletSizeInfDef: 0
+  bossEnragedBulletSizeInfCur: 0
+  bossEnragedBulletSizeInfDef: 0
+  bossEnragedSizeCur: 0
+  bossEnragedSizeDef: 0
+  BossAimBot: 0
+  enemyTooCloseDis: 5
+  enemyOverlapSpeed: 0
+  enemyOverlapEvadeTimer: 1.25
   talkButton: {fileID: 0}
 --- !u!4 &193947160
 Transform:
@@ -223,7 +307,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &357129803
 GameObject:
@@ -369,49 +453,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &981738545
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 981738547}
-  - component: {fileID: 981738546}
-  m_Layer: 0
-  m_Name: EGOSceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &981738546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981738545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddbf16a580db6a74f949a42222eb58f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &981738547
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981738545}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 314.204, y: 222.87047, z: -43.90625}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1221822993
 GameObject:
@@ -645,6 +686,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265041397}
   m_CullTransparentMesh: 0
+--- !u!1001 &1468009996
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8026548998087089932, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_Name
+      value: EGOAudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 561.8937
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 125.01763
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -61.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089934, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089935, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: sounds.Array.data[11].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026548998087089935, guid: aa72636a8272a124bae727350a5d740e,
+        type: 3}
+      propertyPath: sounds.Array.data[12].loop
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa72636a8272a124bae727350a5d740e, type: 3}
 --- !u!1 &1488041500
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,5 +846,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -105,11 +105,23 @@ public class Player : MonoBehaviour
         if (gm.p_curHealth > gm.p_healthDeath)
         {
             gm.p_curHealth -= bulletDamage;
+
+            // Play audio
+            FindObjectOfType<AudioManager>().Play("PlayerHit");
         }
 
         // Kill the player 
         if (gm.p_curHealth <= gm.p_healthDeath)
-        {
+        { 
+            if (gm.nearestEnemy.GetComponent<Enemy>().isBoss)
+            {
+                //Remove health UI when player dies
+                gm.nearestEnemy.GetComponent<Enemy>().EGOBossHealth.SetActive(false);
+            }
+
+            // Play audio
+            FindObjectOfType<AudioManager>().Play("PlayerDeath");
+
             gdm.playerDied = true;
             Destroy(gameObject);
         }
@@ -231,6 +243,8 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
+        // Play Audio
+        FindObjectOfType<AudioManager>().Play("ProjectileThrow");
         hasShot = true;
         GameObject go2 = Instantiate(bullet, gunHolder.position, gunHolder.transform.rotation);
         go2.GetComponent<Bullet>().weaponHolder = gunHolder;

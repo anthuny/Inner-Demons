@@ -29,6 +29,7 @@ public class GameDownManager : MonoBehaviour
 
     private void Start()
     {
+        playerDied = false;
 
         // Have the pause menu buttons invisible
         pausedBut.gameObject.SetActive(false);
@@ -47,8 +48,6 @@ public class GameDownManager : MonoBehaviour
         gm = FindObjectOfType<Gamemode>();
         dm = FindObjectOfType<DialogueManager>();
         //gm.talkButton = GameObject.Find("Talk Button");
-
-        playerDied = true;
 
         GameObject go = Instantiate(gm.playerPrefab, gm.playerSpawnPoint.position, Quaternion.identity);
         gm.player = go;
@@ -105,6 +104,9 @@ public class GameDownManager : MonoBehaviour
 
     public void RestartButton()
     {
+        // Play button click audio
+        PlayButtonClickSFX();
+
         playerDied = false;
 
         youFaintedBut.gameObject.SetActive(false);
@@ -144,8 +146,11 @@ public class GameDownManager : MonoBehaviour
 
     public void PauseGame()
     {
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            // Play button click audio
+            PlayButtonClickSFX();
             gamePaused = true;
         }
 
@@ -168,6 +173,14 @@ public class GameDownManager : MonoBehaviour
 
     public void ContinueButton()
     {
+        // Play button click audio
+        PlayButtonClickSFX();
+
         gamePaused = false;
+    }
+
+    public void PlayButtonClickSFX()
+    {
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
     }
 }

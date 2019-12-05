@@ -23,6 +23,8 @@ public class Room : MonoBehaviour
     public bool canOpen;
     public bool beenCleared;
     private ScreenShake ss;
+    private RoomManager rm;
+
 
     private void Start()
     {
@@ -33,6 +35,7 @@ public class Room : MonoBehaviour
         // Doing this to get a reference to the room 
         // only this script is on. NOT all rooms
         room = GetComponent<Room>();
+        rm = FindObjectOfType<RoomManager>();
     }
 
     public IEnumerator SpawnEnemies()
@@ -47,11 +50,17 @@ public class Room : MonoBehaviour
             //Make sure not to spawn an enemy for the root, only children
             if (i != this.gameObject.transform && i.tag == "SpawnPoint")
             {
+                int rand = Random.Range(0, 3);
+
+                // Playing enemy spawn SFX
+                FindObjectOfType<AudioManager>().Play("EnemySpawn");
+                    
                 // Spawning regular enemies
                 if (!room.isBossRoom)
                 {
                     GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);
                     go.GetComponent<Enemy>().room = gameObject;
+                    go.GetComponent<Enemy>().ChooseElement(rand);
                     room.roomEnemyCount++;
 
                 }
@@ -63,6 +72,9 @@ public class Room : MonoBehaviour
                     go.GetComponent<Enemy>().room = gameObject;
                     go.GetComponent<Enemy>().isBoss = true;
                     go.GetComponent<Memory>().enabled = true;
+                    rm.bossHealth.SetActive(true);
+                    go.GetComponent<Enemy>().ChooseElement(rand);
+                    go.GetComponent<Enemy>().EGOBossHealth = rm.bossHealth;
                     room.roomEnemyCount++;
                 }
             }
@@ -92,8 +104,10 @@ public class Room : MonoBehaviour
             {
                 room.doorsClosed = false;
                 doors[i].SetActive(false);
-
             }
+
+            // Play audio
+            FindObjectOfType<AudioManager>().Play("DoorOpen");
         }
     }
 
@@ -127,6 +141,9 @@ public class Room : MonoBehaviour
                     room.doorsClosed = true;
                     doors[i].SetActive(true);
                 }
+
+                // Play audio
+                FindObjectOfType<AudioManager>().Play("DoorClose");
             }
 
             yield return new WaitForSeconds(spawnWait + 0.25f);

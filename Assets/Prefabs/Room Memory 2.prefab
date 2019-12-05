@@ -1052,6 +1052,7 @@ GameObject:
   - component: {fileID: 8035340972740441136}
   - component: {fileID: 8035340972740441139}
   - component: {fileID: 8035340972740441138}
+  - component: {fileID: 1105713668}
   m_Layer: 9
   m_Name: Hitbox
   m_TagString: RoomCollider
@@ -1068,7 +1069,7 @@ Transform:
   m_GameObject: {fileID: 8035340972740441140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -260, y: 6.58, z: 0}
-  m_LocalScale: {x: 30.331188, y: 17.804619, z: 19.897}
+  m_LocalScale: {x: 33.667618, y: 22.077728, z: 19.897}
   m_Children: []
   m_Father: {fileID: 8035340973008431440}
   m_RootOrder: 1
@@ -1169,6 +1170,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 5.12}
   m_EdgeRadius: 0
+--- !u!114 &1105713668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035340972740441140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b5d232ae1d7074eaa9d277ff04ba18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8035340973008431442
 GameObject:
   m_ObjectHideFlags: 0

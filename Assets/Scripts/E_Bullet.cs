@@ -63,8 +63,6 @@ public class E_Bullet : MonoBehaviour
         }
     }
 
-
-
     void Update()
     {
         AimBot();
@@ -76,7 +74,7 @@ public class E_Bullet : MonoBehaviour
     void AimBotStart()
     {
         //Aim bot (make sure this happens at least once before look at target (this also happens in update)
-        aimPos = playerPos + playerVel / 2;
+        aimPos = playerPos + playerVel;
         dir = aimPos - startingPos;
         dir.Normalize();
         Vector2 pos;
@@ -98,7 +96,7 @@ public class E_Bullet : MonoBehaviour
     void AimBot()
     {
         //Aim bot 
-        aimPos = playerPos + playerVel / 2;
+        aimPos = playerPos + playerVel;
         dir = aimPos - startingPos;
         dir.Normalize();
         Vector2 pos;
@@ -139,7 +137,8 @@ public class E_Bullet : MonoBehaviour
             GetComponentInChildren<HardLight2D>().Range += 0.75f * gm.bossBulletIncScaleRateCur;
 
             // If projectile size has reached it's max scale, stop increasing size.
-            if (x >= (gm.e_MaxScaleX + gm.e_BulletDamage) * (gm.bossBulletDamageCur * 2) || y >= (gm.e_MaxScaleY * gm.e_BulletDamage) * (gm.bossBulletDamageCur * 2))
+            if (x >= (gm.e_MaxScaleX + (gm.e_BulletDamage * gm.bossBulletDamageCur * gm.bossBulletSizeInfCur * gm.bossEnragedBulletSizeInfCur * gm.e_bulletSize)) 
+                || y >= (gm.e_MaxScaleY * gm.e_BulletDamage * gm.bossBulletDamageCur * gm.bossBulletSizeInfCur * gm.bossEnragedBulletSizeInfCur * gm.e_bulletSize))
             {
                 incSize = false;
             }

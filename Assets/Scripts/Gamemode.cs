@@ -26,10 +26,11 @@ public class Gamemode : MonoBehaviour
     public Transform playerSpawnPoint;
     public GameObject player;
     private GameObject cam;
-    private Transform spawnPos;
     private GameDownManager gdm;
     private DialogueManager dm;
     private AIDestinationSetter aid;
+    public bool inMemoryRoom;
+    public bool inBossRoom;
 
     [Header("Camera Shake - Player Shoot")]
     public float shakeMagShoot;
@@ -68,9 +69,9 @@ public class Gamemode : MonoBehaviour
     private bool doneOnce;
 
     [Header("Element UI")]
-    public Animator earthUIanim;
-    public Animator waterUIanim;
-    public Animator fireUIanim;
+    public Animator[] earthUIanim;
+    public Animator[] waterUIanim;
+    public Animator[] fireUIanim;
 
     [Header("Camera")]
     public float camSmoothTime = 0.2f;
@@ -116,6 +117,10 @@ public class Gamemode : MonoBehaviour
     public GameObject waterButtonArea;
     public GameObject fireButtonArea;
     public GameObject earthButtonArea;
+    public GameObject waterButtonVis;
+    public GameObject fireButtonVis;
+    public GameObject earthButtonVis;
+
     public Touch touch;
 
     [Header("Player Statistics")]
@@ -172,6 +177,7 @@ public class Gamemode : MonoBehaviour
     public float e_BulletSpeed;
     public float e_BulletDist;
     public float e_rangeOffset;
+    public float e_bulletSize;
 
     // All boss statistics are numbers as percentages. 1 = 100% of regular value
     [Header("Boss Statistics")]
@@ -187,7 +193,20 @@ public class Gamemode : MonoBehaviour
     public float bossScaleDef;
     public float bossSpeedCur;
     public float bossSpeedDef;
-    public float bossMaxHealth;
+    public float bossMaxHealthCur;
+    public float bossMaxHealthDef;
+    public float bossShotCooldownCur;
+    public float bossShotCooldownDef;
+    public float depSpeedCur;
+    public float switchTimeMin;
+    public float switchTimeMax;
+    public float bossBulletSizeInfCur;
+    public float bossBulletSizeInfDef;
+    public float bossEnragedBulletSizeInfCur;
+    public float bossEnragedBulletSizeInfDef;
+    public float bossEnragedSizeCur;
+    public float bossEnragedSizeDef;
+    public float BossAimBot;
 
     [Header("Enemy AI")]
     public float enemyTooCloseDis = 5f;
@@ -201,7 +220,6 @@ public class Gamemode : MonoBehaviour
     void Start()
     {
         cam = GameObject.Find("Main Camera");
-        spawnPos = GameObject.Find("EGOSpawnPoint").transform;
         gdm = FindObjectOfType<GameDownManager>();
         dm = FindObjectOfType<DialogueManager>();
         aid = FindObjectOfType<AIDestinationSetter>();
@@ -217,7 +235,7 @@ public class Gamemode : MonoBehaviour
         SetEnemyTarget();
         CameraDepthShake();
         HealthManager();
-        ElementUIAesthetic();
+        StartCoroutine(ElementUIAesthetic());
 
         if (isFrozen && !doneOnce)
         {
@@ -242,45 +260,111 @@ public class Gamemode : MonoBehaviour
         bossBulletDistCur = bossBulletDistDef;
         bossScaleCur = bossScaleDef;
         bossSpeedCur = bossSpeedDef;
+        bossEnragedSizeCur = bossEnragedSizeDef;
+
+        fireButtonVis.GetComponent<Animator>().enabled = false;
+        waterButtonVis.GetComponent<Animator>().enabled = false;
+        earthButtonVis.GetComponent<Animator>().enabled = false;
+
     }
 
-    void ElementUIAesthetic()
+    IEnumerator ElementUIAesthetic()
     {
         // If the player has shot, make the button darker
         if (player)
         {
             if (player.GetComponent<Player>().hasShot)
             {
-                shootArea.GetComponent<Image>().color = new Color32(160, 160, 160, 160);
+                shootArea.GetComponent<Image>().color = new Color32(130, 130, 130, 120);
             }
 
             // If the player HAS NOT shot, make the button regular colour
             else
             {
-                shootArea.GetComponent<Image>().color = new Color32(255, 255, 255, 160);
+                shootArea.GetComponent<Image>().color = new Color32(255, 255, 255, 120);
             }
-        }
 
-        if (isFire)
-        {
-            fireUIanim.enabled = true;
-            waterUIanim.enabled = false;
-            earthUIanim.enabled = false;
-        }
+            if (isFire)
+            {
+                fireButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
+                waterButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+                earthButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
 
-        if (isWater)
-        {
-            waterUIanim.enabled = true;
-            fireUIanim.enabled = false;
-            earthUIanim.enabled = false;
-        }
+                //fireButtonVis.GetComponent<Animator>().SetInteger("increaseSize", 1);
 
-        if (isEarth)
-        {
-            earthUIanim.enabled = true;
-            waterUIanim.enabled = false;
-            fireUIanim.enabled = false;
-        }
+                foreach (Animator a in waterUIanim)
+                {
+                    a.enabled = false;
+                }
+
+                foreach (Animator a in earthUIanim)
+                {
+                    a.enabled = false;
+                }
+
+                foreach (Animator a in fireUIanim)
+                {
+                    a.enabled = true;
+                }
+
+                yield return new WaitForSeconds(0.1f);
+                //fireButtonVis.GetComponent<Animator>().SetInteger("increaseSize", 0);
+            }
+
+            if (isWater)
+            {
+                waterButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
+                fireButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+                earthButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+
+               // waterButtonVis.GetComponent<Animator>().enabled = true;
+
+                foreach (Animator a in fireUIanim)
+                {
+                    a.enabled = false;
+                }
+
+                foreach (Animator a in earthUIanim)
+                {
+                    a.enabled = false;
+                }
+
+                foreach (Animator a in waterUIanim)
+                {
+                    a.enabled = true;
+                }
+
+                yield return new WaitForSeconds(0.1f);
+                //waterButtonVis.GetComponent<Animator>().enabled = false;
+            }
+
+            if (isEarth)
+            {
+                earthButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
+                waterButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+                fireButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+
+                //earthButtonVis.GetComponent<Animator>().enabled = true;
+
+                foreach (Animator a in fireUIanim)
+                {
+                    a.enabled = false;
+                }
+
+                foreach (Animator a in waterUIanim)
+                {
+                    a.enabled = false;
+                }
+
+                foreach (Animator a in earthUIanim)
+                {
+                    a.enabled = true;
+                }
+
+                yield return new WaitForSeconds(0.1f);
+                //earthButtonVis.GetComponent<Animator>().enabled = false;
+            }
+        }     
     }
 
     void HealthManager()
@@ -443,12 +527,18 @@ public class Gamemode : MonoBehaviour
             if (Input.GetKeyDown("e"))
             {
                 currentElement -= 1;
+
+                // Play audio
+                FindObjectOfType<AudioManager>().Play("ElementSwitch");
             }
 
             // If player pressed d, switch to right element
             if (Input.GetKeyDown("q"))
             {
                 currentElement += 1;
+
+                // Play audio
+                FindObjectOfType<AudioManager>().Play("ElementSwitch");
             }
 
             // Ensure current element doesn't go out of bounds
@@ -485,18 +575,27 @@ public class Gamemode : MonoBehaviour
                 if (RectTransformUtility.RectangleContainsScreenPoint(waterButtonArea.GetComponent<RectTransform>(), touch.position))
                 {
                     currentElement = 0;
+
+                    // Play audio
+                    FindObjectOfType<AudioManager>().Play("ElementSwitch");
                 }
 
                 // Check if the user touched the water button area
                 if (RectTransformUtility.RectangleContainsScreenPoint(fireButtonArea.GetComponent<RectTransform>(), touch.position))
                 {
                     currentElement = 1;
+
+                    // Play audio
+                    FindObjectOfType<AudioManager>().Play("ElementSwitch");
                 }
 
                 // Check if the user touched the water button area
                 if (RectTransformUtility.RectangleContainsScreenPoint(earthButtonArea.GetComponent<RectTransform>(), touch.position))
                 {
                     currentElement = 2;
+
+                    // Play audio
+                    FindObjectOfType<AudioManager>().Play("ElementSwitch");
                 }
             }
         }
@@ -532,11 +631,17 @@ public class Gamemode : MonoBehaviour
 
     public void LaunchGame()
     {
+        // Play button click audio
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void LaunchMenu()
     {
+        // Play button click audio
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+
         gdm.gamePaused = false;
         Time.timeScale = 1;
 

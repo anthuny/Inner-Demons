@@ -35,10 +35,15 @@ public class SmartCamera : MonoBehaviour
         }
 
         // If player exists, and there IS an enemy 
-        if (gm.player && gm.nearestEnemy)
+        if (gm.player && gm.nearestEnemy && gm.p_CanSeeTarget)
         {
             distanceAdded = gm.player.transform.position + gm.nearestEnemy.transform.position;
             distanceAdded /= 2;
+        }
+
+        else if (gm.player && gm.nearestEnemy && !gm.p_CanSeeTarget)
+        {
+            distanceAdded = gm.player.transform.position;
         }
     }
 }
