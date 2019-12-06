@@ -60,7 +60,7 @@ public class Room : MonoBehaviour
                 {
                     GameObject go = Instantiate(enemyPrefab, i.position, Quaternion.identity);
                     go.GetComponent<Enemy>().room = gameObject;
-                    go.GetComponent<Enemy>().ChooseElement(rand);
+                    gm.ChooseElement(rand);
                     room.roomEnemyCount++;
 
                 }
@@ -73,7 +73,7 @@ public class Room : MonoBehaviour
                     go.GetComponent<Enemy>().isBoss = true;
                     go.GetComponent<Memory>().enabled = true;
                     rm.bossHealth.SetActive(true);
-                    go.GetComponent<Enemy>().ChooseElement(rand);
+                    gm.ChooseElement(rand);
                     go.GetComponent<Enemy>().EGOBossHealth = rm.bossHealth;
                     room.roomEnemyCount++;
                 }
@@ -154,10 +154,13 @@ public class Room : MonoBehaviour
     }
 
     // If player dies...
-    private void Reset()
+    public void Reset()
     {
         room.beenCleared = false;
         room.beenEntered = false;
+        room.canOpen = false;
+        room.doorsClosed = false;
+        room.enemiesHaveSpawned = false;
 
         room.enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)

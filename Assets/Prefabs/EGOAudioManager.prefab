@@ -46,7 +46,7 @@ MonoBehaviour:
   sounds:
   - name: ProjectileThrow
     clip: {fileID: 8300000, guid: 900e40385fe71a04b9c5f5ef50f59aeb, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -57,13 +57,13 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: EnemyDeath
-    clip: {fileID: 8300000, guid: 2852e69ea84d6aa429a4d9df5109c763, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 8087f1060c4e2b24b9469c0cc4818d7f, type: 3}
+    volume: 0.9
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: MainMusic
-    clip: {fileID: 8300000, guid: 39d865671ffc356409e7e7bdb00d5ebd, type: 3}
+    clip: {fileID: 8300000, guid: 858199850c699f04ea98ab4a87fee240, type: 3}
     volume: 0.3
     pitch: 1
     loop: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: EnemySpawn
     clip: {fileID: 8300000, guid: 0cd6d8f5df299cc4b9d4f101fc50eeae, type: 3}
-    volume: 1
+    volume: 0.4
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -105,20 +105,26 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: MenuMusic
-    clip: {fileID: 8300000, guid: 420809898a5cb8e40a2fc921148b1fd5, type: 3}
+    clip: {fileID: 8300000, guid: 84a6f8965af7bf24a8c708119f0f6cef, type: 3}
     volume: 0.3
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: TalkingMusic
-    clip: {fileID: 8300000, guid: 1be7128bb9807a844970c65c54292190, type: 3}
+    clip: {fileID: 8300000, guid: a77312d5812c7df438cedd2fe4e3c4cd, type: 3}
     volume: 0.3
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: BattleMusic
-    clip: {fileID: 8300000, guid: fdc7354d3470b3b4b92d6ee247fdfa6d, type: 3}
+    clip: {fileID: 8300000, guid: d86826b82fb47f44b9faec3f09009a79, type: 3}
     volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: PlayerHit
+    clip: {fileID: 8300000, guid: 14c9db54cc2d2014cbd076a742fbb2ba, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -128,3 +134,41 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: BossDeath
+    clip: {fileID: 8300000, guid: 5f8d39f69b7291f478cd413a4c980a0a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BossProjectileThrow1
+    clip: {fileID: 8300000, guid: ba3345ec6836d2a47b61070a3aa4df0f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BossEnrage
+    clip: {fileID: 8300000, guid: 2f3dc75c656f21c47bf81f104961f2b0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ProjectileHitCrit
+    clip: {fileID: 8300000, guid: b5fbb849d0a28ac44a833635123b6f0e, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BossProjectileThrow2
+    clip: {fileID: 8300000, guid: e2de05938bd455d48a8dc4329a5ecec5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Text
+    clip: {fileID: 8300000, guid: bb0cfb3e298b60845a030974203fe86b, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  enteredMemRoom: 0
+  enteredBossRoom: 0

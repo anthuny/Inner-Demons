@@ -17,6 +17,7 @@ public class MemoryRoom : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            //Debug.Log("Setting inmemoryroom to true");
             gm.inMemoryRoom = true;
         }
     }
@@ -25,6 +26,7 @@ public class MemoryRoom : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            //Debug.Log("stopping mem song");
             gm.inMemoryRoom = false;
             am.enteredMemRoom = false;
             am.StopPlaying("TalkingMusic");

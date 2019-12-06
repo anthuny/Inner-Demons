@@ -53,11 +53,6 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer sr;
 
-    //Elements
-    public bool isFire;
-    public bool isWater;
-    public bool isEarth;
-
     //Room
     public GameObject room;
 
@@ -93,12 +88,7 @@ public class Enemy : MonoBehaviour
     private float tempHealth;
     private RoomManager rm;
     private float time;
-    private float switchTime;
-    private bool goingToSwitch;
-    private bool alreadySwitched;
     public bool enraged;
-
-    public int e_CurrentElement;
 
     void Start()
     {
@@ -156,7 +146,7 @@ public class Enemy : MonoBehaviour
         // Set health of enemy
         gm.e_MaxHealth *= gm.bossMaxHealthCur;
 
-        GetSwitchTimer();
+        gm.GetSwitchTimer();
 
         Reset();
         SetSize();
@@ -168,9 +158,7 @@ public class Enemy : MonoBehaviour
         ElementManager();
         AllowBossDialogue();
         UpdateBossHealthBarDep();
-        ElementSwitching();
         Enraged();
-
 
         Vector3 z;
         z = transform.position;
@@ -211,7 +199,6 @@ public class Enemy : MonoBehaviour
                 t = 0;
             }
         }
-
     }
 
     void SetSize()
@@ -272,13 +259,6 @@ public class Enemy : MonoBehaviour
 
         e_CurHealth = gm.e_MaxHealth;
     }
-
-    public void ChooseElement(int elementNum)
-    {
-        gm = FindObjectOfType<Gamemode>();
-        e_CurrentElement = elementNum;
-    }
-
     private void FixedUpdate()
     {
         Move();
@@ -331,39 +311,39 @@ public class Enemy : MonoBehaviour
 
     void ElementManager()
     {
-        if (e_CurrentElement == 1)
+        if (gm.e_CurElement == 1)
         {
-            isEarth = false;
-            isWater = false;
-            isFire = true;
-            elementBGAnimator.SetInteger("curElement", 1);
+            gm.e_IsEarth = false;
+            gm.e_IsWater = false;
+            gm.e_IsFire = true;
+            elementBGAnimator.SetInteger("curElement", gm.e_CurElement);
         }
 
-        if (e_CurrentElement == 0)
+        if (gm.e_CurElement == 0)
         {
-            isEarth = false;
-            isFire = false;
-            isWater = true;
-            elementBGAnimator.SetInteger("curElement", 0);
+            gm.e_IsEarth = false;
+            gm.e_IsFire = false;
+            gm.e_IsWater = true;
+            elementBGAnimator.SetInteger("curElement", gm.e_CurElement);
         }
 
-        if (e_CurrentElement == 2)
+        if (gm.e_CurElement == 2)
         {
-            isFire = false;
-            isWater = false;
-            isEarth = true;
-            elementBGAnimator.SetInteger("curElement", 2);
+            gm.e_IsFire = false;
+            gm.e_IsWater = false;
+            gm.e_IsEarth = true;
+            elementBGAnimator.SetInteger("curElement", gm.e_CurElement);
         }
 
         // Ensure the curent element stays between the only possible element numbers (0, 1, 2)
-        if (e_CurrentElement >= 3)
+        if (gm.e_CurElement >= 3)
         {
-            e_CurrentElement = 0;
+            gm.e_CurElement = 0;
         }
 
-        if (e_CurrentElement <= -1)
+        if (gm.e_CurElement <= -1)
         {
-            e_CurrentElement = 2;
+            gm.e_CurElement = 2;
         }
 
         BGElement.transform.localScale = new Vector2(x, y);
@@ -396,65 +376,6 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void GetSwitchTimer()
-    {
-        //Set the value of how long it will take for the boss to switch element
-        switchTime = Random.Range(gm.switchTimeMin, gm.switchTimeMax);
-        //Debug.Log("Switch Time looping through. Got = " + switchTime);
-    }
-    void ElementSwitching()
-    {
-        if (!isBoss || isDead)
-        {
-            return;
-        }
-
-        time += Time.deltaTime;
-
-        // Change enemy's element after time has gone over max time
-        if (time >= switchTime)
-        {
-            //Debug.Log("Switch Time Chosen = " + switchTime);
-            ResetEleSwitchTimer();
-
-            float r = Random.Range(0, 2);
-
-            // Randomly choose between cycling upwards or downwards for element choice
-            if (r == 0)
-            {
-                IncElementCount();
-            }
-            else if (r == 1)
-            {
-                DecElementCount();
-            }
-
-            GetSwitchTimer();
-        }
-      
-    }
-
-    void ResetEleSwitchTimer()
-    {
-        time = 0;
-    }
-
-    void IncElementCount()
-    {
-        e_CurrentElement++;
-
-        // Play audio
-        FindObjectOfType<AudioManager>().Play("BossElementSwitch");
-    }
-
-    void DecElementCount()
-    {
-        e_CurrentElement--;
-
-        // Play audio
-        FindObjectOfType<AudioManager>().Play("BossElementSwitch");
-    }
-
     public void DecreaseHealth(float bulletDamage, string playersCurElement)
     {
         // Decrease enemy health if it wont die from damage
@@ -475,64 +396,73 @@ public class Enemy : MonoBehaviour
             gm.Freeze();
 
             // If player countered the enemy with their hit, take bonus damage
-            if (playersCurElement == "Fire" && isEarth)
+            if (playersCurElement == "Fire" && gm.e_IsEarth)
             {
                 e_CurHealth -= bulletDamage + gm.fireDamage;
 
                 // Play crit projectile audio
                 FindObjectOfType<AudioManager>().Play("ProjectileHitCrit");
+
+                // Play audio
+                FindObjectOfType<AudioManager>().Play("ProjectileHit");
             }
 
             // If player countered the enemy with their hit, take bonus damage
-            if (playersCurElement == "Water" && isFire)
+            if (playersCurElement == "Water" && gm.e_IsFire)
             {
                 e_CurHealth -= bulletDamage + gm.waterDamage;
 
                 // Play crit projectile audio
                 FindObjectOfType<AudioManager>().Play("ProjectileHitCrit");
+
+                // Play audio
+                FindObjectOfType<AudioManager>().Play("ProjectileHit");
             }
 
             // If player countered the enemy with their hit, take bonus damage
-            if (playersCurElement == "Earth" && isWater)
+            if (playersCurElement == "Earth" && gm.e_IsWater)
             {
                 e_CurHealth -= bulletDamage + gm.earthDamage;
 
                 // Play crit projectile audio
                 FindObjectOfType<AudioManager>().Play("ProjectileHitCrit");
+
+                // Play audio
+                FindObjectOfType<AudioManager>().Play("ProjectileHit");
             }
 
             // If there is no element counter, do regular damage
-            if (playersCurElement == "Fire" && isWater)
+            if (playersCurElement == "Fire" && gm.e_IsWater)
             {
                 e_CurHealth -= bulletDamage;
             }
 
             // If there is no element counter, do regular damage
-            if (playersCurElement == "Fire" && isFire)
+            if (playersCurElement == "Fire" && gm.e_IsFire)
             {
                 e_CurHealth -= bulletDamage;
             }
 
             // If there is no element counter, do regular damage
-            if (playersCurElement == "Water" && isEarth)
+            if (playersCurElement == "Water" && gm.e_IsEarth)
             {
                 e_CurHealth -= bulletDamage;
             }
 
             // If there is no element counter, do regular damage
-            if (playersCurElement == "Water" && isWater)
+            if (playersCurElement == "Water" && gm.e_IsWater)
             {
                 e_CurHealth -= bulletDamage;
             }
 
             // If there is no element counter, do regular damage
-            if (playersCurElement == "Earth" && isFire)
+            if (playersCurElement == "Earth" && gm.e_IsFire)
             {
                 e_CurHealth -= bulletDamage;
             }
 
             // If there is no element counter, do regular damage
-            if (playersCurElement == "Earth" && isEarth)
+            if (playersCurElement == "Earth" && gm.e_IsEarth)
             {
                 e_CurHealth -= bulletDamage;
             }
@@ -653,9 +583,9 @@ public class Enemy : MonoBehaviour
             ShotCooldown();
         }
 
-        // If the enemy can shoot, check if enemy has had their tag changed
+        // If the enemy can shoot, is alive, check if enemy has had their tag changed
         // to memory (for boss), if so, don't allow it to shoot
-        if (!e_HasShot && targetInViewRange && !bossDialogueReady)
+        if (!e_HasShot && targetInViewRange && !bossDialogueReady && !isDead)
         {
             e_HasShot = true;
 

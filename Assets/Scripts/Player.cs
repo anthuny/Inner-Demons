@@ -62,6 +62,9 @@ public class Player : MonoBehaviour
         gdm.playerDied = false;
         dm.choices.SetActive(false);
         gm.Reset();
+
+        // turn off loading text
+        gm.loadingText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -145,29 +148,8 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // If player enters a room, trigger enemies to spawn
-        // And check if room has already been entered before
-        if (other.gameObject.tag == ("RoomCollider"))
-        {
-            // Remove player dialogue box from screen
-            dm.animatorP.SetBool("isOpenP", false);
 
-            // Get reference to root of this object
-            Transform roomTrans;
-            roomTrans = other.transform.root;
-            room = roomTrans.gameObject;
-
-            if (room.GetComponent<Room>())
-            {
-                if (!room.GetComponent<Room>().beenEntered)
-                {
-                    room.GetComponent<Room>().beenEntered = true;
-                    room.GetComponent<Room>().StartCoroutine("SpawnEnemies");
-                }
-            }
-        }
-
-        // If player triggers with room collider, close doors
+        // If player triggers with room collider, close doors and spawn enemies
         if (other.gameObject.tag == ("RoomEnter"))
         {
             // Get reference to root of this object
@@ -178,6 +160,20 @@ public class Player : MonoBehaviour
             if (room.GetComponent<Room>() && !room.GetComponent<Room>().doorsClosed)
             {
                 room.GetComponent<Room>().StartCoroutine("TriggerDoorClose");
+
+                // Remove player dialogue box from screen
+                dm.animatorP.SetBool("isOpenP", false);
+
+                room = roomTrans.gameObject;
+
+                if (room.GetComponent<Room>())
+                {
+                    if (!room.GetComponent<Room>().beenEntered)
+                    {
+                        room.GetComponent<Room>().beenEntered = true;
+                        room.GetComponent<Room>().StartCoroutine("SpawnEnemies");
+                    }
+                }
             }
         }
 
@@ -245,6 +241,7 @@ public class Player : MonoBehaviour
     {
         // Play Audio
         FindObjectOfType<AudioManager>().Play("ProjectileThrow");
+
         hasShot = true;
         GameObject go2 = Instantiate(bullet, gunHolder.position, gunHolder.transform.rotation);
         go2.GetComponent<Bullet>().weaponHolder = gunHolder;
@@ -352,6 +349,7 @@ public class Player : MonoBehaviour
                 // If the player has NOT shot, and the dialogue is NOT triggered
                 // If the player is touching the shoot area, OR 
                 // the player is inputing arrow key movements
+
                 if (RectTransformUtility.RectangleContainsScreenPoint(gm.shootArea.GetComponent<RectTransform>(), gm.touch.position)
                 || Input.GetKey(KeyCode.Space))
                 {

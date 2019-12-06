@@ -16,6 +16,7 @@ public class GameDownManager : MonoBehaviour
     public GameObject player;
     public GameObject[] memories;
     public bool gamePaused;
+    private bool pausePressed;
 
     [Header("Player Menu Buttons")]
     public Button pausedBut;
@@ -26,6 +27,9 @@ public class GameDownManager : MonoBehaviour
     public Button winBut;
     public Button restartBut2;
     public Button menuBut2;
+
+    [Header("General")]
+    public string currentScene;
 
     private void Start()
     {
@@ -51,16 +55,7 @@ public class GameDownManager : MonoBehaviour
 
         GameObject go = Instantiate(gm.playerPrefab, gm.playerSpawnPoint.position, Quaternion.identity);
         gm.player = go;
-        player = go;
-
-        //gm.joystickHolder = GameObject.Find("EGOPlayerController");
-        //gm.joystickMove = FindObjectOfType<FloatingJoystick>();
-        //gm.shootArea = GameObject.Find("Shoot Area Button");
-        //gm.waterButtonArea = GameObject.Find("Water Element Button");
-        //gm.fireButtonArea = GameObject.Find("Fire Element Button");
-        //gm.earthButtonArea = GameObject.Find("Earth Element Button");
-        //dm.choices = GameObject.Find("Choices");
-        //dm.choices.GetComponent<CanvasGroup>().alpha = 0;
+        player = go;;
 
         // Reset player's stats to default values
         gm.bulletSpeed = gm.bulletSpeedDef;
@@ -69,7 +64,7 @@ public class GameDownManager : MonoBehaviour
         gm.shotCooldown = gm.shotCooldownDef;
 
         gm.p_curHealth = gm.p_maxHealth;
-        gm.isFire = true;
+        gm.e_IsFire = true;
 
 
         gm.talkButton = GameObject.Find("Talk Button");
@@ -83,6 +78,8 @@ public class GameDownManager : MonoBehaviour
 
         if (playerDied)
         {
+            //Reset();
+
             youFaintedBut.gameObject.SetActive(true);
             restartBut.gameObject.SetActive(true);
             menuBut.gameObject.SetActive(true);
@@ -99,11 +96,17 @@ public class GameDownManager : MonoBehaviour
             }
         }
 
-        player = FindObjectOfType<Player>().gameObject;
+        else
+        {
+            player = FindObjectOfType<Player>().gameObject;
+        }
+
     }
 
     public void RestartButton()
     {
+        pausePressed = false;
+
         // Play button click audio
         PlayButtonClickSFX();
 
@@ -137,7 +140,7 @@ public class GameDownManager : MonoBehaviour
         gm.shotCooldown = gm.shotCooldownDef;
 
         gm.p_curHealth = gm.p_maxHealth;
-        gm.isFire = true;
+        gm.e_IsFire = true;
 
         gm.talkButton = GameObject.Find("Talk Button");
         gm.talkButton.GetComponentInChildren<CanvasGroup>().alpha = 0;
@@ -146,9 +149,9 @@ public class GameDownManager : MonoBehaviour
 
     public void PauseGame()
     {
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || gm.pausedPressed && !pausePressed)
         {
+            pausePressed = true;
             // Play button click audio
             PlayButtonClickSFX();
             gamePaused = true;
@@ -173,9 +176,12 @@ public class GameDownManager : MonoBehaviour
 
     public void ContinueButton()
     {
+        pausePressed = false;
+
         // Play button click audio
         PlayButtonClickSFX();
 
+        gm.pausedPressed = false;
         gamePaused = false;
     }
 

@@ -31,6 +31,10 @@ public class Gamemode : MonoBehaviour
     private AIDestinationSetter aid;
     public bool inMemoryRoom;
     public bool inBossRoom;
+    public GameObject pauseButton;
+    public bool pausedPressed;
+    public Text loadingText;
+    public bool startPressed;
 
     [Header("Camera Shake - Player Shoot")]
     public float shakeMagShoot;
@@ -69,9 +73,7 @@ public class Gamemode : MonoBehaviour
     private bool doneOnce;
 
     [Header("Element UI")]
-    public Animator[] earthUIanim;
-    public Animator[] waterUIanim;
-    public Animator[] fireUIanim;
+    public GameObject[] UIElements;
 
     [Header("Camera")]
     public float camSmoothTime = 0.2f;
@@ -130,9 +132,9 @@ public class Gamemode : MonoBehaviour
     public float p_maxHealth = 5;
     public float p_curHealth;
     public float p_healthDeath = 0;
-    public bool isFire;
-    public bool isWater;
-    public bool isEarth;
+    public bool p_IsFire;
+    public bool p_IsWater;
+    public bool p_IsEarth;
     public int currentElement;
     public float fireDamage;
     public float waterDamage;
@@ -178,6 +180,16 @@ public class Gamemode : MonoBehaviour
     public float e_BulletDist;
     public float e_rangeOffset;
     public float e_bulletSize;
+    public int e_CurElement;
+    float time;
+    [HideInInspector]
+    public float switchTime;
+
+    public float switchTimeMin;
+    public float switchTimeMax;
+    public bool e_IsFire;
+    public bool e_IsWater;
+    public bool e_IsEarth;
 
     // All boss statistics are numbers as percentages. 1 = 100% of regular value
     [Header("Boss Statistics")]
@@ -198,8 +210,6 @@ public class Gamemode : MonoBehaviour
     public float bossShotCooldownCur;
     public float bossShotCooldownDef;
     public float depSpeedCur;
-    public float switchTimeMin;
-    public float switchTimeMax;
     public float bossBulletSizeInfCur;
     public float bossBulletSizeInfDef;
     public float bossEnragedBulletSizeInfCur;
@@ -207,6 +217,8 @@ public class Gamemode : MonoBehaviour
     public float bossEnragedSizeCur;
     public float bossEnragedSizeDef;
     public float BossAimBot;
+    [HideInInspector]
+    public float r;
 
     [Header("Enemy AI")]
     public float enemyTooCloseDis = 5f;
@@ -219,12 +231,20 @@ public class Gamemode : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        r = Random.Range(0, 2);
         cam = GameObject.Find("Main Camera");
         gdm = FindObjectOfType<GameDownManager>();
         dm = FindObjectOfType<DialogueManager>();
         aid = FindObjectOfType<AIDestinationSetter>();
 
         Reset();
+    }
+    
+    // Pause button calls this function
+    public void PauseGameButton()
+    {
+        pausedPressed = true;
+        FindObjectOfType<AudioManager>().StopPlaying("Text");
     }
 
     // Update is called once per frame
@@ -235,13 +255,88 @@ public class Gamemode : MonoBehaviour
         SetEnemyTarget();
         CameraDepthShake();
         HealthManager();
-        StartCoroutine(ElementUIAesthetic());
+        ElementUIAesthetic();
+        ElementSwitching();
+        LoadingText();
 
         if (isFrozen && !doneOnce)
         {
             doneOnce = true;
             StartCoroutine(DoFreeze());
         }
+    }
+
+    void LoadingText()
+    {
+        if (startPressed)
+        {
+            startPressed = false;
+
+            // turn on loading text
+            loadingText.gameObject.SetActive(true);
+        }
+    }
+    public void GetSwitchTimer()
+    {
+        switchTime = Random.Range(switchTimeMin, switchTimeMax);
+        r = Random.Range(0, 2);
+    }
+
+    void ElementSwitching()
+    {
+        // if there is a nearest enemy. Begin enemy element switching process
+        if (nearestEnemy)
+        {
+            // Detect the nearest enemy's position
+            foreach (Enemy e in FindObjectsOfType<Enemy>())
+            {
+                if (e.isDead)
+                {
+                    return;
+                }
+            }
+
+            time += Time.deltaTime;
+
+            // Change enemy's element after time has gone over max time
+            if (time >= switchTime)
+            {
+                ResetEleSwitchTimer();
+
+                // Randomly choose between cycling upwards or downwards for element choice
+                if (r == 0)
+                {
+                    IncElementCount();
+                }
+                else if (r == 1)
+                {
+                    DecElementCount();
+                }
+
+                GetSwitchTimer();
+            }
+        }
+    }
+
+    void ResetEleSwitchTimer()
+    {
+        time = 0;
+    }
+
+    void IncElementCount()
+    {
+        e_CurElement++;
+
+        // Play audio
+        FindObjectOfType<AudioManager>().Play("BossElementSwitch");
+    }
+
+    void DecElementCount()
+    {
+        e_CurElement--;
+
+        // Play audio
+        FindObjectOfType<AudioManager>().Play("BossElementSwitch");
     }
 
     public void Reset()
@@ -262,13 +357,16 @@ public class Gamemode : MonoBehaviour
         bossSpeedCur = bossSpeedDef;
         bossEnragedSizeCur = bossEnragedSizeDef;
 
-        fireButtonVis.GetComponent<Animator>().enabled = false;
-        waterButtonVis.GetComponent<Animator>().enabled = false;
-        earthButtonVis.GetComponent<Animator>().enabled = false;
-
+        GetSwitchTimer();
     }
 
-    IEnumerator ElementUIAesthetic()
+    public void ChooseElement(int elementNum)
+    {
+        e_CurElement = elementNum;
+    }
+
+
+    void ElementUIAesthetic()
     {
         // If the player has shot, make the button darker
         if (player)
@@ -284,87 +382,43 @@ public class Gamemode : MonoBehaviour
                 shootArea.GetComponent<Image>().color = new Color32(255, 255, 255, 120);
             }
 
-            if (isFire)
+            if (e_IsFire)
             {
-                fireButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
-                waterButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
-                earthButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
-
-                //fireButtonVis.GetComponent<Animator>().SetInteger("increaseSize", 1);
-
-                foreach (Animator a in waterUIanim)
-                {
-                    a.enabled = false;
-                }
-
-                foreach (Animator a in earthUIanim)
-                {
-                    a.enabled = false;
-                }
-
-                foreach (Animator a in fireUIanim)
-                {
-                    a.enabled = true;
-                }
-
-                yield return new WaitForSeconds(0.1f);
-                //fireButtonVis.GetComponent<Animator>().SetInteger("increaseSize", 0);
-            }
-
-            if (isWater)
-            {
+                fireButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
                 waterButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
-                fireButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
-                earthButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
-
-               // waterButtonVis.GetComponent<Animator>().enabled = true;
-
-                foreach (Animator a in fireUIanim)
-                {
-                    a.enabled = false;
-                }
-
-                foreach (Animator a in earthUIanim)
-                {
-                    a.enabled = false;
-                }
-
-                foreach (Animator a in waterUIanim)
-                {
-                    a.enabled = true;
-                }
-
-                yield return new WaitForSeconds(0.1f);
-                //waterButtonVis.GetComponent<Animator>().enabled = false;
+                earthButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
             }
 
-            if (isEarth)
+            if (e_IsWater)
             {
-                earthButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
                 waterButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
-                fireButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+                fireButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
+                earthButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
+            }
 
-                //earthButtonVis.GetComponent<Animator>().enabled = true;
-
-                foreach (Animator a in fireUIanim)
-                {
-                    a.enabled = false;
-                }
-
-                foreach (Animator a in waterUIanim)
-                {
-                    a.enabled = false;
-                }
-
-                foreach (Animator a in earthUIanim)
-                {
-                    a.enabled = true;
-                }
-
-                yield return new WaitForSeconds(0.1f);
-                //earthButtonVis.GetComponent<Animator>().enabled = false;
+            if (e_IsEarth)
+            {
+                earthButtonVis.GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+                waterButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
+                fireButtonVis.GetComponent<Image>().color = new Color32(130, 130, 130, 200);
             }
         }     
+    }
+
+    void TurnOnElementUI(GameObject obj)
+    {
+        foreach (GameObject g in UIElements)
+        {
+
+            if (g == obj && !g.activeSelf)
+            {
+                g.SetActive(true);
+            }
+            else if (g != obj && g.activeSelf)
+            {
+                g.SetActive(false);
+            }
+        }
     }
 
     void HealthManager()
@@ -597,28 +651,32 @@ public class Gamemode : MonoBehaviour
                     // Play audio
                     FindObjectOfType<AudioManager>().Play("ElementSwitch");
                 }
+
             }
+
+            // Change Element UI
+            TurnOnElementUI(UIElements[currentElement]);
         }
 
         if (currentElement == 0)
         {
-            isEarth = false;
-            isFire = false;
-            isWater = true;
+            e_IsEarth = false;
+            e_IsFire = false;
+            e_IsWater = true;
         }
 
         if (currentElement == 1)
         {
-            isEarth = false;
-            isWater = false;
-            isFire = true;
+            e_IsEarth = false;
+            e_IsWater = false;
+            e_IsFire = true;
         }
 
         if (currentElement == 2)
         {
-            isWater = false;
-            isFire = false; 
-            isEarth = true;
+            e_IsWater = false;
+            e_IsFire = false; 
+            e_IsEarth = true;
         }
 
         if (player)
@@ -635,10 +693,15 @@ public class Gamemode : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("ButtonClick");
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        // turn on loading text
+        loadingText.gameObject.SetActive(true);
     }
 
     public void LaunchMenu()
     {
+        startPressed = true;
+
         // Play button click audio
         FindObjectOfType<AudioManager>().Play("ButtonClick");
 

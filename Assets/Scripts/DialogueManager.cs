@@ -130,7 +130,6 @@ public class DialogueManager : MonoBehaviour
             // and if the player has hit the memory's hitbox
             if (player.memory.GetComponent<Memory>().interacted && player.playerStill && !talkPressed && inRange)
             {
-                Debug.Log("turning talk button on");
                 gm.talkButton.GetComponent<Button>().interactable = true;
                 gm.talkButton.GetComponent<AlphaTransition>().canDecrease = false;
                 gm.talkButton.GetComponent<AlphaTransition>().canIncrease = true;
@@ -273,7 +272,7 @@ public class DialogueManager : MonoBehaviour
 
         if (sentences.Count == 0)
         {
-            EndDialogue();
+            StartCoroutine(EndDialogue());
             return;
         }
 
@@ -294,41 +293,37 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(charTimeGap);
         }
 
-        // Play text SFX
+        // Stop text SFX
         FindObjectOfType<AudioManager>().StopPlaying("Text");
     }
 
-    void EndDialogue()
+    IEnumerator EndDialogue()
     {
-        memory = player.memory;
-
         // If the memory the player is talking to
-        // is NOT the boss, continue
-        if (player.memory.tag != "Enemy")
+        // IS the boss, continue
+        if (player.memory.tag == "Enemy")
         {
-            choices.GetComponent<CanvasGroup>().alpha = 1;
+            yield return new WaitForSeconds(1.5f);
 
-            // Enable each button to be ready to be visible
-            buttonBad.GetComponent<CanvasGroup>().alpha = 1;
-
-            buttonBad.GetComponent<Button>().interactable = true;
-            buttonNeutral.GetComponent<Button>().interactable = true;
-            buttonGood.GetComponent<Button>().interactable = true;
-        }
-
-        else
-        {
             gdm.winBut.gameObject.SetActive(true);
             gdm.menuBut2.gameObject.SetActive(true);
 
             // Pause the game for the menu to show up
             Time.timeScale = 0;
-
         }
 
-        // Set Good text
-        if (!buttonTextSent)
+        // Set Good text, IF thing talking to is a memory
+        if (!buttonTextSent && player.memory.tag != "Enemy")
         {
+            yield return new WaitForSeconds(2f);
+
+            choices.GetComponent<CanvasGroup>().alpha = 1;
+
+            // Enable bad button to be ready to be visible
+            buttonBad.GetComponent<CanvasGroup>().alpha = 1;
+
+            memory = player.memory;
+
             buttonTextSent = true;
 
             // Assign what the text is going to say, then call it to happen
@@ -337,7 +332,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // Good text character by character
+    // BAD text character by character
     IEnumerator ButtonBadText(string sentence)
     {
         buttonBad.GetComponentInChildren<Text>().text = "";
@@ -359,10 +354,6 @@ public class DialogueManager : MonoBehaviour
         // Reset alpha of text to 0
         textBadResp.GetComponent<CanvasGroup>().alpha = 0;
         textStatBad.GetComponent<CanvasGroup>().alpha = 0;
-
-        // Enable stat increase text to transition in
-        textBadResp.GetComponent<AlphaTransition>().canIncrease = true;
-        textStatBad.GetComponent<AlphaTransition>().canIncrease = true;
 
         // Set Neutral text
         buttonNeutral.GetComponentInChildren<Text>().text = memory.GetComponent<Memory>().memoryResponses[1];
@@ -392,10 +383,6 @@ public class DialogueManager : MonoBehaviour
         textNeutralResp.GetComponent<CanvasGroup>().alpha = 0;
         textStatNeutral.GetComponent<CanvasGroup>().alpha = 0;
 
-        // Enable stat increase text to transition in
-        textNeutralResp.GetComponent<AlphaTransition>().canIncrease = true;
-        textStatNeutral.GetComponent<AlphaTransition>().canIncrease = true;
-
         // Set Bad text
         buttonGood.GetComponentInChildren<Text>().text = memory.GetComponent<Memory>().memoryResponses[2];
         StartCoroutine(ButtonGoodText(buttonGood.GetComponentInChildren<Text>().text));
@@ -403,7 +390,7 @@ public class DialogueManager : MonoBehaviour
         buttonGood.GetComponent<CanvasGroup>().alpha = 1;
     }
 
-    // Bad text character by character
+    // good text character by character
     IEnumerator ButtonGoodText(string sentence)
     {
         buttonGood.GetComponentInChildren<Text>().text = "";
@@ -424,9 +411,28 @@ public class DialogueManager : MonoBehaviour
         textGoodResp.GetComponent<CanvasGroup>().alpha = 0;
         textStatGood.GetComponent<CanvasGroup>().alpha = 0;
 
+        yield return new WaitForSeconds(0.2f);
+
+        // Enable stat increase text to transition in
+        textBadResp.GetComponent<AlphaTransition>().canIncrease = true;
+        textStatBad.GetComponent<AlphaTransition>().canIncrease = true;
+
+        yield return new WaitForSeconds(0.2f);
+
+        // Enable stat increase text to transition in
+        textNeutralResp.GetComponent<AlphaTransition>().canIncrease = true;
+        textStatNeutral.GetComponent<AlphaTransition>().canIncrease = true;
+
+        yield return new WaitForSeconds(0.2f);
+
         // Enable stat increase text to transition in
         textGoodResp.GetComponent<AlphaTransition>().canIncrease = true;
         textStatGood.GetComponent<AlphaTransition>().canIncrease = true;
+
+        // Enable the buttons
+        buttonBad.GetComponent<Button>().interactable = true;
+        buttonNeutral.GetComponent<Button>().interactable = true;
+        buttonGood.GetComponent<Button>().interactable = true;
     }
 
     // Button select upon on GOOD choice being selected
@@ -612,9 +618,6 @@ public class DialogueManager : MonoBehaviour
         {
             memory.GetComponent<Animator>().SetInteger("memBrain", 2);
         }
-
-        // Wait for current playing animation to finish
-        yield return new WaitForSeconds(1f);
 
         // Set the memory to invisible to player
         memory.gameObject.SetActive(false);

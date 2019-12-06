@@ -25,6 +25,13 @@ public class E_Bullet : MonoBehaviour
     private float y = .1f;
     private Vector2 diff;
 
+    private void Awake()
+    {
+        gm = FindObjectOfType<Gamemode>();
+        animator = GetComponentInChildren<Animator>();
+        SetElement();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,11 +41,9 @@ public class E_Bullet : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody2D>();
         playerPos = player.transform.position;
         playerVel = playerRb.velocity;
-        gm = FindObjectOfType<Gamemode>();
-        animator = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
 
-        SetElement();
+
         IncreaseSize();
         AimBotStart();
     }
@@ -47,17 +52,17 @@ public class E_Bullet : MonoBehaviour
     {
         // Check what element the enemy that spawned this bullet is
         // And set this bullet to the same element
-        if (enemy.GetComponent<Enemy>().isFire)
+        if (gm.e_IsFire)
         {
             animator.SetInteger("curElement", 1);
         }
 
-        else if (enemy.GetComponent<Enemy>().isWater)
+        else if (gm.e_IsWater)
         {
             animator.SetInteger("curElement", 0);
         }
 
-        else if (enemy.GetComponent<Enemy>().isEarth)
+        else if (gm.e_IsEarth)
         {
             animator.SetInteger("curElement", 2);
         }
@@ -73,40 +78,105 @@ public class E_Bullet : MonoBehaviour
     // Exists so that the rotation is only set once.
     void AimBotStart()
     {
-        //Aim bot (make sure this happens at least once before look at target (this also happens in update)
-        aimPos = playerPos + playerVel;
-        dir = aimPos - startingPos;
-        dir.Normalize();
-        Vector2 pos;
-        pos.x = transform.position.x;
-        pos.y = transform.position.y;
+        if (!enemy.GetComponent<Enemy>().isBoss)
+        {
+            aimPos = playerPos;
+            dir = aimPos - startingPos;
+            dir.Normalize();
+            Vector2 pos1;
+            pos1.x = transform.position.x;
+            pos1.y = transform.position.y;
 
-        pos.x += dir.x * gm.e_BulletSpeed * Time.deltaTime;
-        pos.y += dir.y * gm.e_BulletSpeed * Time.deltaTime;
+            pos1.x += dir.x * gm.e_BulletSpeed * Time.deltaTime;
+            pos1.y += dir.y * gm.e_BulletSpeed * Time.deltaTime;
 
-        transform.position = pos;
+            transform.position = pos1;
 
-        //Always look at player
-        Vector2 diff = dir;
-        diff.Normalize();
+            //Always look at player
+            Vector2 diff1 = dir;
+            diff1.Normalize();
 
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 90);
+            float rot_z1 = Mathf.Atan2(diff1.y, diff1.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, rot_z1 + 90);
+        }
+        else
+        {
+            //Aim bot (make sure this happens at least once before look at target (this also happens in update)
+            aimPos = playerPos + playerVel;
+            dir = aimPos - startingPos;
+            dir.Normalize();
+            Vector2 pos2;
+            pos2.x = transform.position.x;
+            pos2.y = transform.position.y;
+
+            pos2.x += dir.x * gm.e_BulletSpeed * Time.deltaTime;
+            pos2.y += dir.y * gm.e_BulletSpeed * Time.deltaTime;
+
+            transform.position = pos2;
+
+            //Always look at player
+            Vector2 diff2 = dir;
+            diff2.Normalize();
+
+            float rot_z2 = Mathf.Atan2(diff2.y, diff2.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, rot_z2 + 90);
+        }
     }
     void AimBot()
     {
-        //Aim bot 
-        aimPos = playerPos + playerVel;
-        dir = aimPos - startingPos;
-        dir.Normalize();
-        Vector2 pos;
-        pos.x = transform.position.x;
-        pos.y = transform.position.y;
+        // If enemy dies while projectile is in flight
+        if (!enemy)
+        {
+            //Aim bot 
+            aimPos = playerPos;
+            dir = aimPos - startingPos;
+            dir.Normalize();
+            Vector2 pos;
+            pos.x = transform.position.x;
+            pos.y = transform.position.y;
 
-        pos.x += dir.x * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
-        pos.y += dir.y * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
+            pos.x += dir.x * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
+            pos.y += dir.y * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
 
-        transform.position = pos;
+            transform.position = pos;
+        }
+
+        // If enemy is still alive when projectile is in flight
+        else
+        {
+            if (enemy.GetComponent<Enemy>().isBoss)
+            {
+                //Aim bot 
+                aimPos = playerPos + playerVel;
+                dir = aimPos - startingPos;
+                dir.Normalize();
+                Vector2 pos;
+                pos.x = transform.position.x;
+                pos.y = transform.position.y;
+
+                pos.x += dir.x * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
+                pos.y += dir.y * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
+
+                transform.position = pos;
+            }
+
+            else
+            {
+                //Aim bot 
+                aimPos = playerPos;
+                dir = aimPos - startingPos;
+                dir.Normalize();
+                Vector2 pos;
+                pos.x = transform.position.x;
+                pos.y = transform.position.y;
+
+                pos.x += dir.x * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
+                pos.y += dir.y * (gm.e_BulletSpeed * gm.bossBulletSpeedCur) * Time.deltaTime;
+
+                transform.position = pos;
+            }
+        }
+        
     }
 
     void DistanceCheck()

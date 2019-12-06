@@ -18,8 +18,6 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        gm = FindObjectOfType<Gamemode>();
-
         if (instance == null)
         {
             instance = this;
@@ -40,6 +38,16 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+        }
+
+        if (currentScene != "Main")
+        {
+            Play("MenuMusic");
+            lastScene = "Menu";
+        }
+        else
+        {
+            lastScene = "Main";
         }
     }
 
@@ -66,21 +74,40 @@ public class AudioManager : MonoBehaviour
         s.source.Stop();
     }
 
-    private void Awake()
-    {
-        if (currentScene != "Main")
-        {
-            lastScene = "Menu";
-        }
-        else
-        {
-            lastScene = "Main";
-        }
-
-    }
     private void Update()
     {
+        gm = FindObjectOfType<Gamemode>();
+
+        if (gm.inMemoryRoom && !enteredMemRoom)
+        {
+            enteredMemRoom = true;
+            //Debug.Log("playing memory music");
+            StopPlaying("MainMusic");
+            Play("TalkingMusic");
+        }
+
+        if (gm.inBossRoom && !enteredBossRoom)
+        {
+            enteredBossRoom = true;
+            //Debug.Log("playing boss music");
+            StopPlaying("MainMusic");
+            Play("BattleMusic");
+        }
+
+        // If player is not in boss room, the if statement above can be fine
+        if (!gm.inBossRoom)
+        {
+            enteredBossRoom = false;
+        }
+
+        // If player is not in boss room, the if statement above can be fine
+        if (!gm.inMemoryRoom)
+        {
+            enteredMemRoom = false;
+        }
+
         currentScene = SceneManager.GetActiveScene().name;
+           
         if (currentScene != lastScene)
         {
             if (currentScene == "Main")
@@ -100,20 +127,6 @@ public class AudioManager : MonoBehaviour
             }
 
             lastScene = currentScene;
-        }
-
-        if (gm.inMemoryRoom && !enteredMemRoom)
-        {
-            enteredMemRoom = true;
-            StopPlaying("MainMusic");
-            Play("TalkingMusic");
-        }
-
-        if (gm.inBossRoom && !enteredBossRoom)
-        {
-            enteredBossRoom = true;
-            StopPlaying("MainMusic");
-            Play("BattleMusic");
         }
     }
 }

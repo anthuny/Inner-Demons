@@ -11,7 +11,6 @@ public class Bullet : MonoBehaviour
     private Vector3 playerPos;
     private SpriteRenderer sr;
     private string currentElement;
-    private Gamemode gamemode;
     private Vector3 forward;
     private Player playerScript;
     private GameObject player;
@@ -27,7 +26,6 @@ public class Bullet : MonoBehaviour
     {
         gm = FindObjectOfType<Gamemode>();
         rb = GetComponent<Rigidbody2D>();
-        gamemode = FindObjectOfType<Gamemode>();
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         enemy = GameObject.Find("Enemy 1");
@@ -59,7 +57,7 @@ public class Bullet : MonoBehaviour
     {
         // Check what element the enemy that spawned this bullet is
         // And set this bullet to the same element
-        if (gamemode.isFire)
+        if (gm.currentElement == 1)
         {
             //Change visual colour
             animator.SetInteger("curElement", gm.currentElement);
@@ -67,7 +65,7 @@ public class Bullet : MonoBehaviour
             currentElement = "Fire";
         }
 
-        if (gamemode.isWater)
+        if (gm.currentElement == 0)
         {
             //Change visual colour
             animator.SetInteger("curElement", gm.currentElement);
@@ -75,7 +73,7 @@ public class Bullet : MonoBehaviour
             currentElement = "Water";
         }
 
-        if (gamemode.isEarth)
+        if (gm.currentElement == 2)
         {
             //Change visual colour
             animator.SetInteger("curElement", gm.currentElement);
@@ -90,11 +88,11 @@ public class Bullet : MonoBehaviour
         IncreaseSize();
 
         // Move the projectile forwards
-        transform.Translate(Vector2.right * Time.deltaTime * gamemode.bulletSpeed);
+        transform.Translate(Vector2.right * Time.deltaTime * gm.bulletSpeed);
 
         //If bullet distance goes too far
         float distance = Vector2.Distance(playerPos, transform.position);
-        if (gamemode.bulletDist <= distance)
+        if (gm.bulletDist <= distance)
         {
             Death();
         }
@@ -112,7 +110,7 @@ public class Bullet : MonoBehaviour
             y += .1f * Time.deltaTime * gm.p_IncScaleRate;
 
             // If projectile size has reached it's max scale, stop increasing size.
-            if (x >= gm.p_MaxScaleX + gm.bulletDamage / 5 || y >= gm.p_MaxScaleY + gm.bulletDamage / 5)
+            if (x >= gm.p_MaxScaleX + gm.bulletDamage || y >= gm.p_MaxScaleY + gm.bulletDamage)
             {
                 incSize = false;
             }
@@ -123,7 +121,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().DecreaseHealth(gamemode.bulletDamage, currentElement);
+            other.GetComponent<Enemy>().DecreaseHealth(gm.bulletDamage, currentElement);
             Death();
         }
 
